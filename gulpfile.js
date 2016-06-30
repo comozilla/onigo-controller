@@ -13,7 +13,7 @@ gulp.task("webpack", function() {
   let options = Object.create(config);
 
   if (env["min"]) {
-    options.output.filename = "./controller/js/build/bundle.min.js";
+    options.output.filename = "./js/build/bundle.min.js";
     options.plugins.push(new webpack.optimize.UglifyJsPlugin());
   }
 
@@ -31,11 +31,11 @@ gulp.task("webpack", function() {
   if (env["browser-sync"]) {
     browserSync({
       server: {
-        baseDir: "./controller/",
+        baseDir: "./",
         index: "index.html"
       }
     });
-    gulp.watch(["./controller/js/build/**", "./controller/index.html", "./controller/css/**"], function() {
+    gulp.watch(["./js/build/**", "./index.html", "./css/**"], function() {
       browserSync.reload();
     });
   }

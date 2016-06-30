@@ -2,10 +2,10 @@ const webpack = require("webpack");
 
 module.exports = {
   cache: true,
-  entry: "./controller/js/main.js",
+  entry: "./js/main.js",
   output: {
     path: __dirname,
-    filename: "./controller/js/build/bundle.js"
+    filename: "./js/build/bundle.js"
   },
   module: {
     loaders: [
