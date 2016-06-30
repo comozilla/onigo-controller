@@ -1,10 +1,11 @@
 import eventPublisher from "./publisher";
 
-function SpheroClient() {
+function SpheroClient(wsHost) {
   this.speedOfAccuracy = 5;
   this.degreeOfAccuracy = 5;
   this.sendInterval = 100;
   this._isBreaking = false;
+  this.wsHost = wsHost;
 
   this._beforeDegree = 0;
   this.degree = 0;
@@ -13,7 +14,7 @@ function SpheroClient() {
   this.speed = 0;
 
   this.orb = new sphero();
-  this.orb.connect("ws://localhost:8080", () => {
+  this.orb.connect(this.wsHost, () => {
     this.orb.color("red");
     eventPublisher.subscribe("rollingDegree", (degree) => {
       this._beforeDegree = this.degree;

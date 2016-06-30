@@ -15,7 +15,7 @@ var hpBoard;
 
 document.addEventListener("DOMContentLoaded",　function() {
   spheroStates = new SpheroStates();
-  spheroClient = new SpheroClient();
+  spheroClient = new SpheroClient("ws://localhost:8080");
   joystick = new Joystick();
   hpBoard = new HPBoard(document.getElementById("hp-box"))
   calibrationButton = new CalibrationButton(document.getElementById("calibration-button"));

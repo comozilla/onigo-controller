@@ -81,7 +81,7 @@
 
 	document.addEventListener("DOMContentLoaded", function () {
 	  spheroStates = new _spheroStates2.default();
-	  spheroClient = new _spheroClient2.default();
+	  spheroClient = new _spheroClient2.default("ws://localhost:8080");
 	  joystick = new _joystick2.default();
 	  hpBoard = new _hpBoard2.default(document.getElementById("hp-box"));
 	  calibrationButton = new _calibrationButton2.default(document.getElementById("calibration-button"));
@@ -371,13 +371,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function SpheroClient() {
+	function SpheroClient(wsHost) {
 	  var _this = this;
 
 	  this.speedOfAccuracy = 5;
 	  this.degreeOfAccuracy = 5;
 	  this.sendInterval = 100;
 	  this._isBreaking = false;
+	  this.wsHost = wsHost;
 
 	  this._beforeDegree = 0;
 	  this.degree = 0;
@@ -386,7 +387,7 @@
 	  this.speed = 0;
 
 	  this.orb = new sphero();
-	  this.orb.connect("ws://localhost:8080", function () {
+	  this.orb.connect(this.wsHost, function () {
 	    _this.orb.color("red");
 	    _publisher2.default.subscribe("rollingDegree", function (degree) {
 	      _this._beforeDegree = _this.degree;
