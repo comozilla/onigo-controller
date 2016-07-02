@@ -13,32 +13,43 @@ function SpheroClient(wsHost) {
   this._beforeSpeed = 0;
   this.speed = 0;
 
-  this.orb = new sphero();
-  this.orb.connect(this.wsHost, () => {
-    this.orb.color("red");
-    eventPublisher.subscribe("rollingDegree", (degree) => {
-      this._beforeDegree = this.degree;
-      this.degree = degree;
-      this._roll();
-    });
-    eventPublisher.subscribe("rollingSpeed", (speed) => {
-      this._beforeSpeed = this.speed;
-      this.speed = speed;
-      this._roll();
-    });
+  if (typeof sphero === "undefined") {
+    eventPublisher.publish("ws-not-found");
+  } else {
+    this.orb = new sphero();
+    this.orb.connect(this.wsHost, () => {
+      eventPublisher.publish("ws-connected");
+      this.orb.color("red");
+      eventPublisher.subscribe("rollingDegree", (degree) => {
+        this._beforeDegree = this.degree;
+        this.degree = degree;
+        this._roll();
+      });
+      eventPublisher.subscribe("rollingSpeed", (speed) => {
+        this._beforeSpeed = this.speed;
+        this.speed = speed;
+        this._roll();
+      });
 
-    eventPublisher.subscribe("spheroState", (spheroState) => {
-      if (spheroState === "idling") {
-        this.orb.finishCalibration();
-      } else {
-        this.orb.startCalibration();
-      }
+      eventPublisher.subscribe("spheroState", (spheroState) => {
+        if (spheroState === "idling") {
+          this.orb.finishCalibration();
+        } else {
+          this.orb.startCalibration();
+        }
+      });
+    }, () => {
+      eventPublisher.publish("ws-error");
     });
-  });
-  this.orb.listenCustomMessage("hp", (data) => {
-    console.log(data);
-    eventPublisher.publish("hp", data.hp);
-  });
+    this.orb.listenCustomMessage("hp", (data) => {
+      console.log(data);
+      eventPublisher.publish("hp", data.hp);
+    });
+    this.orb.listenCustomMessage("gameState", (data) => {
+      console.log(data);
+      eventPublisher.publish("gameState", data.gameState);
+    });
+  }
 }
 
 SpheroClient.prototype._roll = function() {
