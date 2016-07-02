@@ -1,10 +1,10 @@
 import eventPublisher from "./publisher";
 
 function Joystick() {
+  if (typeof Joystick.instance === "object") {
+    return Joystick.instance;
+  }
 
-}
-
-Joystick.prototype.init = function() {
   this.movementPerPixel = 1;
   window.addEventListener("resize", () => {
     this.updateMovementPerPixel();
@@ -32,7 +32,10 @@ Joystick.prototype.init = function() {
 
   this.isClick = false;
   this.setNeutralPosition();
-};
+
+  Joystick.instance = this;
+  return this;
+}
 
 Joystick.prototype.updateMovementPerPixel = function() {
   this.movementPerPixel =
@@ -104,5 +107,5 @@ function getDistance(x1, x2, y1, y2) {
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-export default new Joystick();
+export default Joystick;
 
