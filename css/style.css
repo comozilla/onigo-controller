@@ -41,6 +41,7 @@ body {
 
 #commands .disable-button {
   background-color: #7f8c8d;
+  box-shadow: none;
 }
 
 footer {
