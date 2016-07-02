@@ -1,12 +1,19 @@
 import eventPublisher from "./publisher";
 
-function Block(element, isBuiltIn) {
+function Block(element, isBuiltIn, editor) {
   this.element = element;
   this.isBuiltIn = typeof isBuiltIn === "boolean" && isBuiltIn;
   this.enable = true;
+  this.editor = editor;
 
   if (this.isBuiltIn) {
     this.element.classList.add("built-in-command-button");
+  }
+
+  if (!this.isBuiltIn) {
+    this.element.addEventListener("click", () => {
+      editor.open();
+    });
   }
 
   eventPublisher.subscribe("mode", (mode) => {

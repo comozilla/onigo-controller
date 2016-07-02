@@ -1,17 +1,18 @@
 import Block from "./block";
 import eventPublisher from "./publisher";
 
-function BlockManager() {
+function BlockManager(editor) {
   if (typeof BlockManager.instance === "object") {
     return BlockManager.instance;
   }
-
   const blockCount = 9;
+
+  this.editor = editor;
 
   this.blocks = [];
   for (var i = 0; i < blockCount; i++) {
     var blockElement = document.querySelector(`[data-block-index="${i}"]`);
-    this.blocks.push(new Block(blockElement, i < 3));
+    this.blocks.push(new Block(blockElement, i < 3, this.editor));
   }
 
   eventPublisher.subscribe("availableCommandsCount", (count) => {
