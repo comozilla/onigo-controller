@@ -74,6 +74,19 @@ footer #playing-mode-banner button {
   background-color: #8e44ad;
 }
 
+footer div {
+  display: none;
+}
+
+.active-banner {
+  display: block;
+}
+
+#switch-mode-button {
+  background-color: #16a085;
+  float: right;
+}
+
 #inactive-screen {
   position: fixed;
   left: 0;
