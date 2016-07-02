@@ -39,7 +39,7 @@ body {
   box-shadow: 0 0 30px 0 #3498db;
 }
 
-#commands .disable-button {
+#commands button[disabled] {
   background-color: #7f8c8d;
   box-shadow: none;
 }

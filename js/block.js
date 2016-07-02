@@ -15,11 +15,7 @@ function Block(element) {
 
 Block.prototype.setEnable = function(enable) {
   this.enable = enable;
-  if (this.enable) {
-    this.element.classList.remove("disable-button");
-  } else {
-    this.element.classList.add("disable-button");
-  }
+  this.element.disabled = !this.enable;
 };
 
 export default Block;
