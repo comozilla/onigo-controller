@@ -11,10 +11,11 @@ function BlockManager() {
   this.blocks = [];
   for (var i = 0; i < blockCount; i++) {
     var blockElement = document.querySelector(`[data-block-index="${i}"]`);
-    this.blocks.push(new Block(blockElement));
+    this.blocks.push(new Block(blockElement, i < 3));
   }
 
   eventPublisher.subscribe("availableCommandsCount", (count) => {
+    // 0-2番のblockはbuilt-in-command-button
     for (var i = 3; i < blockCount; i++) {
       this.blocks[i].setEnable(i < 3 + count);
     }

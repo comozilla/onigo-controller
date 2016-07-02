@@ -1,8 +1,13 @@
 import eventPublisher from "./publisher";
 
-function Block(element) {
+function Block(element, isBuiltIn) {
   this.element = element;
+  this.isBuiltIn = typeof isBuiltIn === "boolean" && isBuiltIn;
   this.enable = true;
+
+  if (this.isBuiltIn) {
+    this.element.classList.add("built-in-command-button");
+  }
 
   eventPublisher.subscribe("mode", (mode) => {
     if (mode === "making") {
