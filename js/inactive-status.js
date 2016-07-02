@@ -3,11 +3,8 @@ import eventPublisher from "./publisher";
 function InactiveStatus() {
   this.inactiveScreen = document.getElementById("inactive-screen");
   this.inactiveInner = document.getElementById("inactive-inner");
-  eventPublisher.subscribe("gameState", (gameState) => {
-    this.changeStatus(gameState);
-  });
   eventPublisher.subscribe("ws-connected", () => {
-    this.changeStatus("connected");
+    this.changeStatus("active");
   });
   eventPublisher.subscribe("ws-error", () => {
     this.changeStatus("error");
@@ -15,12 +12,14 @@ function InactiveStatus() {
   eventPublisher.subscribe("ws-not-found", () => {
     this.changeStatus("not-found");
   });
+  this.changeStatus("connecting");
 }
 
 InactiveStatus.prototype.changeStatus = function(screenState) {
+  this.inactiveScreen.classList.remove("screen-game-active");
   switch (screenState) {
-    case "disconnected":
-      this.inactiveInner.textContent = "サーバーに接続されていません";
+    case "connecting":
+      this.inactiveInner.textContent = "サーバーに接続しています...";
       break;
     case "not-found":
       this.inactiveInner.textContent = "サーバーが見つかりませんでした";
@@ -28,15 +27,10 @@ InactiveStatus.prototype.changeStatus = function(screenState) {
     case "error":
       this.inactiveInner.textContent = "通信でエラーが発生しました";
       break;
-    case "connected":
-      this.inactiveInner.textContent = "サーバーに接続されました。ゲームの状態の受信を待機しています...";
-      break;
-    case "inactive":
-      this.inactiveInner.textContent = "ゲームは開始されていません";
-      break;
+    case "active":
+      this.inactiveScreen.classList.add("screen-game-active");
+      break
   }
-  if (screenState === "active") this.inactiveScreen.classList.add("screen-game-active");
-  else this.inactiveScreen.classList.remove("screen-game-active");
 };
 
 export default InactiveStatus;
