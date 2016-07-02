@@ -1,6 +1,10 @@
 import eventPublisher from "./publisher";
 
 function Joystick() {
+
+}
+
+Joystick.prototype.init = function() {
   this.movementPerPixel = 1;
   window.addEventListener("resize", () => {
     this.updateMovementPerPixel();
@@ -28,7 +32,7 @@ function Joystick() {
 
   this.isClick = false;
   this.setNeutralPosition();
-}
+};
 
 Joystick.prototype.updateMovementPerPixel = function() {
   this.movementPerPixel =
@@ -100,5 +104,5 @@ function getDistance(x1, x2, y1, y2) {
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-export default Joystick;
+export default new Joystick();
 

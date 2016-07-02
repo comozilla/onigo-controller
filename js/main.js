@@ -1,4 +1,4 @@
-import Joystick from "./joystick";
+import joystick from "./joystick";
 import CalibrationButton from "./calibration-button";
 import HPBoard from "./hp-board";
 import SpheroStates from "./sphero-states";
@@ -9,14 +9,13 @@ import "../css/style.css";
 
 var spheroStates;
 var spheroClient;
-var joystick;
 var calibrationButton;
 var hpBoard;
 
 document.addEventListener("DOMContentLoaded",　function() {
+  joystick.init();
   spheroStates = new SpheroStates();
   spheroClient = new SpheroClient("ws://localhost:8080");
-  joystick = new Joystick();
   hpBoard = new HPBoard(document.getElementById("hp-box"))
   calibrationButton = new CalibrationButton(document.getElementById("calibration-button"));
 });
