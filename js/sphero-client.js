@@ -42,12 +42,14 @@ function SpheroClient(wsHost) {
       eventPublisher.publish("ws-error");
     });
     this.orb.listenCustomMessage("hp", (data) => {
-      console.log(data);
       eventPublisher.publish("hp", data.hp);
     });
     this.orb.listenCustomMessage("gameState", (data) => {
-      console.log(data);
       eventPublisher.publish("gameState", data.gameState);
+    });
+    this.orb.listenCustomMessage("availableCommandsCount", (data) => {
+      console.log(data);
+      eventPublisher.publish("availableCommandsCount", data.count);
     });
   }
 }
