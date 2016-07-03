@@ -9,6 +9,7 @@ import Editor from "./editor";
 
 // webpack
 import "../css/style.css";
+import "web-animations-js";
 
 var spheroStates;
 var spheroClient;

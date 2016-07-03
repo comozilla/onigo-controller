@@ -23,7 +23,10 @@ module.exports = {
     ]
   },
   resolve: {
-    modulesDirectories: ["web_modules", "node_modules", "bower_components"]
+    modulesDirectories: ["web_modules", "node_modules", "bower_components"],
+    alias: {
+      "web-animations-js": "web-animations-js/web-animations-next.min.js"
+    }
   },
   plugins: [new webpack.ResolverPlugin(
     new webpack.ResolverPlugin

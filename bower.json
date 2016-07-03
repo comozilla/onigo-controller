@@ -1,0 +1,20 @@
+{
+  "name": "onigo-controller",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "comozilla"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/comozilla/onigo-controller",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "web-animations-js": "^2.2.1"
+  }
+}

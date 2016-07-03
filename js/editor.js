@@ -3,6 +3,8 @@ function Editor() {
     return Editor.instance;
   }
 
+  this.isOpen = false;
+
   this.editorContainer = document.getElementById("editor");
   this.editorCloseButton = document.getElementById("editor-close-button");
   this.editorCloseButton.addEventListener("click", () => {
@@ -14,14 +16,25 @@ function Editor() {
 }
 
 Editor.prototype.open = function() {
-  // todo: web animations を使う
-  this.editorContainer.classList.add("active-editor");
+  if (!this.isOpen) {
+    this._animate(true);
+    this.isOpen = true;
+  }
 };
 
 Editor.prototype.close = function() {
-  // todo: web animations を使う
-  this.editorContainer.classList.remove("active-editor");
+  if (this.isOpen) {
+    this._animate(false);
+    this.isOpen = false;
+  }
 };
+
+Editor.prototype._animate = function(isOpen) {
+  const direction = isOpen ? "alternate" : "alternate-reverse";
+  this.editorContainer.animate([{ width: "0"}, { width: "50vw" }], {
+    direction: direction, duration: 250, fill: "both", easing: "ease"
+  });
+}
 
 export default Editor;
 
