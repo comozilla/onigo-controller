@@ -1,4 +1,5 @@
 import eventPublisher from "./publisher";
+import mode from "./mode";
 
 function ModeManager() {
   if (typeof ModeManager.instance === "object") {
@@ -6,25 +7,25 @@ function ModeManager() {
   }
 
   this.switchModeButton = document.getElementById("switch-mode-button");
-  this.banners = {
-    making: document.getElementById("making-mode-banner"),
-    playing: document.getElementById("playing-mode-banner")
-  };
+  this.banners = new Map([
+    [mode.making, document.getElementById("making-mode-banner")],
+    [mode.playing, document.getElementById("playing-mode-banner")]
+  ]);
 
-  eventPublisher.subscribe("mode", (mode) => {
-    this.mode = mode;
-    Object.keys(this.banners).forEach(bannerName => {
+  eventPublisher.subscribe("mode", (newMode) => {
+    this.mode = newMode;
+    for (let [bannerName, bannerElement] of this.banners) {
       if (bannerName === this.mode) {
-        this.banners[bannerName].classList.add("active-banner");
+        bannerElement.classList.add("active-banner");
       } else {
-        this.banners[bannerName].classList.remove("active-banner");
+        bannerElement.classList.remove("active-banner");
       }
-    });
+    };
   });
-  eventPublisher.publish("mode", "making");
+  eventPublisher.publish("mode", mode.making);
 
   this.switchModeButton.addEventListener("click", () => {
-    const modeNames = Object.keys(this.banners);
+    const modeNames = [...this.banners.keys()];
     const modeIndex = modeNames.indexOf(this.mode);
     const nextModeIndex = modeIndex + 1 >= modeNames.length ?
       0 : modeIndex + 1;

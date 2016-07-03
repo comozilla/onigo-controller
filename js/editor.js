@@ -1,4 +1,5 @@
 import eventPublisher from "./publisher";
+import mode from "./mode";
 
 function Editor(motionManager) {
   if (typeof Editor.instance === "object") {
@@ -21,8 +22,8 @@ function Editor(motionManager) {
   this.motionNameElement = document.getElementById("editor-motion-name");
   this.motionElement = document.getElementById("editor-text");
 
-  eventPublisher.subscribe("mode", (mode) => {
-    if (mode === "playing") {
+  eventPublisher.subscribe("mode", (newMode) => {
+    if (newMode === mode.playing) {
       this.close();
     }
   });
