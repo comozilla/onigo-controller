@@ -12,7 +12,7 @@ function BlockManager(editor) {
   this.blocks = [];
   for (var i = 0; i < blockCount; i++) {
     var blockElement = document.querySelector(`[data-block-index="${i}"]`);
-    this.blocks.push(new Block(blockElement, i < 3, this.editor));
+    this.blocks.push(new Block(blockElement, i < 3, this));
   }
 
   eventPublisher.subscribe("availableCommandsCount", (count) => {

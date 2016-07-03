@@ -21,6 +21,8 @@ body {
 #editor {
   width: 0;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 #editor.active-editor {
@@ -36,6 +38,26 @@ body {
   padding: 15px;
   box-sizing: border-box;
   resize: none;
+  flex: 1;
+}
+
+#editor-header {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+#editor-file-name {
+  flex: 1;
+}
+
+#editor-close-button {
+  border: none;
+  background-color: #c0392b;
+  border-radius: 10px;
+  color: white;
+  padding: 5px 15px;
+  font-size: 16px;
 }
 
 #commands {
