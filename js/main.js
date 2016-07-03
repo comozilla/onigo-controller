@@ -13,6 +13,10 @@ import "../css/style.css";
 import "font-awesome";
 import "web-animations-js";
 
+import ace from "brace";
+import "brace/mode/javascript";
+import "brace/theme/twilight";
+
 var spheroStates;
 var spheroClient;
 var calibrationButton;
@@ -24,6 +28,10 @@ var blockManager;
 var editor;
 
 document.addEventListener("DOMContentLoaded",　function() {
+  var jsEditor = ace.edit("editor-text");
+  jsEditor.getSession().setMode("ace/mode/javascript");
+  jsEditor.setTheme("ace/theme/twilight");
+
   inactiveStatus = new InactiveStatus();
   spheroStates = new SpheroStates();
   spheroClient = new SpheroClient("ws://localhost:8080");

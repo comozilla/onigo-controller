@@ -1,11 +1,22 @@
 import eventPublisher from "./publisher"
+import ace from "brace";
+import "brace/mode/javascript";
+import "brace/theme/twilight";
 
 function Editor(motionManager) {
   if (typeof Editor.instance === "object") {
     return Editor.instance;
   }
 
-  this.openingMotionId = -1;
+  this.editor = ace.edit("editor-text");
+  this.editor.setTheme("ace/theme/twilight");
+  this.editor.setShowInvisibles(true);
+  var session = this.editor.getSession();
+  session.setMode("ace/mode/javascript");
+  session.setTabSize(2);
+  session.setUseSoftTabs(true);
+
+  this.openingMotionId = 0;
   this.motionManager = motionManager;
 
   this.editorContainer = document.getElementById("editor");
@@ -19,13 +30,13 @@ function Editor(motionManager) {
   });
 
   this.motionNameElement = document.getElementById("editor-motion-name");
-  this.motionElement = document.getElementById("editor-text");
 
   eventPublisher.subscribe("mode", (mode) => {
     if (mode === "playing") {
       this.close();
     }
   });
+  this.close();
 
   Editor.instance = this;
   return this;
@@ -40,10 +51,10 @@ Editor.prototype.open = function(blockId) {
   if (this.motionManager.contains(this.openingMotionId)) {
     var motion = this.motionManager.get(this.openingMotionId);
     this.motionNameElement.value = motion.motionName;
-    this.motionElement.value = motion.motion;
+    this.editor.setValue(motion.motion, 0);
   } else {
     this.motionNameElement.value = "";
-    this.motionElement.value = "";
+    this.editor.setValue("", 0);
   }
 };
 
@@ -65,7 +76,7 @@ Editor.prototype.save = function() {
   eventPublisher.publish("saveMotion", {
     motionId: this.openingMotionId,
     motionName: this.motionNameElement.value,
-    motion: this.motionElement.value
+    motion: this.editor.getValue()
   });
 };
 

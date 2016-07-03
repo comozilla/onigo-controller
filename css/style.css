@@ -19,21 +19,16 @@ body {
 }
 
 #editor {
-  width: 0;
+  width: 50%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
 #editor-text {
-  border: none;
-  border-radius: 10px;
-  width: 100%;
-  height: 100%;
-  padding: 15px;
-  box-sizing: border-box;
-  resize: none;
+  min-width: 50%;
   flex: 1;
+  border-radius: 10px;
 }
 
 #editor-header {
