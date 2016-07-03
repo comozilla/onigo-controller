@@ -6,18 +6,25 @@ function Block(blockId, element, isBuiltIn, blockManager) {
   this.isBuiltIn = typeof isBuiltIn === "boolean" && isBuiltIn;
   this.enable = true;
   this.blockManager = blockManager;
+  this.mode = "making";
+  this.blockName = "NEW!";
 
   if (this.isBuiltIn) {
     this.element.classList.add("built-in-command-button");
   }
 
-  if (!this.isBuiltIn) {
-    this.element.addEventListener("click", () => {
-      this.blockManager.editor.open(this.blockId);
-    });
+  if (this.mode === "making") {
+    if (!this.isBuiltIn) {
+      this.element.addEventListener("click", () => {
+        this.blockManager.editor.open(this.blockId);
+      });
+    }
+  } else if (this.mode === "playing") {
+    // todo
   }
 
   eventPublisher.subscribe("mode", (mode) => {
+    this.mode = mode;
     if (mode === "making") {
       this.element.classList.remove("playing-mode-button");
     } else if (mode === "playing") {
@@ -27,7 +34,8 @@ function Block(blockId, element, isBuiltIn, blockManager) {
 
   eventPublisher.subscribe("saveMotion", (motion) => {
     if (motion.motionId === this.blockId) {
-      this.element.textContent = motion.motionName;
+      this.blockName = motion.motionName;
+      this.showBlockName();
     }
   });
 }
@@ -35,6 +43,13 @@ function Block(blockId, element, isBuiltIn, blockManager) {
 Block.prototype.setEnable = function(enable) {
   this.enable = enable;
   this.element.disabled = !this.enable;
+  this.showBlockName();
+};
+
+Block.prototype.showBlockName = function() {
+  if (!this.isBuiltIn && this.enable) {
+    this.element.textContent = this.blockName;
+  }
 };
 
 export default Block;
