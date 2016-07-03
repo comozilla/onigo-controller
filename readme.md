@@ -1,4 +1,4 @@
-# sphero-joystick (controller branch)
+# onigo-controller
 
 ![](https://docs.google.com/drawings/d/11UkOxTHAYCFONLhi49WRn1hCaDZz25plo-yaG18Q2cc/pub?w=854&h=579)
 
