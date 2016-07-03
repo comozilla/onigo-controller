@@ -2,10 +2,7 @@ function MotionManager() {
   this.motions = {};
 }
 
-MotionManager.prototype.add = function(motionId, motionName, motion) {
-  if (this.contains(motionId)) {
-    throw new Error("モーション " + motionId + " は、既に存在するので追加できませんでした。");
-  }
+MotionManager.prototype.update = function(motionId, motionName, motion) {
   var _motionName = typeof motionName === "string" && motionName !== "" ?
     motionName : "無名のモーション";
   var _motion = typeof motion === "undefined" ? "" : motion;
@@ -13,14 +10,6 @@ MotionManager.prototype.add = function(motionId, motionName, motion) {
     motionName: _motionName,
     motion: _motion
   };
-};
-
-MotionManager.prototype.updateMotionName = function(motionId, newMotionName) {
-
-};
-
-MotionManager.prototype.updateMotion = function(motionId, newMotion) {
-
 };
 
 MotionManager.prototype.contains = function(motionId) {

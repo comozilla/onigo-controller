@@ -13,7 +13,7 @@ function Block(blockId, element, isBuiltIn, blockManager) {
 
   if (!this.isBuiltIn) {
     this.element.addEventListener("click", () => {
-      this.blockManager.editor.open();
+      this.blockManager.editor.open(this.blockId);
     });
   }
 
