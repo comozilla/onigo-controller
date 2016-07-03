@@ -56,6 +56,11 @@ body {
   color: white;
   padding: 5px 15px;
   margin-left: 5px;
+  transition: background-color 0.2s ease 0s;
+}
+
+#editor-header button:active {
+  background-color: #f39c12;
 }
 
 #blocks {

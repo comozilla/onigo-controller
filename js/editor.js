@@ -34,16 +34,16 @@ function Editor(motionManager) {
 Editor.prototype.open = function(blockId) {
   if (this.openingMotionId === -1) {
     this._animate(true);
-    this.openingMotionId = blockId;
+  }
+  this.openingMotionId = blockId;
 
-    if (this.motionManager.contains(this.openingMotionId)) {
-      var motion = this.motionManager.get(this.openingMotionId);
-      this.motionNameElement.value = motion.motionName;
-      this.motionElement.value = motion.motion;
-    } else {
-      this.motionNameElement.value = "";
-      this.motionElement.value = "";
-    }
+  if (this.motionManager.contains(this.openingMotionId)) {
+    var motion = this.motionManager.get(this.openingMotionId);
+    this.motionNameElement.value = motion.motionName;
+    this.motionElement.value = motion.motion;
+  } else {
+    this.motionNameElement.value = "";
+    this.motionElement.value = "";
   }
 };
 
