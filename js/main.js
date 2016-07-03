@@ -10,6 +10,7 @@ import Editor from "./editor";
 
 // webpack
 import "../css/style.css";
+import "font-awesome";
 import "web-animations-js";
 
 var spheroStates;

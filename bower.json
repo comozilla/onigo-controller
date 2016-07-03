@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "web-animations-js": "^2.2.1"
+    "web-animations-js": "^2.2.1",
+    "font-awesome": "^4.6.3"
   }
 }
