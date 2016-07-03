@@ -13,15 +13,13 @@ function Block(blockId, element, isBuiltIn, blockManager) {
     this.element.classList.add("built-in-command-button");
   }
 
-  if (this.mode === "making") {
-    if (!this.isBuiltIn) {
-      this.element.addEventListener("click", () => {
-        this.blockManager.editor.open(this.blockId);
-      });
+  this.element.addEventListener("click", () => {
+    if (this.mode === "making" && !this.isBuiltIn) {
+      this.blockManager.editor.open(this.blockId);
+    } else if (this.mode === "playing") {
+      // todo
     }
-  } else if (this.mode === "playing") {
-    // todo
-  }
+  });
 
   eventPublisher.subscribe("mode", (mode) => {
     this.mode = mode;
