@@ -62,10 +62,11 @@ Editor.prototype._animate = function(isOpen) {
 };
 
 Editor.prototype.save = function() {
-  this.motionManager.update(
-      this.openingMotionId,
-      this.motionNameElement.value,
-      this.motionElement.value);
+  eventPublisher.publish("saveMotion", {
+    motionId: this.openingMotionId,
+    motionName: this.motionNameElement.value,
+    motion: this.motionElement.value
+  });
 };
 
 export default Editor;

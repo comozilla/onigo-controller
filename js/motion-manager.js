@@ -1,8 +1,13 @@
+import eventPublisher from "./publisher";
+
 function MotionManager() {
   this.motions = {};
+  eventPublisher.subscribe("saveMotion", (motion) => {
+    this._update(motion.motionId, motion.motionName, motion.motion);
+  });
 }
 
-MotionManager.prototype.update = function(motionId, motionName, motion) {
+MotionManager.prototype._update = function(motionId, motionName, motion) {
   var _motionName = typeof motionName === "string" && motionName !== "" ?
     motionName : "無名のモーション";
   var _motion = typeof motion === "undefined" ? "" : motion;

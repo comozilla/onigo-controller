@@ -24,6 +24,12 @@ function Block(blockId, element, isBuiltIn, blockManager) {
       this.element.classList.add("playing-mode-button");
     }
   });
+
+  eventPublisher.subscribe("saveMotion", (motion) => {
+    if (motion.motionId === this.blockId) {
+      this.element.textContent = motion.motionName;
+    }
+  });
 }
 
 Block.prototype.setEnable = function(enable) {
