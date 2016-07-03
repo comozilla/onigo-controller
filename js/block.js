@@ -1,6 +1,7 @@
 import eventPublisher from "./publisher";
 
-function Block(element, isBuiltIn, blockManager) {
+function Block(blockId, element, isBuiltIn, blockManager) {
+  this.blockId = blockId;
   this.element = element;
   this.isBuiltIn = typeof isBuiltIn === "boolean" && isBuiltIn;
   this.enable = true;

@@ -1,9 +1,12 @@
-function Editor() {
+import eventPublisher from "./publisher"
+
+function Editor(motionManager) {
   if (typeof Editor.instance === "object") {
     return Editor.instance;
   }
 
   this.isOpen = false;
+  this.motionManager = motionManager;
 
   this.editorContainer = document.getElementById("editor");
   this.editorCloseButton = document.getElementById("editor-close-button");
@@ -11,11 +14,17 @@ function Editor() {
     this.close();
   });
 
+  eventPublisher.subscribe("mode", (mode) => {
+    if (mode === "playing") {
+      this.close();
+    }
+  });
+
   Editor.instance = this;
   return this;
 }
 
-Editor.prototype.open = function() {
+Editor.prototype.open = function(blockId) {
   if (!this.isOpen) {
     this._animate(true);
     this.isOpen = true;
