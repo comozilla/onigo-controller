@@ -18,18 +18,20 @@ function InactiveStatus() {
 InactiveStatus.prototype.changeStatus = function(screenState) {
   this.inactiveScreen.classList.remove("screen-game-active");
   switch (screenState) {
-    case "connecting":
-      this.inactiveInner.textContent = "サーバーに接続しています...";
-      break;
-    case "not-found":
-      this.inactiveInner.textContent = "サーバーが見つかりませんでした";
-      break;
-    case "error":
-      this.inactiveInner.textContent = "通信でエラーが発生しました";
-      break;
-    case "active":
-      this.inactiveScreen.classList.add("screen-game-active");
-      break;
+  case "connecting":
+    this.inactiveInner.textContent = "サーバーに接続しています...";
+    break;
+  case "not-found":
+    this.inactiveInner.textContent = "サーバーが見つかりませんでした";
+    break;
+  case "error":
+    this.inactiveInner.textContent = "通信でエラーが発生しました";
+    break;
+  case "active":
+    this.inactiveScreen.classList.add("screen-game-active");
+    break;
+  default:
+    break;
   }
 };
 

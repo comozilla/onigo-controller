@@ -1,4 +1,4 @@
-import eventPublisher from "./publisher"
+import eventPublisher from "./publisher";
 
 function Editor(motionManager) {
   if (typeof Editor.instance === "object") {
@@ -33,12 +33,12 @@ function Editor(motionManager) {
 
 Editor.prototype.open = function(blockId) {
   if (this.openingMotionId === -1) {
-    this._animate(true);
+    this.animate(true);
   }
   this.openingMotionId = blockId;
 
   if (this.motionManager.contains(this.openingMotionId)) {
-    var motion = this.motionManager.get(this.openingMotionId);
+    const motion = this.motionManager.get(this.openingMotionId);
     this.motionNameElement.value = motion.motionName;
     this.motionElement.value = motion.motion;
   } else {
@@ -49,14 +49,14 @@ Editor.prototype.open = function(blockId) {
 
 Editor.prototype.close = function() {
   if (this.openingMotionId >= 0) {
-    this._animate(false);
+    this.animate(false);
     this.openingMotionId = -1;
   }
 };
 
-Editor.prototype._animate = function(isOpen) {
+Editor.prototype.animate = function(isOpen) {
   const direction = isOpen ? "alternate" : "alternate-reverse";
-  this.editorContainer.animate([{ width: "0"}, { width: "50vw" }], {
+  this.editorContainer.animate([{ width: "0" }, { width: "50vw" }], {
     direction: direction, duration: 250, fill: "both", easing: "ease"
   });
 };

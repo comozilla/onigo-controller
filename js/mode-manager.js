@@ -24,9 +24,9 @@ function ModeManager() {
   eventPublisher.publish("mode", "making");
 
   this.switchModeButton.addEventListener("click", () => {
-    var modeNames = Object.keys(this.banners);
-    var modeIndex = modeNames.indexOf(this.mode);
-    var nextModeIndex = modeIndex + 1 >= modeNames.length ?
+    const modeNames = Object.keys(this.banners);
+    const modeIndex = modeNames.indexOf(this.mode);
+    const nextModeIndex = modeIndex + 1 >= modeNames.length ?
       0 : modeIndex + 1;
     eventPublisher.publish("mode", modeNames[nextModeIndex]);
   });
