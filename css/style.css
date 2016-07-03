@@ -12,7 +12,7 @@ body {
   overflow: hidden;
 }
 
-#main {
+main {
   flex: 1;
   display: flex;
   padding: 20px;
