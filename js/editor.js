@@ -75,7 +75,8 @@ Editor.prototype._animate = function(isOpen) {
 Editor.prototype.save = function() {
   eventPublisher.publish("saveMotion", {
     motionId: this.openingMotionId,
-    motionName: this.motionNameElement.value,
+    motionName: this.motionNameElement.value === "" ?
+      "無名のモーション" : this.motionNameElement.value,
     motion: this.editor.getValue()
   });
 };
