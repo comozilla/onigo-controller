@@ -29,7 +29,7 @@ InactiveStatus.prototype.changeStatus = function(screenState) {
       break;
     case "active":
       this.inactiveScreen.classList.add("screen-game-active");
-      break
+      break;
   }
 };
 
