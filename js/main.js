@@ -13,25 +13,15 @@ import "../css/style.css";
 import "font-awesome";
 import "web-animations-js";
 
-let spheroStates;
-let spheroClient;
-let calibrationButton;
-let hpBoard;
-let inactiveStatus;
-let modeManager;
-let motionManager;
-let blockManager;
-let editor;
-
 document.addEventListener("DOMContentLoaded", function() {
-  inactiveStatus = new InactiveStatus();
-  spheroStates = new SpheroStates();
-  spheroClient = new SpheroClient("ws://localhost:8080");
-  hpBoard = new HPBoard(document.getElementById("hp"));
-  calibrationButton =
+  let inactiveStatus = new InactiveStatus();
+  let spheroStates = new SpheroStates();
+  let spheroClient = new SpheroClient("ws://localhost:8080");
+  let hpBoard = new HPBoard(document.getElementById("hp"));
+  let calibrationButton =
     new CalibrationButton(document.getElementById("calibration-button"));
-  modeManager = new ModeManager();
-  motionManager = new MotionManager();
-  editor = new Editor(motionManager);
-  blockManager = new BlockManager(editor);
+  let modeManager = new ModeManager();
+  let motionManager = new MotionManager();
+  let editor = new Editor(motionManager);
+  let blockManager = new BlockManager(editor);
 });
