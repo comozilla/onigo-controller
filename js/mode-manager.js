@@ -20,7 +20,7 @@ function ModeManager() {
       } else {
         bannerElement.classList.remove("active-banner");
       }
-    };
+    }
   });
   eventPublisher.publish("mode", mode.making);
 
