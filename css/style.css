@@ -110,19 +110,19 @@ footer span, footer button {
   border-radius: 10px;
 }
 
-footer #making-mode-banner span {
+#making-mode-banner span {
   background-color: #e67e22;
 }
 
-footer #making-mode-banner button {
+#making-mode-banner button {
   background-color: #c0392b;
 }
 
-footer #playing-mode-banner span {
+#playing-mode-banner span {
   background-color: #2980b9;
 }
 
-footer #playing-mode-banner button {
+#playing-mode-banner button {
   background-color: #8e44ad;
 }
 
