@@ -17,15 +17,14 @@ import ace from "brace";
 import "brace/mode/javascript";
 import "brace/theme/twilight";
 
-document.addEventListener("DOMContentLoaded",　function() {
-  let inactiveStatus = new InactiveStatus();
-  let spheroStates = new SpheroStates();
-  let spheroClient = new SpheroClient("ws://localhost:8080");
-  let hpBoard = new HPBoard(document.getElementById("hp"));
-  let calibrationButton =
-    new CalibrationButton(document.getElementById("calibration-button"));
-  let modeManager = new ModeManager();
-  let motionManager = new MotionManager();
-  let editor = new Editor(motionManager);
-  let blockManager = new BlockManager(editor);
+document.addEventListener("DOMContentLoaded", function() {
+  const motionManager = new MotionManager();
+  const editor = new Editor(motionManager);
+  new InactiveStatus();
+  new SpheroStates();
+  new SpheroClient("ws://localhost:8080");
+  new HPBoard(document.getElementById("hp"));
+  new CalibrationButton(document.getElementById("calibration-button"));
+  new ModeManager();
+  new BlockManager(editor);
 });
