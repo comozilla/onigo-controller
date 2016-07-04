@@ -135,6 +135,10 @@ footer div {
   display: none;
 }
 
+#hp:before {
+  content: "HP:";
+}
+
 .active-banner {
   display: block;
 }
