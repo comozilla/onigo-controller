@@ -11,7 +11,7 @@ function HPBoard(element) {
 }
 
 HPBoard.prototype.updateHP = function() {
-  this.element.textContent = "HP:" + this.hp.toString();
+  this.element.textContent = this.hp.toString();
 };
 
 export default HPBoard;

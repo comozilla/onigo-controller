@@ -5,20 +5,20 @@ function BlockManager(editor) {
   if (typeof BlockManager.instance === "object") {
     return BlockManager.instance;
   }
-  const blockCount = 9;
+  const builtInBlockCount = 3;
 
   this.editor = editor;
 
   this.blocks = [];
-  for (var i = 0; i < blockCount; i++) {
-    var blockElement = document.querySelector(`[data-block-index="${i}"]`);
-    this.blocks.push(new Block(i, blockElement, i < 3, this));
-  }
+  let blockElements = document.querySelectorAll("[data-block-index]");
+  Array.prototype.forEach.call(blockElements, (block, i) => {
+    this.blocks.push(new Block(i, block, i < builtInBlockCount, this));
+  });
 
   eventPublisher.subscribe("availableCommandsCount", (count) => {
     // 0-2番のblockはbuilt-in-command-button
-    for (var i = 3; i < blockCount; i++) {
-      this.blocks[i].setEnable(i < 3 + count);
+    for (let i = builtInBlockCount; i < blockElements.length; i++) {
+      this.blocks[i].setEnable(i < builtInBlockCount + count);
     }
   });
 

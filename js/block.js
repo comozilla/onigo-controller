@@ -1,4 +1,5 @@
 import eventPublisher from "./publisher";
+import mode from "./mode";
 
 function Block(blockId, element, isBuiltIn, blockManager) {
   this.blockId = blockId;
@@ -6,7 +7,7 @@ function Block(blockId, element, isBuiltIn, blockManager) {
   this.isBuiltIn = typeof isBuiltIn === "boolean" && isBuiltIn;
   this.enable = true;
   this.blockManager = blockManager;
-  this.mode = "making";
+  this.mode = mode.making;
   this.blockName = "NEW!";
 
   if (this.isBuiltIn) {
@@ -14,18 +15,18 @@ function Block(blockId, element, isBuiltIn, blockManager) {
   }
 
   this.element.addEventListener("click", () => {
-    if (this.mode === "making" && !this.isBuiltIn) {
+    if (this.mode === mode.making && !this.isBuiltIn) {
       this.blockManager.editor.open(this.blockId);
-    } else if (this.mode === "playing") {
+    } else if (this.mode === mode.playing) {
       // todo
     }
   });
 
-  eventPublisher.subscribe("mode", (mode) => {
-    this.mode = mode;
-    if (mode === "making") {
+  eventPublisher.subscribe("mode", (newMode) => {
+    this.mode = newMode;
+    if (newMode === mode.making) {
       this.element.classList.remove("playing-mode-button");
-    } else if (mode === "playing") {
+    } else if (newMode === mode.playing) {
       this.element.classList.add("playing-mode-button");
     }
   });

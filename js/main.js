@@ -17,28 +17,15 @@ import ace from "brace";
 import "brace/mode/javascript";
 import "brace/theme/twilight";
 
-var spheroStates;
-var spheroClient;
-var calibrationButton;
-var hpBoard;
-var inactiveStatus;
-var modeManager;
-var motionManager;
-var blockManager;
-var editor;
-
 document.addEventListener("DOMContentLoaded",　function() {
-  var jsEditor = ace.edit("editor-text");
-  jsEditor.getSession().setMode("ace/mode/javascript");
-  jsEditor.setTheme("ace/theme/twilight");
-
-  inactiveStatus = new InactiveStatus();
-  spheroStates = new SpheroStates();
-  spheroClient = new SpheroClient("ws://localhost:8080");
-  hpBoard = new HPBoard(document.getElementById("hp"));
-  calibrationButton = new CalibrationButton(document.getElementById("calibration-button"));
-  modeManager = new ModeManager();
-  motionManager = new MotionManager();
-  editor = new Editor(motionManager);
-  blockManager = new BlockManager(editor);
+  let inactiveStatus = new InactiveStatus();
+  let spheroStates = new SpheroStates();
+  let spheroClient = new SpheroClient("ws://localhost:8080");
+  let hpBoard = new HPBoard(document.getElementById("hp"));
+  let calibrationButton =
+    new CalibrationButton(document.getElementById("calibration-button"));
+  let modeManager = new ModeManager();
+  let motionManager = new MotionManager();
+  let editor = new Editor(motionManager);
+  let blockManager = new BlockManager(editor);
 });

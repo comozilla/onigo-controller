@@ -12,7 +12,7 @@ body {
   overflow: hidden;
 }
 
-#main {
+main {
   flex: 1;
   display: flex;
   padding: 20px;
@@ -128,6 +128,10 @@ footer #playing-mode-banner button {
 
 footer div {
   display: none;
+}
+
+#hp:before {
+  content: "HP:";
 }
 
 .active-banner {
