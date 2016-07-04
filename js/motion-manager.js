@@ -19,14 +19,14 @@ MotionManager.prototype._update = function(motionId, motionName, motion) {
 
 MotionManager.prototype.contains = function(motionId) {
   return typeof this.motions[motionId] !== "undefined";
-}
+};
 
 MotionManager.prototype.get = function(motionId) {
   if (!this.contains(motionId)) {
     throw new Error("モーション " + motionId + " は、存在しないので取得できませんでした。 ");
   }
   return this.motions[motionId];
-}
+};
 
 export default MotionManager;
 

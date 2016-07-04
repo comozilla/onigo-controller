@@ -19,7 +19,7 @@ module.exports = {
         }
       },
       { test: /\.css$/, loader: "style-loader!css-loader" },
-      { test: /\.(jpg|png)$/, loaders: 'url-loader' },
+      { test: /\.(jpg|png)$/, loaders: "url-loader" },
       // 下のものは、url-loaderでやると１ファイルにまとまっていいが、
       // font-awesomeが特別な種類のフォントを使っている問題でまとめられないからfile-loaderでやっている
       {

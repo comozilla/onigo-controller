@@ -1,4 +1,4 @@
-import eventPublisher from "./publisher"
+import eventPublisher from "./publisher";
 import ace from "brace";
 import "brace/mode/javascript";
 import "brace/theme/twilight";
@@ -67,7 +67,7 @@ Editor.prototype.close = function() {
 
 Editor.prototype._animate = function(isOpen) {
   const direction = isOpen ? "alternate" : "alternate-reverse";
-  this.editorContainer.animate([{ width: "0"}, { width: "50vw" }], {
+  this.editorContainer.animate([{ width: "0" }, { width: "50vw" }], {
     direction: direction, duration: 250, fill: "both", easing: "ease"
   });
 };
