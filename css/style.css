@@ -3,81 +3,149 @@ html {
 }
 
 body {
+  background-color: #34495e;
+  color: white;
   margin: 0px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-#boxes {
+main {
+  flex: 1;
+  display: flex;
+  padding: 20px;
+}
+
+#editor {
+  width: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#editor-text {
+  border: none;
+  border-radius: 10px;
   width: 100%;
   height: 100%;
-}
-
-#boxes > * {
-  position: fixed;
-}
-
-#hp-box {
-  top: 0px;
-  left: 0px;
-  width: 60%;
-  height: 50%;
-  margin: 10px;
-  border: 10px solid blueviolet;
-  background-color: #111;
-  color: yellow;
-  border-radius: 10px;
-  font-size: 30vh;
-  line-height: 100%;
+  padding: 15px;
   box-sizing: border-box;
+  resize: none;
+  flex: 1;
+}
+
+#editor-header {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+#editor-motion-name {
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  color: white;
+}
+
+#editor-header button {
+  border: none;
+  background-color: #c0392b;
+  border-radius: 10px;
+  color: white;
+  padding: 5px 15px;
+  margin-left: 5px;
+  transition: background-color 0.2s ease 0s;
+}
+
+#editor-header button:active {
+  background-color: #f39c12;
+}
+
+#blocks {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
-#demon-box {
-  top: 0px;
-  right: 0px;
-  width: 30%;
-  height: 50%;
-  margin: 10px;
-  border: 10px solid blueviolet;
-  background-color: #111;
-  color: yellow;
-  border-radius: 10px;
-  box-sizing: border-box;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+#blocks .row {
+  display: flex;
+  justify-content: center;
 }
 
-#demon-box.active-demon {
-  background-image: url("/images/demon.png");
-}
-
-#stick-box {
-  bottom: 0px;
-  left: 0px;
-  width: 50vh;
-  height: 50%;
-}
-
-#calibration-button {
-  bottom: 0px;
-  right: 0px;
-  width: 30vh;
-  height: 30%;
-  margin: 10px;
-  background-image: url("/images/calibration.png");
-  background-size: 90%;
-  background-repeat: no-repeat;
-  background-position: center;
-  border-radius: 10px;
-  background-color: blueviolet;
+#blocks button {
+  display: block;
+  width: 150px;
+  height: 150px;
+  color: white;
+  background-color: #f39c12;
   border: none;
+  border-radius: 20px;
+  margin: 0 0 10px 10px;
 }
 
-#calibration-button.active-calibration {
-  background-color: yellow;
+#blocks .built-in-command-button {
+  background-color: #e74c3c;
+}
+
+#blocks .playing-mode-button {
+  background-color: #3498db;
+  box-shadow: 0 0 30px 0 #3498db;
+}
+
+#blocks button[disabled] {
+  background-color: #7f8c8d;
+  box-shadow: none;
+}
+
+footer {
+  width: 100%;
+  text-align: right;
+}
+
+footer span, footer button {
+  display: inline-block;
+  font-size: 16px;
+  padding: 5px;
+  margin: 5px;
+  border: none;
+  color: white;
+  border-radius: 10px;
+}
+
+#making-mode-banner span {
+  background-color: #e67e22;
+}
+
+#making-mode-banner button {
+  background-color: #c0392b;
+}
+
+#playing-mode-banner span {
+  background-color: #2980b9;
+}
+
+#playing-mode-banner button {
+  background-color: #8e44ad;
+}
+
+footer div {
+  display: none;
+}
+
+#hp:before {
+  content: "HP:";
+}
+
+.active-banner {
+  display: block;
+}
+
+#switch-mode-button {
+  background-color: #16a085;
+  float: right;
 }
 
 #inactive-screen {

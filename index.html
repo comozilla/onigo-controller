@@ -11,19 +11,49 @@
     <div id="inactive-inner">
     </div>
   </div>
-  <div id="boxes">
-    <div id="hp-box">
-      HP:100
+  <main>
+    <div id="blocks">
+      <div class="row">
+        <button data-block-index="0">回転</button>
+        <button data-block-index="1">停止</button>
+        <button data-block-index="2">加速</button>
+      </div>
+      <div class="row">
+        <button data-block-index="3"></button>
+        <button data-block-index="4"></button>
+        <button data-block-index="5"></button>
+      </div>
+      <div class="row">
+        <button data-block-index="6"></button>
+        <button data-block-index="7"></button>
+        <button data-block-index="8"></button>
+      </div>
     </div>
-    <div id="demon-box" class="active-demon">
+    <div id="editor">
+      <div id="editor-header">
+        <input type="text" id="editor-motion-name" placeholder="ここにモーション名を入力しよう" />
+        <button id="editor-save-button">
+          <i class="fa fa-floppy-o"></i>
+        </button>
+        <button id="editor-close-button">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <textarea id="editor-text" placeholder="ここにモーションの中身を入力しよう"></textarea>
     </div>
-    <div id="stick-box">
-      <svg id="stick" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="30" fill="white" stroke="black" strokeWidth="1" />
-        <circle id="draggable" cx="50" cy="50" r="19" fill="white" stroke="black" strokeWidth="1" />
-      </svg>
+  </main>
+  <footer>
+    <button id="switch-mode-button">モードきりかえ</button>
+    <div id="making-mode-banner">
+      <span id="mode">つくるモード</span>
+      <button>ほぞん</button>
     </div>
-    <button id="calibration-button"></button>
-  </div>
+    <div id="playing-mode-banner">
+      <span id="mode">プレイモード</span>
+      <span id="hp">100</span>
+      <span id="demon">おに</span>
+      <button id="calibration-button">位置補正</button>
+    </div>
+  </footer>
 </body>
 </html>
