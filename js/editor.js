@@ -37,6 +37,7 @@ function Editor(motionManager) {
       this.close();
     }
   });
+  this.close();
 
   Editor.instance = this;
   return this;
