@@ -29,15 +29,19 @@ module.exports = {
     ]
   },
   resolve: {
-    modulesDirectories: ["web_modules", "node_modules", "bower_components"],
+    modulesDirectories: ["web_modules", "node_modules", "bower_components", "alias"],
     alias: {
       "font-awesome": "font-awesome/css/font-awesome.css",
-      "web-animations-js": "web-animations-js/web-animations-next.min.js"
+      "web-animations-js": "web-animations-js/web-animations-next.min.js",
+      "w3c-blob": "blob.js"
     }
   },
   plugins: [new webpack.ResolverPlugin(
     new webpack.ResolverPlugin
       .DirectoryDescriptionFilePlugin("bower.json", ["main"])
+  ), new webpack.ResolverPlugin(
+    new webpack.ResolverPlugin
+      .DirectoryDescriptionFilePlugin("package.json", ["main"])
   )]
 };
 
