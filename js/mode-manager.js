@@ -14,7 +14,7 @@ function ModeManager() {
 
   eventPublisher.subscribe("mode", (newMode) => {
     this.mode = newMode;
-    for (let [bannerName, bannerElement]of this.banners) {
+    for (let [bannerName, bannerElement] of this.banners) {
       if (bannerName === this.mode) {
         bannerElement.classList.add("active-banner");
       } else {
