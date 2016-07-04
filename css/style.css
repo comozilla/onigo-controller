@@ -122,6 +122,22 @@ main {
   box-shadow: none;
 }
 
+.editing-block {
+  animation-duration: 1s;
+  animation-name: editing-block;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes editing-block {
+  from {
+    box-shadow: none;
+  }
+  to {
+    box-shadow: 0 0 70px 10px #f39c12;
+  }
+}
+
 .block-new {
   background-image: url("/images/new.svg");
 }
@@ -253,7 +269,7 @@ footer div {
 }
 
 #ranking li span::before {
-  content: "HP: "
+  content: "HP: ";
 }
 
 #ranking [data-rank="1"] {
@@ -313,3 +329,4 @@ footer div {
   color: white;
   border-radius: 10px;
 }
+
