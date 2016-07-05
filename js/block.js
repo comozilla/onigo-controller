@@ -44,6 +44,11 @@ function Block(blockId, element, isBuiltIn, blockManager) {
 
   eventPublisher.subscribe("gameState", (gameState) => {
     this.gameState = gameState;
+    if (this.gameState === "active") {
+      this.element.classList.add("playing-mode-button-active");
+    } else if (this.gameState === "inactive") {
+      this.element.classList.remove("playing-mode-button-active");
+    }
   });
 }
 
