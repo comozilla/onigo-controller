@@ -14,10 +14,6 @@ import "../css/style.css";
 import "font-awesome";
 import "web-animations-js";
 
-import ace from "brace";
-import "brace/mode/javascript";
-import "brace/theme/twilight";
-
 document.addEventListener("DOMContentLoaded", function() {
   const motionManager = new MotionManager();
   const editor = new Editor(motionManager);
