@@ -1,10 +1,12 @@
 import eventPublisher from "./publisher";
+import Motion from "./motion";
+
 import ace from "brace";
 import "brace/mode/javascript";
 import "brace/theme/twilight";
 import mode from "./mode";
 
-function Editor(motionManager) {
+function Editor() {
   if (typeof Editor.instance === "object") {
     return Editor.instance;
   }
@@ -18,7 +20,6 @@ function Editor(motionManager) {
   session.setUseSoftTabs(true);
 
   this.openingMotionId = 0;
-  this.motionManager = motionManager;
 
   this.editorContainer = document.getElementById("editor");
   this.saveButton = document.getElementById("editor-save-button");
@@ -43,16 +44,15 @@ function Editor(motionManager) {
   return this;
 }
 
-Editor.prototype.open = function(blockId) {
+Editor.prototype.open = function(blockId, motion) {
   if (this.openingMotionId === -1) {
     this.animate(true);
   }
   this.openingMotionId = blockId;
 
-  if (this.motionManager.contains(this.openingMotionId)) {
-    const motion = this.motionManager.get(this.openingMotionId);
+  if (motion !== null) {
     this.motionNameElement.value = motion.motionName;
-    this.editor.setValue(motion.motion, 0);
+    this.editor.setValue(motion.motionCode, 0);
   } else {
     this.motionNameElement.value = "";
     this.editor.setValue("", 0);
@@ -76,9 +76,10 @@ Editor.prototype.animate = function(isOpen) {
 Editor.prototype.save = function() {
   eventPublisher.publish("saveMotion", {
     motionId: this.openingMotionId,
-    motionName: this.motionNameElement.value === "" ?
-      "無名のモーション" : this.motionNameElement.value,
-    motion: this.editor.getValue()
+    motion: new Motion(
+      this.motionNameElement.value === "" ?
+        "無名のモーション" : this.motionNameElement.value,
+      this.editor.getValue())
   });
 };
 

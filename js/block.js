@@ -10,6 +10,7 @@ function Block(blockId, element, isBuiltIn, blockManager) {
   this.mode = mode.making;
   this.blockName = "NEW!";
   this.gameState = "";
+  this.motion = null;
 
   if (this.isBuiltIn) {
     this.element.classList.add("built-in-command-button");
@@ -17,7 +18,7 @@ function Block(blockId, element, isBuiltIn, blockManager) {
 
   this.element.addEventListener("click", () => {
     if (this.mode === mode.making && !this.isBuiltIn) {
-      this.blockManager.editor.open(this.blockId);
+      this.blockManager.editor.open(this.blockId, this.motion);
     } else if (this.mode === mode.playing) {
       if (this.gameState === "active") {
         // todo: コマンド発進！
@@ -37,7 +38,8 @@ function Block(blockId, element, isBuiltIn, blockManager) {
 
   eventPublisher.subscribe("saveMotion", (motion) => {
     if (motion.motionId === this.blockId) {
-      this.blockName = motion.motionName;
+      this.motion = motion.motion;
+      this.blockName = motion.motion.motionName;
       this.showBlockName();
     }
   });
