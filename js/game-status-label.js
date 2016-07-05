@@ -1,6 +1,6 @@
 import eventPublisher from "./publisher";
 
-function PlayingStateLabel(element) {
+function GameStatusLabel(element) {
   this.element = element;
   eventPublisher.subscribe("gameState", (gameState) => {
     if (gameState === "active") {
@@ -11,5 +11,5 @@ function PlayingStateLabel(element) {
   });
 }
 
-export default PlayingStateLabel;
+export default GameStatusLabel;
 

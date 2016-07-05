@@ -1,6 +1,6 @@
 import CalibrationButton from "./calibration-button";
 import HPBoard from "./hp-board";
-import PlayingStateLabel from "./playing-state-label";
+import GameStatusLabel from "./game-status-label";
 import InactiveScreen from "./inactive-screen";
 import SpheroStates from "./sphero-states";
 import SpheroClient from "./sphero-client";
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
   new SpheroStates();
   new SpheroClient("ws://localhost:8080");
   new HPBoard(document.getElementById("hp"));
-  new PlayingStateLabel(document.getElementById("is-active-game"));
+  new GameStatusLabel(document.getElementById("game-status-label"));
   new CalibrationButton(document.getElementById("calibration-button"));
   new ModeManager();
   new BlockManager(editor);
