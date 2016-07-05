@@ -11,6 +11,7 @@ function Block(blockId, element, isBuiltIn, blockManager) {
   this.blockName = "NEW!";
   this.gameState = "";
   this.motion = null;
+  this.sequence = null;
 
   if (this.isBuiltIn) {
     this.element.classList.add("built-in-command-button");
@@ -36,10 +37,11 @@ function Block(blockId, element, isBuiltIn, blockManager) {
     }
   });
 
-  eventPublisher.subscribe("saveMotion", (motion) => {
-    if (motion.motionId === this.blockId) {
-      this.motion = motion.motion;
-      this.blockName = motion.motion.motionName;
+  eventPublisher.subscribe("compile", (args) => {
+    if (args.motion.motionId === this.blockId) {
+      this.sequence = args.commands;
+      this.motion = args.motion.motion;
+      this.blockName = args.motion.motion.motionName;
       this.showBlockName();
     }
   });
