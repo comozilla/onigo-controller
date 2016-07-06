@@ -58,7 +58,7 @@ main {
   background-color: #f39c12;
 }
 
-#compile-log {
+#parse-log {
   height: 4em;
   background-color: #ecf0f1;
   color: black;

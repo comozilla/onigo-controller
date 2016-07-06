@@ -7,7 +7,7 @@ import SpheroClient from "./sphero-client";
 import ModeManager from "./mode-manager";
 import BlockManager from "./block-manager";
 import Editor from "./editor";
-import Compiler from "./compiler";
+import Parser from "./parser";
 
 // webpack
 import "../css/style.css";
@@ -24,5 +24,5 @@ document.addEventListener("DOMContentLoaded", function() {
   new CalibrationButton(document.getElementById("calibration-button"));
   new ModeManager();
   new BlockManager(editor);
-  new Compiler(document.getElementById("compile-log"));
+  new Parser(document.getElementById("compile-log"));
 });

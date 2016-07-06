@@ -3,7 +3,7 @@ import Command from "./command";
 
 let instance = null;
 
-function Compiler(logElement) {
+function Parser(logElement) {
   if (instance !== null) {
     return instance;
   }
@@ -47,7 +47,7 @@ function Compiler(logElement) {
   instance = this;
 }
 
-Compiler.prototype.log = function(rawMessage, logType) {
+Parser.prototype.log = function(rawMessage, logType) {
   const logTypeChars = {
     "normal": ["", ""],
     "success": ["<span style=\"color: green;\">", "</span>"],
@@ -64,5 +64,5 @@ Compiler.prototype.log = function(rawMessage, logType) {
     logTypeChars[logType][0] + message + logTypeChars[logType][1] + "<br />";
 };
 
-export default Compiler;
+export default Parser;
 
