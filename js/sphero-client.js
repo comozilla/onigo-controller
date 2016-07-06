@@ -39,6 +39,10 @@ function SpheroClient(wsHost) {
           this.orb.startCalibration();
         }
       });
+
+      eventPublisher.subscribe("changeCurrentMotion", (motion) => {
+        // todo: command
+      });
     }, () => {
       eventPublisher.publish("ws-error");
     });
