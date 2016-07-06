@@ -1,6 +1,7 @@
 import CalibrationButton from "./calibration-button";
 import HPBoard from "./hp-board";
-import InactiveStatus from "./inactive-status";
+import GameStatusLabel from "./game-status-label";
+import InactiveScreen from "./inactive-screen";
 import SpheroStates from "./sphero-states";
 import SpheroClient from "./sphero-client";
 import ModeManager from "./mode-manager";
@@ -20,10 +21,11 @@ import "brace/theme/twilight";
 document.addEventListener("DOMContentLoaded", function() {
   const motionManager = new MotionManager();
   const editor = new Editor(motionManager);
-  new InactiveStatus();
+  new InactiveScreen();
   new SpheroStates();
   new SpheroClient("ws://localhost:8080");
   new HPBoard(document.getElementById("hp"));
+  new GameStatusLabel(document.getElementById("game-status-label"));
   new CalibrationButton(document.getElementById("calibration-button"));
   new ModeManager();
   new BlockManager(editor);

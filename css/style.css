@@ -87,6 +87,9 @@ main {
 
 #blocks .playing-mode-button {
   background-color: #3498db;
+}
+
+.playing-mode-button.playing-mode-button-active {
   box-shadow: 0 0 30px 0 #3498db;
 }
 

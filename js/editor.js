@@ -12,7 +12,7 @@ function Editor(motionManager) {
   this.editor = ace.edit("editor-text");
   this.editor.setTheme("ace/theme/twilight");
   this.editor.setShowInvisibles(true);
-  var session = this.editor.getSession();
+  const session = this.editor.getSession();
   session.setMode("ace/mode/javascript");
   session.setTabSize(2);
   session.setUseSoftTabs(true);

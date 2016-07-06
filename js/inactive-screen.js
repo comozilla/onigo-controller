@@ -1,6 +1,6 @@
 import eventPublisher from "./publisher";
 
-function InactiveStatus() {
+function InactiveScreen() {
   this.inactiveScreen = document.getElementById("inactive-screen");
   this.inactiveInner = document.getElementById("inactive-inner");
   eventPublisher.subscribe("ws-connected", () => {
@@ -15,7 +15,7 @@ function InactiveStatus() {
   this.changeStatus("connecting");
 }
 
-InactiveStatus.prototype.changeStatus = function(screenState) {
+InactiveScreen.prototype.changeStatus = function(screenState) {
   this.inactiveScreen.classList.remove("screen-game-active");
   switch (screenState) {
   case "connecting":
@@ -35,4 +35,4 @@ InactiveStatus.prototype.changeStatus = function(screenState) {
   }
 };
 
-export default InactiveStatus;
+export default InactiveScreen;
