@@ -22,5 +22,5 @@ document.addEventListener("DOMContentLoaded", function() {
   new CalibrationButton(document.getElementById("calibration-button"));
   new ModeManager();
   new BlockManager(editor);
-  new Parser(document.getElementById("compile-log"));
+  new Parser(document.getElementById("parse-log"));
 });
