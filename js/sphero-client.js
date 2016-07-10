@@ -18,8 +18,8 @@ function SpheroClient(wsHost) {
           this.orb.startCalibration();
         }
       });
-      eventPublisher.subscribe("changeCurrentMotion", (motion) => {
-        // todo: command
+      eventPublisher.subscribe("changeCurrentCommands", (commands) => {
+        this.orb.sendCustomMessage("commands", commands);
       });
     }, () => {
       eventPublisher.publish("ws-error");

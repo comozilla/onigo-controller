@@ -22,7 +22,7 @@ function Block(blockId, element, isBuiltIn, blockManager) {
       this.blockManager.editor.open(this.blockId, this.motion);
     } else if (this.mode === mode.playing) {
       if (this.gameState === "active") {
-        eventPublisher.publish("changeCurrentMotion", this.motion);
+        eventPublisher.publish("changeCurrentCommands", this.sequence);
       }
     }
   });
