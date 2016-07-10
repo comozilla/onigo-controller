@@ -1,10 +1,12 @@
 import eventPublisher from "./publisher";
 import mode from "./mode";
 
-function Block(blockId, element, isBuiltIn, blockManager) {
+function Block(blockId, element, blockManager, builtInCommandName) {
   this.blockId = blockId;
   this.element = element;
-  this.isBuiltIn = typeof isBuiltIn === "boolean" && isBuiltIn;
+
+  this.builtInCommandName = typeof builtInCommandName === "string" ? builtInCommandName : null;
+
   this.enable = true;
   this.blockManager = blockManager;
   this.mode = mode.making;
@@ -13,16 +15,23 @@ function Block(blockId, element, isBuiltIn, blockManager) {
   this.motion = null;
   this.sequence = null;
 
-  if (this.isBuiltIn) {
+  if (this.builtInCommandName !== null) {
     this.element.classList.add("built-in-command-button");
   }
 
   this.element.addEventListener("click", () => {
-    if (this.mode === mode.making && !this.isBuiltIn) {
+    if (this.mode === mode.making && this.builtInCommandName === null) {
       this.blockManager.editor.open(this.blockId, this.motion);
     } else if (this.mode === mode.playing) {
       if (this.gameState === "active") {
-        eventPublisher.publish("changeCurrentCommands", this.sequence);
+        if (this.builtInCommandName !== null) {
+          eventPublisher.publish("changeCurrentCommands", {
+            type: "built-in",
+            command: this.builtInCommandName
+          });
+        } else {
+          eventPublisher.publish("changeCurrentCommands", this.sequence);
+        }
       }
     }
   });
@@ -62,7 +71,7 @@ Block.prototype.setEnable = function(enable) {
 };
 
 Block.prototype.showBlockName = function() {
-  if (!this.isBuiltIn && this.enable) {
+  if (this.builtInCommandName === null && this.enable) {
     this.element.textContent = this.blockName;
   }
 };
