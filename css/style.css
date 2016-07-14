@@ -110,11 +110,12 @@ main {
 
 footer {
   width: 100%;
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
-footer span, footer button {
-  display: inline-block;
+footer span, footer button, img {
   font-size: 16px;
   padding: 5px;
   margin: 5px;
@@ -148,12 +149,14 @@ footer div {
 }
 
 .active-banner {
-  display: block;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex: 1;
 }
 
 #switch-mode-button {
   background-color: #16a085;
-  float: right;
 }
 
 #inactive-screen {
