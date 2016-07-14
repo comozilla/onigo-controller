@@ -91,6 +91,11 @@ main {
   margin: 0 0 10px 10px;
 }
 
+#blocks button img {
+  display: block;
+  margin: 0 auto;
+}
+
 #blocks .built-in-command-button {
   background-color: #e74c3c;
 }
