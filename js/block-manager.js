@@ -5,7 +5,7 @@ function BlockManager(editor) {
   if (typeof BlockManager.instance === "object") {
     return BlockManager.instance;
   }
-  const builtInBlockCommands = ["rotate", "roll", "dash"];
+  const builtInBlockCommands = ["rotate", "stop", "dash"];
 
   this.editor = editor;
 
