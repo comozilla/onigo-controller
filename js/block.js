@@ -73,6 +73,23 @@ Block.prototype.setEnable = function(enable) {
 Block.prototype.showBlockName = function() {
   if (this.builtInCommandName === null && this.enable) {
     this.element.textContent = this.blockName;
+
+    let thumbnail = document.querySelector(`[data-block-index="${this.blockId}"] img`);
+    if (thumbnail === null) {
+      thumbnail = document.createElement("img");
+      this.element.insertBefore(thumbnail, this.element.firstChild);
+    }
+    switch (this.blockName) {
+      case "ジグザグ":
+        thumbnail.src = "../../images/zigzag.svg";
+        break;
+      case "光る":
+        thumbnail.src = "../../images/light.svg";
+        break;
+      default:
+        thumbnail.src = "../../images/custom.svg";
+        break;
+    }
   }
 };
 
