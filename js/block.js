@@ -80,6 +80,9 @@ Block.prototype.showBlockName = function() {
       this.element.insertBefore(thumbnail, this.element.firstChild);
     }
     switch (this.blockName) {
+      case "NEW!":
+        thumbnail.src = "../../images/new.svg";
+        break;
       case "ジグザグ":
         thumbnail.src = "../../images/zigzag.svg";
         break;
