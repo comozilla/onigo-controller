@@ -10,7 +10,7 @@ function BlockManager(editor) {
   this.editor = editor;
 
   this.blocks = [];
-  let blockElements = document.querySelectorAll("[data-block-index]");
+  const blockElements = document.querySelectorAll("[data-block-index]");
   Array.prototype.forEach.call(blockElements, (block, i) => {
     if (i < builtInBlockCommands.length) {
       this.blocks.push(new Block(i, block, this, builtInBlockCommands[i]));
@@ -19,7 +19,7 @@ function BlockManager(editor) {
     }
   });
 
-  eventPublisher.subscribe("availableCommandsCount", (count) => {
+  eventPublisher.subscribe("availableCommandsCount", count => {
     // 0-2番のblockはbuilt-in-command-button
     for (let i = builtInBlockCommands.length; i < blockElements.length; i++) {
       this.blocks[i].setEnable(i < builtInBlockCommands.length + count);

@@ -36,7 +36,7 @@ function Block(blockId, element, blockManager, builtInCommandName) {
     }
   });
 
-  eventPublisher.subscribe("mode", (newMode) => {
+  eventPublisher.subscribe("mode", newMode => {
     this.mode = newMode;
     if (newMode === mode.making) {
       this.element.classList.remove("playing-mode-button");
@@ -45,7 +45,7 @@ function Block(blockId, element, blockManager, builtInCommandName) {
     }
   });
 
-  eventPublisher.subscribe("compile", (args) => {
+  eventPublisher.subscribe("compile", args => {
     if (args.motion.motionId === this.blockId) {
       this.sequence = args.commands;
       this.motion = args.motion.motion;

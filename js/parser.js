@@ -8,9 +8,9 @@ function Parser(logElement) {
     return instance;
   }
   this.logElement = logElement;
-  eventPublisher.subscribe("saveMotion", (motion) => {
+  eventPublisher.subscribe("saveMotion", motion => {
     try {
-      let rawFunction = new Function("sequence", motion.motion.motionCode);
+      const rawFunction = new Function("sequence", motion.motion.motionCode);
       // 1回目（テスト）
       rawFunction({
         command: function(commandName, args, time) {
@@ -32,7 +32,7 @@ function Parser(logElement) {
       });
 
       // 2回目（本番）
-      let commands = [];
+      const commands = [];
       rawFunction({
         command: function(commandName, args, time) {
           commands.push(new Command(commandName, args, time));
