@@ -56,7 +56,7 @@ Parser.prototype.log = function(rawMessage, logType) {
   if (Object.keys(logTypeChars).indexOf(logType) === -1) {
     throw new Error("logTypeは正しくありません : " + logType);
   }
-  let message = rawMessage
+  const message = rawMessage
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/\n/g, "<br />");
