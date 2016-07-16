@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>スフィロを動かそう</title>
-  <script type="text/javascript" src="http://localhost:8080/client/sphero-client.js"></script>
+  <script type="text/javascript" src="http://192.168.13.118:8080/client/sphero-client.js"></script>
   <script type="text/javascript" src="js/build/bundle.js"></script>
 </head>
 <body>
@@ -60,7 +60,7 @@
     <div id="playing-mode-banner">
       <span id="game-status-label">ゲームは開始されていません！</span>
       <span id="hp">100</span>
-      <img src="images/oni.svg" height="86" />
+      <img src="images/oni.svg" id="oni" height="86" />
       <button id="calibration-button" style="display: none">位置補正</button>
       <img src="images/mode-play.svg" />
     </div>

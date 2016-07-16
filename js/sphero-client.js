@@ -3,12 +3,14 @@ const Sphero = sphero;
 
 function SpheroClient(wsHost) {
   this.wsHost = wsHost;
+  this.clientKey = null;
 
   if (typeof Sphero === "undefined") {
     eventPublisher.publish("ws-not-found");
   } else {
     this.orb = new Sphero();
     this.orb.connect(this.wsHost, () => {
+      console.log(this.orb.ws);
       eventPublisher.publish("ws-connected");
       this.orb.color("red");
       eventPublisher.subscribe("spheroState", spheroState => {
@@ -32,6 +34,12 @@ function SpheroClient(wsHost) {
     });
     this.orb.listenCustomMessage("availableCommandsCount", data => {
       eventPublisher.publish("availableCommandsCount", data.count);
+    });
+    this.orb.listenCustomMessage("oni", enable => {
+      eventPublisher.publish("oni", enable);
+    });
+    this.orb.listenCustomMessage("clientKey", key => {
+      this.clientKey = key;
     });
   }
 }
