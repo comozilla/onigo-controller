@@ -81,7 +81,6 @@ main {
 }
 
 #blocks button {
-  display: block;
   width: 150px;
   height: 150px;
   color: white;
@@ -89,11 +88,9 @@ main {
   border: none;
   border-radius: 20px;
   margin: 0 0 10px 10px;
-}
-
-#blocks button img {
-  display: block;
-  margin: 0 auto;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  padding-top: calc(150px - 2em);
 }
 
 #blocks .built-in-command-button {
