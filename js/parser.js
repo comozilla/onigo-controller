@@ -14,7 +14,7 @@ function Parser(logElement) {
       // 1回目（テスト）
       rawFunction({
         command: function(commandName, args, time) {
-          let errors = [];
+          const errors = [];
           if (typeof commandName !== "string") {
             errors.push("コマンド名が正しくないところがあります。");
           }
