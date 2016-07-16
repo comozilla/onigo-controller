@@ -17,7 +17,7 @@ import "web-animations-js";
 document.addEventListener("DOMContentLoaded", function() {
   const editor = new Editor();
   new InactiveScreen();
-  const spheroClient = new SpheroClient("ws://192.168.13.118:8080");
+  const spheroClient = new SpheroClient("ws://localhost:8080");
   new HPBoard(document.getElementById("hp"));
   new OniBoard(document.getElementById("oni"));
   new GameStatusLabel(document.getElementById("game-status-label"));

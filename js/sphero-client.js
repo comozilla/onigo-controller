@@ -10,7 +10,6 @@ function SpheroClient(wsHost) {
   } else {
     this.orb = new Sphero();
     this.orb.connect(this.wsHost, () => {
-      console.log(this.orb.ws);
       eventPublisher.publish("ws-connected");
       this.orb.color("red");
       eventPublisher.subscribe("spheroState", spheroState => {
