@@ -47,8 +47,8 @@ main {
 #editor-header button {
   border: none;
   background-color: #c0392b;
-  border-radius: 10px;
   color: white;
+  border-radius: 10px;
   padding: 5px 15px;
   margin-left: 5px;
   transition: background-color 0.2s ease 0s;
@@ -56,6 +56,16 @@ main {
 
 #editor-header button:active {
   background-color: #f39c12;
+}
+
+#parse-log {
+  height: 4em;
+  background-color: #ecf0f1;
+  color: black;
+  padding: 5px;
+  margin-top: 3px;
+  border-radius: 10px;
+  overflow-y: scroll;
 }
 
 #blocks {
