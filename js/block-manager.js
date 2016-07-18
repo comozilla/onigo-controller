@@ -18,7 +18,6 @@ function BlockManager(editor) {
   });
 
   eventPublisher.subscribe("availableCommandsCount", count => {
-    // 0-2番のblockはbuilt-in-command-button
     for (let i = 0, builtInBlockCount = 0; i < blockElements.length; i++) {
       if (this.blocks[i].builtInCommandName === null) {
         this.blocks[i].setEnable(i < count + builtInBlockCount);
