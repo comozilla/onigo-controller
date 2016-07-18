@@ -122,6 +122,22 @@ main {
   box-shadow: none;
 }
 
+.block-new {
+  background-image: url("/images/new.svg");
+}
+
+.block-zigzag {
+  background-image: url("/images/zigzag.svg");
+}
+
+.block-light {
+  background-image: url("/images/light.svg");
+}
+
+.block-custom {
+  background-image: url("/images/custom.svg");
+}
+
 footer {
   width: 100%;
   display: flex;

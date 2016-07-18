@@ -73,20 +73,21 @@ Block.prototype.setEnable = function(enable) {
 Block.prototype.showBlockName = function() {
   if (this.builtInCommandName === null && this.enable) {
     this.element.textContent = this.blockName;
-    switch (this.blockName) {
-      case "NEW!":
-        this.element.style.backgroundImage = "url(images/new.svg)";
-        break;
-      case "ジグザグ":
-        this.element.style.backgroundImage = "url(images/zigzag.svg)";
-        break;
-      case "光る":
-        this.element.style.backgroundImage = "url(images/light.svg)";
-        break;
-      default:
-        this.element.style.backgroundImage = "url(images/custom.svg)";
-        break;
+
+    const customSymbol = Symbol("custom");
+    const classes = new Map([
+      ["NEW!", "block-new"],
+      ["ジグザグ", "block-zigzag"],
+      ["光る", "block-light"],
+      [customSymbol, "block-custom"]
+    ]);
+    const blockName = classes.has(this.blockName) ? this.blockName : customSymbol;
+    for (let className of classes.values()) {
+      if (className !== blockName) {
+        this.element.classList.remove(className);
+      }
     }
+    this.element.classList.add(classes.get(blockName));
   }
 };
 
