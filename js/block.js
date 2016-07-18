@@ -83,7 +83,7 @@ Block.prototype.showBlockName = function() {
     ]);
     const blockName = classes.has(this.blockName) ? this.blockName : customSymbol;
     for (let className of classes.values()) {
-      if (className !== blockName) {
+      if (className !== classes.get(blockName)) {
         this.element.classList.remove(className);
       }
     }
