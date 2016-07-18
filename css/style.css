@@ -97,6 +97,18 @@ main {
   background-color: #e74c3c;
 }
 
+#built-in-rotate {
+  background-image: url("/images/turn.svg");
+}
+
+#built-in-stop {
+  background-image: url("/images/stop.svg");
+}
+
+#built-in-dash {
+  background-image: url("/images/dash.svg");
+}
+
 #blocks .playing-mode-button {
   background-color: #3498db;
 }
