@@ -11,7 +11,7 @@ function BlockManager(editor) {
   const blockElements = document.querySelectorAll("[data-block-index]");
   Array.prototype.forEach.call(blockElements, (block, i) => {
     if (/^built-in-+/.test(block.id)) {
-      this.blocks.push(new Block(i, block, this, block.id.replace(/built-in-/, "")));
+      this.blocks.push(new Block(i, block, this, block.id.replace(/^built-in-/, "")));
     } else {
       this.blocks.push(new Block(i, block, this));
     }
