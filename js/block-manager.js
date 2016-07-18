@@ -5,7 +5,16 @@ function BlockManager(editor) {
   if (typeof BlockManager.instance === "object") {
     return BlockManager.instance;
   }
-  const builtInBlockCommands = ["rotate", "stop", "dash"];
+  const builtInBlockCommands = [{
+    name: "rotate",
+    image: "images/turn.svg"
+  }, {
+    name: "stop",
+    image: "images/stop.svg"
+  }, {
+    name: "dash",
+    image: "images/dash.svg"
+  }];
 
   this.editor = editor;
 
@@ -13,7 +22,8 @@ function BlockManager(editor) {
   const blockElements = document.querySelectorAll("[data-block-index]");
   Array.prototype.forEach.call(blockElements, (block, i) => {
     if (i < builtInBlockCommands.length) {
-      this.blocks.push(new Block(i, block, this, builtInBlockCommands[i]));
+      block.style.backgroundImage = `url(${builtInBlockCommands[i].image})`;
+      this.blocks.push(new Block(i, block, this, builtInBlockCommands[i].name));
     } else {
       this.blocks.push(new Block(i, block, this));
     }
