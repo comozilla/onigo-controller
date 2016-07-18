@@ -81,7 +81,6 @@ main {
 }
 
 #blocks button {
-  display: block;
   width: 150px;
   height: 150px;
   color: white;
@@ -89,10 +88,25 @@ main {
   border: none;
   border-radius: 20px;
   margin: 0 0 10px 10px;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  padding-top: calc(150px - 2em);
 }
 
 #blocks .built-in-command-button {
   background-color: #e74c3c;
+}
+
+#built-in-rotate {
+  background-image: url("/images/turn.svg");
+}
+
+#built-in-stop {
+  background-image: url("/images/stop.svg");
+}
+
+#built-in-dash {
+  background-image: url("/images/dash.svg");
 }
 
 #blocks .playing-mode-button {
@@ -108,13 +122,30 @@ main {
   box-shadow: none;
 }
 
-footer {
-  width: 100%;
-  text-align: right;
+.block-new {
+  background-image: url("/images/new.svg");
 }
 
-footer span, footer button {
-  display: inline-block;
+.block-zigzag {
+  background-image: url("/images/zigzag.svg");
+}
+
+.block-light {
+  background-image: url("/images/light.svg");
+}
+
+.block-custom {
+  background-image: url("/images/custom.svg");
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+footer span, footer button, img {
   font-size: 16px;
   padding: 5px;
   margin: 5px;
@@ -148,12 +179,14 @@ footer div {
 }
 
 .active-banner {
-  display: block;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex: 1;
 }
 
 #switch-mode-button {
   background-color: #16a085;
-  float: right;
 }
 
 #inactive-screen {

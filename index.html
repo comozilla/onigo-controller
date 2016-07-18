@@ -14,9 +14,9 @@
   <main>
     <div id="blocks">
       <div class="row">
-        <button data-block-index="0">回転</button>
-        <button data-block-index="1">停止</button>
-        <button data-block-index="2">加速</button>
+        <button data-block-index="0" id="built-in-rotate">回転</button>
+        <button data-block-index="1" id="built-in-stop">停止</button>
+        <button data-block-index="2" id="built-in-dash">加速</button>
       </div>
       <div class="row">
         <button data-block-index="3"></button>
@@ -44,18 +44,18 @@
     </div>
   </main>
   <footer>
-    <button id="switch-mode-button">モードきりかえ</button>
     <div id="making-mode-banner">
-      <span id="mode">つくるモード</span>
-      <button>ほぞん</button>
+      <button style="display: none">ほぞん</button>
+      <img src="images/mode-make.svg" />
     </div>
     <div id="playing-mode-banner">
-      <span id="mode">プレイモード</span>
       <span id="game-status-label">ゲームは開始されていません！</span>
       <span id="hp">100</span>
-      <span id="demon">おに</span>
-      <button id="calibration-button">位置補正</button>
+      <img src="images/oni.svg" height="86" />
+      <button id="calibration-button" style="display: none">位置補正</button>
+      <img src="images/mode-play.svg" />
     </div>
+    <button id="switch-mode-button">モードきりかえ</button>
   </footer>
 </body>
 </html>

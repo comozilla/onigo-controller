@@ -5,24 +5,25 @@ function BlockManager(editor) {
   if (typeof BlockManager.instance === "object") {
     return BlockManager.instance;
   }
-  const builtInBlockCommands = ["rotate", "stop", "dash"];
-
   this.editor = editor;
 
   this.blocks = [];
   const blockElements = document.querySelectorAll("[data-block-index]");
   Array.prototype.forEach.call(blockElements, (block, i) => {
-    if (i < builtInBlockCommands.length) {
-      this.blocks.push(new Block(i, block, this, builtInBlockCommands[i]));
+    if (/^built-in-+/.test(block.id)) {
+      this.blocks.push(new Block(i, block, this, block.id.replace(/^built-in-/, "")));
     } else {
       this.blocks.push(new Block(i, block, this));
     }
   });
 
   eventPublisher.subscribe("availableCommandsCount", count => {
-    // 0-2番のblockはbuilt-in-command-button
-    for (let i = builtInBlockCommands.length; i < blockElements.length; i++) {
-      this.blocks[i].setEnable(i < builtInBlockCommands.length + count);
+    for (let i = 0, builtInBlockCount = 0; i < blockElements.length; i++) {
+      if (this.blocks[i].builtInCommandName === null) {
+        this.blocks[i].setEnable(i < count + builtInBlockCount);
+      } else {
+        builtInBlockCount++;
+      }
     }
   });
 
