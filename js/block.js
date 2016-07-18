@@ -1,6 +1,14 @@
 import eventPublisher from "./publisher";
 import mode from "./mode";
 
+const customSymbol = Symbol("custom");
+const classes = new Map([
+  ["NEW!", "block-new"],
+  ["ジグザグ", "block-zigzag"],
+  ["光る", "block-light"],
+  [customSymbol, "block-custom"]
+]);
+
 function Block(blockId, element, blockManager, builtInCommandName) {
   this.blockId = blockId;
   this.element = element;
@@ -74,13 +82,6 @@ Block.prototype.showBlockName = function() {
   if (this.builtInCommandName === null && this.enable) {
     this.element.textContent = this.blockName;
 
-    const customSymbol = Symbol("custom");
-    const classes = new Map([
-      ["NEW!", "block-new"],
-      ["ジグザグ", "block-zigzag"],
-      ["光る", "block-light"],
-      [customSymbol, "block-custom"]
-    ]);
     const blockName = classes.has(this.blockName) ? this.blockName : customSymbol;
     for (let className of classes.values()) {
       if (className !== classes.get(blockName)) {
