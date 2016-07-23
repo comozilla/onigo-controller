@@ -3,6 +3,7 @@ const Sphero = sphero;
 
 function SpheroClient(wsHost) {
   this.wsHost = wsHost;
+  this.clientKey = null;
 
   if (typeof Sphero === "undefined") {
     eventPublisher.publish("ws-not-found");
@@ -32,6 +33,12 @@ function SpheroClient(wsHost) {
     });
     this.orb.listenCustomMessage("availableCommandsCount", data => {
       eventPublisher.publish("availableCommandsCount", data.count);
+    });
+    this.orb.listenCustomMessage("oni", enable => {
+      eventPublisher.publish("oni", enable);
+    });
+    this.orb.listenCustomMessage("clientKey", key => {
+      this.clientKey = key;
     });
   }
 }
