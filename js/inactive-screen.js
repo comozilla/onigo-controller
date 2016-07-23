@@ -16,7 +16,7 @@ function InactiveScreen() {
 }
 
 InactiveScreen.prototype.changeStatus = function(screenState) {
-  this.inactiveScreen.classList.remove("screen-game-active");
+  this.inactiveScreen.classList.add("screen-active");
   switch (screenState) {
   case "connecting":
     this.inactiveInner.textContent = "サーバーに接続しています...";
@@ -28,7 +28,7 @@ InactiveScreen.prototype.changeStatus = function(screenState) {
     this.inactiveInner.textContent = "通信でエラーが発生しました";
     break;
   case "active":
-    this.inactiveScreen.classList.add("screen-game-active");
+    this.inactiveScreen.classList.remove("screen-active");
     break;
   default:
     break;

@@ -189,7 +189,7 @@ footer div {
   background-color: #16a085;
 }
 
-#inactive-screen {
+.screen {
   position: fixed;
   left: 0;
   top: 0;
@@ -197,20 +197,40 @@ footer div {
   height: 100%;
   z-index: 5;
   background-color: rgba(0, 0, 0, 0.6);
-}
-
-.screen-game-active {
   display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-#inactive-inner {
+.screen-active {
+  display: flex;
+}
+
+.screen > div {
   width: 100%;
   text-align: center;
   background-color: black;
   color: white;
-  position: absolute;
-  top: 50%;
   padding: 20px 0;
-  transform: translateY(-50%);
+  height: 50vh;
+}
+
+#result-inner {
+  display: flex;
+}
+
+#result-inner > div {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#ranking ol, #result-oni ul {
+  flex: 1;
+  overflow-y: scroll;
+  margin: 0;
+  padding: 0;
 }
 
