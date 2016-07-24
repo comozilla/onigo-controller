@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
   new InactiveScreen();
   const spheroClient = new SpheroClient("ws://localhost:8080");
   new ResultScreen();
-  new ControllerNameScreen();
+  new ControllerNameScreen(spheroClient);
   new HPBoard(document.getElementById("hp"));
   new OniBoard(document.getElementById("oni"));
   new GameStatusLabel(document.getElementById("game-status-label"));
