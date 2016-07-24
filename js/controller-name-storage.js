@@ -6,7 +6,7 @@ ControllerNameStorage.prototype.has = function() {
 };
 
 ControllerNameStorage.prototype.set = function(name) {
-  return localStorage.setItem("controller-name", name);
+  localStorage.setItem("controller-name", name);
 };
 
 ControllerNameStorage.prototype.get = function() {
