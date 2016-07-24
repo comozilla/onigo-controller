@@ -276,6 +276,10 @@ footer div {
   background-color: #e74c3c;
 }
 
+#controller-name-screen {
+  z-index: 6;
+}
+
 #controller-name-inner {
   display: flex;
   flex-direction: column;
