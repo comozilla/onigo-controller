@@ -16,22 +16,24 @@ function InactiveScreen() {
 }
 
 InactiveScreen.prototype.changeStatus = function(screenState) {
+  if (screenState === "active") {
+    this.inactiveScreen.classList.remove("screen-active");
+    return;
+  }
   this.inactiveScreen.classList.add("screen-active");
   switch (screenState) {
-  case "connecting":
-    this.inactiveInner.textContent = "サーバーに接続しています...";
-    break;
-  case "not-found":
-    this.inactiveInner.textContent = "サーバーが見つかりませんでした";
-    break;
-  case "error":
-    this.inactiveInner.textContent = "通信でエラーが発生しました";
-    break;
-  case "active":
-    this.inactiveScreen.classList.remove("screen-active");
-    break;
-  default:
-    break;
+    case "connecting":
+      this.inactiveInner.textContent = "サーバーに接続しています...";
+      break;
+    case "not-found":
+      this.inactiveInner.textContent = "サーバーが見つかりませんでした";
+      break;
+    case "error":
+      this.inactiveInner.textContent = "通信でエラーが発生しました";
+      break;
+    // ESLintで↓がないとおこられる
+    default:
+      break;
   }
 };
 
