@@ -227,10 +227,51 @@ footer div {
   flex-direction: column;
 }
 
-#ranking ol, #result-oni ul {
+#ranking, #result-oni {
   flex: 1;
   overflow-y: scroll;
   margin: 0;
   padding: 0;
 }
 
+#ranking li {
+  width: 100%;
+  padding: 5px 0;
+}
+
+#ranking li span {
+  background-color: #c0392b;
+  padding: 4px;
+  border-radius: 10px;
+  color: white;
+  margin-left: 10px;
+  font-size: 13px;
+}
+
+#ranking li span::before {
+  content: "HP: "
+}
+
+#ranking [data-rank="1"] {
+  background-color: #f39c12;
+}
+
+#ranking [data-rank="1"] span {
+  background-color: #f1c40f;
+}
+
+#ranking [data-rank="2"] {
+  background-color: #95a5a6;
+}
+
+#ranking [data-rank="2"] span {
+  background-color: #bdc3c7;
+}
+
+#ranking [data-rank="3"] {
+  background-color: #c0392b;
+}
+
+#ranking [data-rank="3"] span {
+  background-color: #e74c3c;
+}

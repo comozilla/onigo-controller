@@ -35,7 +35,7 @@ function SpheroClient(wsHost) {
       eventPublisher.publish("rankingState", rankingState);
     });
     this.orb.listenCustomMessage("ranking", ranking => {
-      console.log(ranking);
+      eventPublisher.publish("ranking", ranking);
     });
     this.orb.listenCustomMessage("availableCommandsCount", data => {
       eventPublisher.publish("availableCommandsCount", data.count);
