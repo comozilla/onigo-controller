@@ -4,6 +4,7 @@ const Sphero = sphero;
 function SpheroClient(wsHost) {
   this.wsHost = wsHost;
   this.clientKey = null;
+  this.orb = null;
 
   if (typeof Sphero === "undefined") {
     eventPublisher.publish("ws-not-found");
@@ -46,8 +47,26 @@ function SpheroClient(wsHost) {
     this.orb.listenCustomMessage("clientKey", key => {
       this.clientKey = key;
     });
+    this.orb.listenCustomMessage("acceptName", name => {
+      eventPublisher.publish("acceptName", name);
+    });
+    this.orb.listenCustomMessage("rejectName", () => {
+      eventPublisher.publish("rejectName", name);
+    });
   }
 }
+
+SpheroClient.prototype.requestName = function(name) {
+  if (this.orb !== null) {
+    this.orb.sendCustomMessage("requestName", name);
+  }
+};
+
+SpheroClient.prototype.useDefinedName = function(name) {
+  if (this.orb !== null) {
+    this.orb.sendCustomMessage("useDefinedName", name);
+  }
+};
 
 export default SpheroClient;
 
