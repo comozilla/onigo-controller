@@ -1,6 +1,10 @@
 import eventPublisher from "./publisher";
 import Command from "./command";
 
+const commandArgs = {
+  roll: ["number", "number"]
+};
+
 let instance = null;
 
 function Parser(logElement) {
@@ -9,39 +13,43 @@ function Parser(logElement) {
   }
   this.logElement = logElement;
   eventPublisher.subscribe("saveMotion", motion => {
-    try {
-      const rawFunction = new Function("sequence", motion.motion.motionCode);
-      // 1回目（テスト）
-      rawFunction({
-        command: function(commandName, args, time) {
-          const errors = [];
-          if (typeof commandName !== "string") {
-            errors.push("コマンド名が正しくないところがあります。");
+    const rawFunction = Function.apply(window, [Object.keys(commandArgs), motion.motion.motionCode].reduce((a, b) => {
+      return a.concat(b);
+    }));
+    const commands = [];
+    let isError = false;
+    rawFunction.apply(window, Object.keys(commandArgs).map(commandName => {
+      return function() {
+        const args = [];
+        commandArgs[commandName].forEach((argType, index) => {
+          if (index >= arguments.length) {
+            this.log(`${index}番目の引数が指定されていません。 at ${commandName}()`, "error");
+            isError = true;
+          } else if (typeof arguments[index] !== argType) {
+            this.log(`${index}番目の引数の型は${argType}ですが、${typeof arguments[index]}が指定されています。 at ${commandName}()`, "error");
+            isError = true;
+          } else {
+            args.push(arguments[index]);
           }
-          if (!Array.isArray(args)) {
-            errors.push("コマンドの引数が正しくないところがあります。");
-          }
+        });
+        if (commandArgs[commandName].length >= arguments.length) {
+          this.log(`時間を指定してください。 at ${commandName}()`, "error");
+          isError = true;
+        } else {
+          const time = arguments[commandArgs[commandName].length];
           if (typeof time !== "number") {
-            errors.push("時間が数値ではありません。");
+            this.log(`時間が数値ではありません。 at ${commandName}()`, "error");
+            isError = true;
           }
-
-          if (errors.length > 0) {
-            throw new Error(errors.join("\n"));
+          if (!isError) {
+            commands.push(new Command(commandName, args, time));
           }
         }
-      });
-
-      // 2回目（本番）
-      const commands = [];
-      rawFunction({
-        command: function(commandName, args, time) {
-          commands.push(new Command(commandName, args, time));
-        }
-      });
+      };
+    }));
+    if (!isError) {
       eventPublisher.publish("compile", { motion, commands });
       this.log("コードのParseは正しく完了しました。", "success");
-    } catch (e) {
-      this.log(e.message, "error");
     }
   });
   instance = this;
