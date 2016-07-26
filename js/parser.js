@@ -11,7 +11,8 @@ const commandArgs = {
 
 // motionSpecialData を使用できる関数
 const availableFunctionArgs = {
-  random: ["number", "number"]
+  randomRange: ["number", "number"],
+  randomInArray: ["object"]
 };
 
 let instance = null;
