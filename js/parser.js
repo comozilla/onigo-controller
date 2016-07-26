@@ -32,50 +32,42 @@ function Parser(logElement) {
       return a.concat(b);
     }));
     const commands = [];
-    let isError = false;
     try {
+      const errors = [];
       rawFunction.apply(window, Object.keys(commandArgs).map(commandName => {
         return function() {
           const validateResult = validateArgumentsType(arguments, commandArgs[commandName], true);
           validateResult.errors.forEach(error => {
-            this.log(error + " at " + commandName + "()", "error");
-            isError = true;
+            errors.push(error + " at " + commandName + "()");
           });
           if (commandArgs[commandName].length >= arguments.length) {
-            this.log(`時間を指定してください。 at ${commandName}()`, "error");
-            isError = true;
+            errors.push(`時間を指定してください。 at ${commandName}()`);
           } else {
             const time = arguments[commandArgs[commandName].length];
             if (typeof time !== "number") {
-              this.log(`時間が数値ではありません。 at ${commandName}()`, "error");
-              isError = true;
+              errors.push(`時間が数値ではありません。 at ${commandName}()`);
             } else if (time < 0.5) {
-              this.log(`時間は0.5以上を使用してください。 at ${commandName}()`, "error");
-              isError = true;
+              errors.push(`時間は0.5以上を使用してください。 at ${commandName}()`);
             }
-            if (!isError) {
-              commands.push(new Command(commandName, validateResult.arrayArgs, time));
-            }
+            commands.push(new Command(commandName, validateResult.arrayArgs, time));
           }
         }.bind(this);
       }).concat(Object.keys(availableFunctionArgs).map(functionName => {
         return function() {
           const validateResult = validateArgumentsType(arguments, availableFunctionArgs[functionName], false);
           validateResult.errors.forEach(error => {
-            this.log(error + " at " + functionName + "()", "error");
-            isError = true;
+            errors.push(error + " at " + functionName + "()");
           });
           return new MotionSpecialData(functionName, validateResult.arrayArgs);
         }.bind(this);
       })));
-    } catch (error) {
-      this.log(error.message, "error");
-      console.error(error);
-      isError = true;
-    }
-    if (!isError) {
+      if (errors.length > 0) {
+        throw new Error(errors.join("\n"));
+      }
       eventPublisher.publish("compile", { motion, commands });
       this.log("コードのParseは正しく完了しました。", "success");
+    } catch (error) {
+      this.log(error.message, "error");
     }
   });
   instance = this;
