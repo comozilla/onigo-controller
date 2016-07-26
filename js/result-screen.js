@@ -27,15 +27,15 @@ function ResultScreen() {
       const playerListItem = document.createElement("li");
       playerListItem.dataset.rank = rank;
       playerListItem.value = rank;
-      playerListItem.textContent = player.key;
+      playerListItem.textContent = player.name;
       const hpElement = document.createElement("span");
       hpElement.textContent = player.hp;
       playerListItem.appendChild(hpElement);
       this.rankingElement.appendChild(playerListItem);
     });
-    rankingDetail.onis.forEach(key => {
+    rankingDetail.onis.forEach(name => {
       const oniListItem = document.createElement("li");
-      oniListItem.textContent = key;
+      oniListItem.textContent = name;
       this.oniElement.appendChild(oniListItem);
     });
   });
