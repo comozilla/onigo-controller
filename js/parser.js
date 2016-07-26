@@ -13,6 +13,7 @@ function Parser(logElement) {
   }
   this.logElement = logElement;
   eventPublisher.subscribe("saveMotion", motion => {
+    this.clear();
     const rawFunction = Function.apply(window, [Object.keys(commandArgs), motion.motion.motionCode].reduce((a, b) => {
       return a.concat(b);
     }));
@@ -70,6 +71,10 @@ Parser.prototype.log = function(rawMessage, logType) {
     .replace(/\n/g, "<br />");
   this.logElement.innerHTML +=
     logTypeChars[logType][0] + message + logTypeChars[logType][1] + "<br />";
+};
+
+Parser.prototype.clear = function() {
+  this.logElement.innerHTML = "";
 };
 
 export default Parser;
