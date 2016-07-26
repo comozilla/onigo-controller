@@ -2,7 +2,10 @@ import eventPublisher from "./publisher";
 import Command from "./command";
 
 const commandArgs = {
-  roll: ["number", "number"]
+  roll: ["number", "number"],
+  rotate: ["number"],
+  stop: [],
+  dash: ["number", "number"]
 };
 
 let instance = null;
