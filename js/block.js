@@ -1,5 +1,6 @@
 import eventPublisher from "./publisher";
 import mode from "./mode";
+import Command from "./command";
 
 const customSymbol = Symbol("custom");
 const classes = new Map([
@@ -9,11 +10,11 @@ const classes = new Map([
   [customSymbol, "block-custom"]
 ]);
 
-function Block(blockId, element, blockManager, builtInCommandName) {
+function Block(blockId, element, blockManager, builtInCommand) {
   this.blockId = blockId;
   this.element = element;
 
-  this.builtInCommandName = typeof builtInCommandName === "string" ? builtInCommandName : null;
+  this.builtInCommand = typeof builtInCommand !== "undefined" ? builtInCommand : null;
 
   this.enable = true;
   this.blockManager = blockManager;
@@ -23,20 +24,17 @@ function Block(blockId, element, blockManager, builtInCommandName) {
   this.motion = null;
   this.sequence = null;
 
-  if (this.builtInCommandName !== null) {
+  if (this.builtInCommand !== null) {
     this.element.classList.add("built-in-command-button");
   }
 
   this.element.addEventListener("click", () => {
-    if (this.mode === mode.making && this.builtInCommandName === null) {
+    if (this.mode === mode.making && this.builtInCommand === null) {
       this.blockManager.editor.open(this.blockId, this.motion);
     } else if (this.mode === mode.playing) {
       if (this.gameState === "active") {
-        if (this.builtInCommandName !== null) {
-          eventPublisher.publish("changeCurrentCommands", {
-            type: "built-in",
-            command: this.builtInCommandName
-          });
+        if (this.builtInCommand !== null) {
+          eventPublisher.publish("changeCurrentCommands", [this.builtInCommand]);
         } else {
           eventPublisher.publish("changeCurrentCommands", this.sequence);
         }
@@ -79,7 +77,7 @@ Block.prototype.setEnable = function(enable) {
 };
 
 Block.prototype.showBlockName = function() {
-  if (this.builtInCommandName === null && this.enable) {
+  if (this.builtInCommand === null && this.enable) {
     this.element.textContent = this.blockName;
 
     const blockName = classes.has(this.blockName) ? this.blockName : customSymbol;

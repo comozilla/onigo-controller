@@ -41,6 +41,9 @@ function Parser(logElement) {
           if (typeof time !== "number") {
             this.log(`時間が数値ではありません。 at ${commandName}()`, "error");
             isError = true;
+          } else if (time < 0.5) {
+            this.log(`時間は0.5以上を使用してください。 at ${commandName}()`, "error");
+            isError = true;
           }
           if (!isError) {
             commands.push(new Command(commandName, args, time));
