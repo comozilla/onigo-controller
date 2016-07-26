@@ -45,7 +45,7 @@ function Parser(logElement) {
             commands.push(new Command(commandName, args, time));
           }
         }
-      };
+      }.bind(this);
     }));
     if (!isError) {
       eventPublisher.publish("compile", { motion, commands });
