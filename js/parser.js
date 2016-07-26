@@ -1,11 +1,17 @@
 import eventPublisher from "./publisher";
 import Command from "./command";
+import MotionSpecialData from "./motion-special-data";
 
 const commandArgs = {
   roll: ["number", "number"],
   rotate: ["number"],
   stop: [],
   dash: ["number", "number"]
+};
+
+// motionSpecialData を使用できる関数
+const availableFunctionArgs = {
+  random: ["number", "number"]
 };
 
 let instance = null;
@@ -17,43 +23,55 @@ function Parser(logElement) {
   this.logElement = logElement;
   eventPublisher.subscribe("saveMotion", motion => {
     this.clear();
-    const rawFunction = Function.apply(window, [Object.keys(commandArgs), motion.motion.motionCode].reduce((a, b) => {
+    const rawFunction = Function.apply(
+      window,
+      [Object.keys(commandArgs),
+       Object.keys(availableFunctionArgs),
+       motion.motion.motionCode].reduce((a, b) => {
       return a.concat(b);
     }));
     const commands = [];
     let isError = false;
-    rawFunction.apply(window, Object.keys(commandArgs).map(commandName => {
-      return function() {
-        const args = [];
-        commandArgs[commandName].forEach((argType, index) => {
-          if (index >= arguments.length) {
-            this.log(`${index}番目の引数が指定されていません。 at ${commandName}()`, "error");
+    try {
+      rawFunction.apply(window, Object.keys(commandArgs).map(commandName => {
+        return function() {
+          const validateResult = validateArgumentsType(arguments, commandArgs[commandName], true);
+          validateResult.errors.forEach(error => {
+            this.log(error + " at " + commandName + "()", "error");
             isError = true;
-          } else if (typeof arguments[index] !== argType) {
-            this.log(`${index}番目の引数の型は${argType}ですが、${typeof arguments[index]}が指定されています。 at ${commandName}()`, "error");
+          });
+          if (commandArgs[commandName].length >= arguments.length) {
+            this.log(`時間を指定してください。 at ${commandName}()`, "error");
             isError = true;
           } else {
-            args.push(arguments[index]);
+            const time = arguments[commandArgs[commandName].length];
+            if (typeof time !== "number") {
+              this.log(`時間が数値ではありません。 at ${commandName}()`, "error");
+              isError = true;
+            } else if (time < 0.5) {
+              this.log(`時間は0.5以上を使用してください。 at ${commandName}()`, "error");
+              isError = true;
+            }
+            if (!isError) {
+              commands.push(new Command(commandName, validateResult.arrayArgs, time));
+            }
           }
-        });
-        if (commandArgs[commandName].length >= arguments.length) {
-          this.log(`時間を指定してください。 at ${commandName}()`, "error");
-          isError = true;
-        } else {
-          const time = arguments[commandArgs[commandName].length];
-          if (typeof time !== "number") {
-            this.log(`時間が数値ではありません。 at ${commandName}()`, "error");
+        }.bind(this);
+      }).concat(Object.keys(availableFunctionArgs).map(functionName => {
+        return function() {
+          const validateResult = validateArgumentsType(arguments, availableFunctionArgs[functionName], false);
+          validateResult.errors.forEach(error => {
+            this.log(error + " at " + functionName + "()", "error");
             isError = true;
-          } else if (time < 0.5) {
-            this.log(`時間は0.5以上を使用してください。 at ${commandName}()`, "error");
-            isError = true;
-          }
-          if (!isError) {
-            commands.push(new Command(commandName, args, time));
-          }
-        }
-      }.bind(this);
-    }));
+          });
+          return new MotionSpecialData(functionName, validateResult.arrayArgs);
+        }.bind(this);
+      })));
+    } catch (error) {
+      this.log(error.message, "error");
+      console.error(error);
+      isError = true;
+    }
     if (!isError) {
       eventPublisher.publish("compile", { motion, commands });
       this.log("コードのParseは正しく完了しました。", "success");
@@ -82,6 +100,24 @@ Parser.prototype.log = function(rawMessage, logType) {
 Parser.prototype.clear = function() {
   this.logElement.innerHTML = "";
 };
+
+function validateArgumentsType(args, types, isAcceptSpecialData) {
+  const errors = [];
+  const arrayArgs = [];
+  types.forEach((type, index) => {
+    if (index >= args.length) {
+      errors.push(`${index + 1}番目の引数が指定されていません。`);
+    } else if (typeof args[index] !== type && !(isAcceptSpecialData && args[index] instanceof MotionSpecialData)) {
+      errors.push(`${index + 1}番目の引数の型は${type}ですが、${typeof args[index]}が指定されています。`);
+    } else {
+      arrayArgs.push(args[index]);
+    }
+  });
+  return {
+    errors,
+    arrayArgs
+  };
+}
 
 export default Parser;
 
