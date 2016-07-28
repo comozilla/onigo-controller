@@ -10,6 +10,7 @@ import ModeManager from "./mode-manager";
 import BlockManager from "./block-manager";
 import Editor from "./editor";
 import Parser from "./parser";
+import Backup from "./backup";
 
 // webpack
 import "../css/style.css";
@@ -29,9 +30,14 @@ document.addEventListener("DOMContentLoaded", function() {
   new ModeManager();
   new BlockManager(editor);
   new Parser(document.getElementById("parse-log"));
+  const backup = new Backup();
+  if (backup.has()) {
+    backup.restore();
+  }
   window.ocConsole = {
     getClientId: function() {
       return spheroClient.clientKey;
-    }
+    },
+    backup: backup
   };
 });

@@ -1,4 +1,5 @@
 import eventPublisher from "./publisher";
+import Motion from "./motion";
 
 function Backup() {
   this.motions = {};
@@ -7,25 +8,34 @@ function Backup() {
       code: args.motion.motion.motionCode,
       blockName: args.motion.motion.motionName
     };
-    save.call(this);
+    this.save();
   });
 }
 
 Backup.prototype.restore = function() {
-};
-
-function save() {
-  if (localStorage.length >= 10) {
-    const keys = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (!isNaN(key)) {
-        keys.push(parseInt(key));
-      }
-    }
-    localStorage.removeItem(keys.sort()[0]);
+  if (!this.has()) {
+    throw new Error("restoreしようとしましたが、backupは存在しません");
   }
-  localStorage.setItem(Date.now(), this.motions);
+  const backup = JSON.parse(localStorage.getItem("backup"));
+  debugger;
+  Object.keys(backup).forEach(motionId => {
+    eventPublisher.publish("saveMotion", {
+      motionId: parseInt(motionId),
+      motion: new Motion(backup[motionId].blockName, backup[motionId].code)
+    });
+  });
 };
 
-module.exports = Backup;
+Backup.prototype.has = function() {
+  return localStorage.getItem("backup") !== null;
+};
+
+Backup.prototype.save = function() {
+  localStorage.setItem("backup", JSON.stringify(this.motions));
+};
+
+Backup.prototype.clear = function() {
+  localStorage.removeItem("backup");
+};
+
+export default Backup;
