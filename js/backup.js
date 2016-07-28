@@ -4,9 +4,9 @@ import Motion from "./motion";
 function Backup() {
   this.motions = {};
   eventPublisher.subscribe("compile", args => {
-    this.motions[args.motion.motionId] = {
-      code: args.motion.motion.motionCode,
-      blockName: args.motion.motion.motionName
+    this.motions[args.motionId] = {
+      code: args.motion.motionCode,
+      blockName: args.motion.motionName
     };
     this.save();
   });
