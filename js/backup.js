@@ -1,6 +1,6 @@
 import eventPublisher from "./publisher";
 
-function BackupSystem() {
+function Backup() {
   this.motions = {};
   eventPublisher.subscribe("compile", args => {
     this.motions[args.motion.motionId] = {
@@ -11,7 +11,7 @@ function BackupSystem() {
   });
 }
 
-BackupSystem.prototype.restore = function() {
+Backup.prototype.restore = function() {
 };
 
 function save() {
@@ -28,4 +28,4 @@ function save() {
   localStorage.setItem(Date.now(), this.motions);
 };
 
-module.exports = BackupSystem;
+module.exports = Backup;
