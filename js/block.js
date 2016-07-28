@@ -52,10 +52,10 @@ function Block(blockId, element, blockManager, builtInCommand) {
   });
 
   eventPublisher.subscribe("compile", args => {
-    if (args.motion.motionId === this.blockId) {
+    if (args.motionId === this.blockId) {
       this.sequence = args.commands;
-      this.motion = args.motion.motion;
-      this.blockName = args.motion.motion.motionName;
+      this.motion = args.motion;
+      this.blockName = args.motion.motionName;
       this.showBlockName();
     }
   });

@@ -22,11 +22,11 @@ function Parser(logElement) {
     return instance;
   }
   this.logElement = logElement;
-  eventPublisher.subscribe("saveMotion", motion => {
+  eventPublisher.subscribe("saveMotion", motionDetails => {
     this.clear();
     const commands = [];
     const errors = [];
-    const rawFunctionArgList = [Object.keys(commandArgs), Object.keys(availableFunctionArgs), motion.motion.motionCode].reduce((a, b) => {
+    const rawFunctionArgList = [Object.keys(commandArgs), Object.keys(availableFunctionArgs), motionDetails.motion.motionCode].reduce((a, b) => {
       return a.concat(b);
     });
     const rawFunctionArgs = Object.keys(commandArgs).map(commandName => {
@@ -66,7 +66,11 @@ function Parser(logElement) {
     if (errors.length > 0) {
       this.log(errors.join("\n"), "error");
     } else {
-      eventPublisher.publish("compile", { motion, commands });
+      eventPublisher.publish("compile", {
+        motion: motionDetails.motion,
+        motionId: motionDetails.motionId,
+        commands
+      });
       this.log("コードのParseは正しく完了しました。", "success");
     }
   });
