@@ -17,7 +17,6 @@ Backup.prototype.restore = function() {
     throw new Error("restoreしようとしましたが、backupは存在しません");
   }
   const backup = JSON.parse(localStorage.getItem("backup"));
-  debugger;
   Object.keys(backup).forEach(motionId => {
     eventPublisher.publish("saveMotion", {
       motionId: parseInt(motionId),
