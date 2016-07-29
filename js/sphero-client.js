@@ -52,6 +52,9 @@ function SpheroClient(wsHost) {
     this.orb.listenCustomMessage("rejectName", () => {
       eventPublisher.publish("rejectName", name);
     });
+    this.orb.listenCustomMessage("color", color => {
+      eventPublisher.publish("color", color);
+    });
   }
 }
 
