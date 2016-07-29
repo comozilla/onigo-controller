@@ -12,7 +12,6 @@ function SpheroClient(wsHost) {
     this.orb = new Sphero();
     this.orb.connect(this.wsHost, () => {
       eventPublisher.publish("ws-connected");
-      this.orb.color("red");
       eventPublisher.subscribe("spheroState", spheroState => {
         if (spheroState === "idling") {
           this.orb.finishCalibration();
