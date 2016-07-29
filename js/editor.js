@@ -50,12 +50,6 @@ Editor.prototype.open = function(blockId, motion) {
   }
   this.openingMotionId = blockId;
 
-  const currentEditingBlock = document.querySelector(".editing-block");
-  if (currentEditingBlock !== null) {
-    currentEditingBlock.classList.remove("editing-block");
-  }
-  document.querySelector(`[data-block-index="${this.openingMotionId}"]`)
-    .classList.add("editing-block");
   if (motion !== null) {
     this.motionNameElement.value = motion.motionName;
     this.editor.setValue(motion.motionCode, 0);
