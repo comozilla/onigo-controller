@@ -12,7 +12,6 @@ function SpheroClient(wsHost) {
     this.orb = new Sphero();
     this.orb.connect(this.wsHost, () => {
       eventPublisher.publish("ws-connected");
-      this.orb.color("red");
       eventPublisher.subscribe("spheroState", spheroState => {
         if (spheroState === "idling") {
           this.orb.finishCalibration();
@@ -26,11 +25,11 @@ function SpheroClient(wsHost) {
     }, () => {
       eventPublisher.publish("ws-error");
     });
-    this.orb.listenCustomMessage("hp", data => {
-      eventPublisher.publish("hp", data.hp);
+    this.orb.listenCustomMessage("hp", hp => {
+      eventPublisher.publish("hp", hp);
     });
-    this.orb.listenCustomMessage("gameState", data => {
-      eventPublisher.publish("gameState", data.gameState);
+    this.orb.listenCustomMessage("gameState", gameState => {
+      eventPublisher.publish("gameState", gameState);
     });
     this.orb.listenCustomMessage("rankingState", rankingState => {
       eventPublisher.publish("rankingState", rankingState);
@@ -38,8 +37,8 @@ function SpheroClient(wsHost) {
     this.orb.listenCustomMessage("ranking", ranking => {
       eventPublisher.publish("ranking", ranking);
     });
-    this.orb.listenCustomMessage("availableCommandsCount", data => {
-      eventPublisher.publish("availableCommandsCount", data.count);
+    this.orb.listenCustomMessage("availableCommandsCount", count => {
+      eventPublisher.publish("availableCommandsCount", count);
     });
     this.orb.listenCustomMessage("oni", enable => {
       eventPublisher.publish("oni", enable);
@@ -52,6 +51,9 @@ function SpheroClient(wsHost) {
     });
     this.orb.listenCustomMessage("rejectName", () => {
       eventPublisher.publish("rejectName", name);
+    });
+    this.orb.listenCustomMessage("color", color => {
+      eventPublisher.publish("color", color);
     });
   }
 }

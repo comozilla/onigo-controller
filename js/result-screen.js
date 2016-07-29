@@ -33,6 +33,7 @@ function ResultScreen() {
       playerListItem.appendChild(hpElement);
       this.rankingElement.appendChild(playerListItem);
     });
+    this.oniElement.innerHTML = "";
     rankingDetail.onis.forEach(name => {
       const oniListItem = document.createElement("li");
       oniListItem.textContent = name;
