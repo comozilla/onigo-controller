@@ -2,11 +2,11 @@ import eventPublisher from "./publisher";
 
 function OniBoard(element) {
   this.element = element;
-  eventPublisher.subscribe("oni", enable => {
-    if (enable) {
-      this.element.src = "images/oni.svg";
+  eventPublisher.subscribe("oni", isEnable => {
+    if (isEnable) {
+      this.element.classList.add("oni-enable");
     } else {
-      this.element.src = "images/light.svg";
+      this.element.classList.remove("oni-enable");
     }
   });
 }
