@@ -190,8 +190,31 @@ footer section {
   display: none;
 }
 
-#hp:before {
-  content: "HP:";
+#hp {
+  display: flex;
+  align-items: baseline;
+}
+
+#hp-text {
+  margin: 0;
+  padding: 0;
+}
+#playing-mode-banner #hp-bar {
+  margin: 0 3px;
+  padding: 0;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 100px;
+  height: 10px;
+}
+
+#hp-bar-inner {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: red;
+  width: 100%;
 }
 
 #playing-mode-banner > .oni-enable {
