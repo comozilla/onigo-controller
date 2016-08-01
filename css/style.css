@@ -304,7 +304,7 @@ footer section {
   font-size: 13px;
 }
 
-#ranking li span::before {
+#ranking li .ranking-hp::before {
   content: "HP: ";
 }
 
