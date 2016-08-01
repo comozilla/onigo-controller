@@ -1,68 +1,72 @@
 import eventPublisher from "./publisher";
+const Sphero = sphero;
 
 function SpheroClient(wsHost) {
-  this.speedOfAccuracy = 5;
-  this.degreeOfAccuracy = 5;
-  this.sendInterval = 100;
-  this._isBreaking = false;
   this.wsHost = wsHost;
+  this.clientKey = null;
+  this.orb = null;
 
-  this._beforeDegree = 0;
-  this.degree = 0;
-
-  this._beforeSpeed = 0;
-  this.speed = 0;
-
-  if (typeof sphero === "undefined") {
+  if (typeof Sphero === "undefined") {
     eventPublisher.publish("ws-not-found");
   } else {
-    this.orb = new sphero();
+    this.orb = new Sphero();
     this.orb.connect(this.wsHost, () => {
       eventPublisher.publish("ws-connected");
-      this.orb.color("red");
-      eventPublisher.subscribe("rollingDegree", (degree) => {
-        this._beforeDegree = this.degree;
-        this.degree = degree;
-        this._roll();
-      });
-      eventPublisher.subscribe("rollingSpeed", (speed) => {
-        this._beforeSpeed = this.speed;
-        this.speed = speed;
-        this._roll();
-      });
-
-      eventPublisher.subscribe("spheroState", (spheroState) => {
+      eventPublisher.subscribe("spheroState", spheroState => {
         if (spheroState === "idling") {
           this.orb.finishCalibration();
-        } else {
+        } else if (spheroState === "calibrating") {
           this.orb.startCalibration();
         }
+      });
+      eventPublisher.subscribe("changeCurrentCommands", commands => {
+        this.orb.sendCustomMessage("commands", commands);
       });
     }, () => {
       eventPublisher.publish("ws-error");
     });
-    this.orb.listenCustomMessage("hp", (data) => {
-      console.log(data);
-      eventPublisher.publish("hp", data.hp);
+    this.orb.listenCustomMessage("hp", hp => {
+      eventPublisher.publish("hp", hp);
     });
-    this.orb.listenCustomMessage("gameState", (data) => {
-      console.log(data);
-      eventPublisher.publish("gameState", data.gameState);
+    this.orb.listenCustomMessage("gameState", gameState => {
+      eventPublisher.publish("gameState", gameState);
+    });
+    this.orb.listenCustomMessage("rankingState", rankingState => {
+      eventPublisher.publish("rankingState", rankingState);
+    });
+    this.orb.listenCustomMessage("ranking", ranking => {
+      eventPublisher.publish("ranking", ranking);
+    });
+    this.orb.listenCustomMessage("availableCommandsCount", count => {
+      eventPublisher.publish("availableCommandsCount", count);
+    });
+    this.orb.listenCustomMessage("oni", enable => {
+      eventPublisher.publish("oni", enable);
+    });
+    this.orb.listenCustomMessage("clientKey", key => {
+      this.clientKey = key;
+    });
+    this.orb.listenCustomMessage("acceptName", name => {
+      eventPublisher.publish("acceptName", name);
+    });
+    this.orb.listenCustomMessage("rejectName", () => {
+      eventPublisher.publish("rejectName", name);
+    });
+    this.orb.listenCustomMessage("color", color => {
+      eventPublisher.publish("color", color);
     });
   }
 }
 
-SpheroClient.prototype._roll = function() {
-  if (this._isBreaking) {
-    return;
+SpheroClient.prototype.requestName = function(name) {
+  if (this.orb !== null) {
+    this.orb.sendCustomMessage("requestName", name);
   }
-  if (Math.abs(this.speed - this._beforeSpeed) > this.speedOfAccuracy ||
-      Math.abs(this.degree - this._beforeDegree) > this.degreeOfAccuracy) {
-    this._isBreaking = true;
-    setTimeout(() => {
-      this.orb.roll(this.speed, this.degree);
-      this._isBreaking = false;
-    }, this.sendInterval);
+};
+
+SpheroClient.prototype.useDefinedName = function(name) {
+  if (this.orb !== null) {
+    this.orb.sendCustomMessage("useDefinedName", name);
   }
 };
 

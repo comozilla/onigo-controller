@@ -1,25 +1,45 @@
-import Joystick from "./joystick";
 import CalibrationButton from "./calibration-button";
 import HPBoard from "./hp-board";
-import InactiveStatus from "./inactive-status";
-import SpheroStates from "./sphero-states";
+import OniBoard from "./oni-board";
+import ColorBoard from "./color-board";
+import GameStatusLabel from "./game-status-label";
+import InactiveScreen from "./inactive-screen";
+import ResultScreen from "./result-screen";
+import ControllerNameScreen from "./controller-name-screen";
 import SpheroClient from "./sphero-client";
+import ModeManager from "./mode-manager";
+import BlockManager from "./block-manager";
+import Editor from "./editor";
+import Parser from "./parser";
+import Backup from "./backup";
 
 // webpack
 import "../css/style.css";
+import "font-awesome";
+import "web-animations-js";
 
-var spheroStates;
-var spheroClient;
-var joystick;
-var calibrationButton;
-var hpBoard;
-var inactiveStatus;
-
-document.addEventListener("DOMContentLoaded",　function() {
-  inactiveStatus = new InactiveStatus();
-  spheroStates = new SpheroStates();
-  spheroClient = new SpheroClient("ws://localhost:8080");
-  joystick = new Joystick();
-  hpBoard = new HPBoard(document.getElementById("hp-box"))
-  calibrationButton = new CalibrationButton(document.getElementById("calibration-button"));
+document.addEventListener("DOMContentLoaded", function() {
+  const editor = new Editor();
+  new InactiveScreen();
+  const spheroClient = new SpheroClient("ws://localhost:8080");
+  new ResultScreen();
+  new ControllerNameScreen(spheroClient);
+  new HPBoard(document.getElementById("hp"));
+  new OniBoard(document.getElementById("oni"));
+  new ColorBoard(document.getElementById("color"));
+  new GameStatusLabel(document.getElementById("game-status-label"));
+  new CalibrationButton(document.getElementById("calibration-button"));
+  new ModeManager();
+  new BlockManager(editor);
+  new Parser(document.getElementById("parse-log"));
+  const backup = new Backup();
+  if (backup.has()) {
+    backup.restore();
+  }
+  window.ocConsole = {
+    getClientId: function() {
+      return spheroClient.clientKey;
+    },
+    backup: backup
+  };
 });
