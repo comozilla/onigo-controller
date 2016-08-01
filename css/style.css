@@ -161,7 +161,7 @@ footer {
   align-items: flex-end;
 }
 
-footer span, footer button, img {
+footer span, footer button, footer img, footer div {
   font-size: 16px;
   padding: 5px;
   margin: 5px;
@@ -186,12 +186,48 @@ footer span, footer button, img {
   background-color: #8e44ad;
 }
 
-footer div {
+footer section {
   display: none;
 }
 
-#hp:before {
-  content: "HP:";
+#hp {
+  display: flex;
+  align-items: baseline;
+}
+
+#hp-text {
+  margin: 0;
+  padding: 0;
+}
+
+#hp-bar {
+  margin: 0 3px;
+  padding: 0;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 100px;
+  height: 10px;
+}
+
+#hp-bar-inner {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: red;
+  width: 100%;
+}
+
+#playing-mode-banner > .oni-enable {
+  background-image: url("/images/player-oni.svg");
+}
+
+#oni {
+  background-image: url("/images/player-normal.svg");
+  width: 90px;
+  height: 90px;
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
 #color {

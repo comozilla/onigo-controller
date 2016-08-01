@@ -29,7 +29,7 @@ function ResultScreen() {
       playerListItem.value = rank;
       playerListItem.textContent = player.name;
       const hpElement = document.createElement("span");
-      hpElement.textContent = player.hp;
+      hpElement.textContent = player.states.hp;
       playerListItem.appendChild(hpElement);
       this.rankingElement.appendChild(playerListItem);
     });
