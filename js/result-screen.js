@@ -30,11 +30,16 @@ function ResultScreen() {
       playerListItem.textContent = player.name;
       const hpElement = document.createElement("span");
       hpElement.textContent = player.states.hp;
+      hpElement.classList.add("ranking-hp");
       playerListItem.appendChild(hpElement);
+      const colorElement = document.createElement("span");
+      colorElement.textContent = player.states.color;
+      colorElement.style.backgroundColor = player.states.color;
+      playerListItem.appendChild(colorElement);
       this.rankingElement.appendChild(playerListItem);
     });
     this.oniElement.innerHTML = "";
-    rankingDetail.onis.forEach(name => {
+    Object.keys(rankingDetail.onis).forEach(name => {
       const oniListItem = document.createElement("li");
       oniListItem.textContent = name;
       this.oniElement.appendChild(oniListItem);
