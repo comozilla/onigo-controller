@@ -31,6 +31,12 @@ function Block(blockId, element, blockManager, builtInCommand) {
   this.element.addEventListener("click", () => {
     if (this.mode === mode.making && this.builtInCommand === null) {
       this.blockManager.editor.open(this.blockId, this.motion);
+
+      const currentEditingBlock = document.querySelector(".editing-block");
+      if (currentEditingBlock !== null) {
+        currentEditingBlock.classList.remove("editing-block");
+      }
+      this.element.classList.add("editing-block");
     } else if (this.mode === mode.playing) {
       if (this.gameState === "active") {
         if (this.builtInCommand !== null) {
@@ -48,6 +54,7 @@ function Block(blockId, element, blockManager, builtInCommand) {
       this.element.classList.remove("playing-mode-button");
     } else if (newMode === mode.playing) {
       this.element.classList.add("playing-mode-button");
+      this.element.classList.remove("editing-block");
     }
   });
 
