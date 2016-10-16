@@ -9,40 +9,8 @@ module.exports = {
   },
   module: {
     loaders: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: "babel",
-        query: {
-          cacheDirectory: true,
-          presets: ["es2015"]
-        }
-      },
-      { test: /\.css$/, loader: "style-loader!css-loader" },
-      { test: /\.(jpg|png)$/, loaders: "url-loader" },
-      // 下のものは、url-loaderでやると１ファイルにまとまっていいが、
-      // font-awesomeが特別な種類のフォントを使っている問題でまとめられないからfile-loaderでやっている
-      {
-        test: /\.(ttf|eot|svg|woff2|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file?name=js/build/[path][name].[ext]"
-      }
+      { test: /\.vue$/, loader: "vue" }
     ]
-  },
-  resolve: {
-    modulesDirectories:
-      ["web_modules", "node_modules", "bower_components", "alias"],
-    alias: {
-      "font-awesome": "font-awesome/css/font-awesome.css",
-      "web-animations-js": "web-animations-js/web-animations-next.min.js",
-      "w3c-blob": "blob.js"
-    }
-  },
-  plugins: [new webpack.ResolverPlugin(
-    new webpack.ResolverPlugin
-      .DirectoryDescriptionFilePlugin("bower.json", ["main"])
-  ), new webpack.ResolverPlugin(
-    new webpack.ResolverPlugin
-      .DirectoryDescriptionFilePlugin("package.json", ["main"])
-  )]
+  }
 };
 
