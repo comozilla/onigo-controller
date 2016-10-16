@@ -1,4 +1,4 @@
-var makerModel = {
+var appModel = {
   states: {
     builtInBlocks: {
       rotate: "回転",
@@ -8,11 +8,11 @@ var makerModel = {
     isOpeningEditor: false
   },
   changeCaption: function() {
-    makerModel.states.builtInBlocks.rotate = "ほげ";
+    appModel.states.builtInBlocks.rotate = "ほげ";
   },
   openEditor: function(index) {
-    makerModel.states.isOpeningEditor = true;
+    appModel.states.isOpeningEditor = true;
   }
 };
 
-module.exports = makerModel;
+module.exports = appModel;

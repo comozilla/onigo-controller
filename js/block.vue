@@ -1,5 +1,7 @@
 <template>
-  <button @click="openEditor"></button>
+  <button @click="openEditor">
+    <i class="fa fa-times"></i>
+  </button>
 </template>
 
 <script>
