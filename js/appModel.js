@@ -5,13 +5,13 @@ var appModel = {
       stop: "停止",
       dash: "加速"
     },
-    isOpeningEditor: false
+    editingBlockIndex: -1,
   },
   changeCaption: function() {
     appModel.states.builtInBlocks.rotate = "ほげ";
   },
   openEditor: function(index) {
-    appModel.states.isOpeningEditor = true;
+    appModel.states.editingBlockIndex = index;
   }
 };
 

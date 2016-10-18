@@ -1,5 +1,5 @@
 <template>
-  <div id="editor" v-bind:class="{ 'editor-open': isOpeningEditor }">
+  <div id="editor" v-bind:class="{ 'editor-open': editingBlockIndex !== -1 }">
     <div id="editor-header">
       <input type="text" id="editor-motion-name" placeholder="ここにモーション名を入力しよう" />
       <button id="editor-save-button">
@@ -15,29 +15,30 @@
 </template>
 
 <script>
- var appModel = require("./appModel");
+var appModel = require("./appModel");
 
- var ace = require("brace");
- require("brace/mode/javascript");
- require("brace/theme/twilight");
+var ace = require("brace");
+require("brace/mode/javascript");
+require("brace/theme/twilight");
 
- var editor;
+var editor;
 
- document.addEventListener("DOMContentLoaded", function() {
-   editor = ace.edit("editor-text");
-   editor.setTheme("ace/theme/twilight");
-   editor.setShowInvisibles(true);
-   var session = editor.getSession();
-   session.setMode("ace/mode/javascript");
-   session.setTabSize(2);
-   session.setUseSoftTabs(true);
- });
+document.addEventListener("DOMContentLoaded", function() {
+  editor = ace.edit("editor-text");
+  editor.setTheme("ace/theme/twilight");
+  editor.setShowInvisibles(true);
+  var session = editor.getSession();
+  session.setMode("ace/mode/javascript");
+  session.setTabSize(2);
+  session.setUseSoftTabs(true);
+});
 
- module.exports = {
-   data: function() {
-     return appModel.states;
-   }
- }
+module.exports = {
+  data: function() {
+    return appModel.states;
+  }
+}
+
 </script>
 
 <style scoped>

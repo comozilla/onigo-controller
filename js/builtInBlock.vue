@@ -3,13 +3,13 @@
 </template>
 
 <script>
-  var appModel = require("./appModel");
-  module.exports = {
-    props: ["type"],
-    data: function() {
-      return appModel.states;
-    }
-  };
+var appModel = require("./appModel");
+module.exports = {
+  props: ["type"],
+  data: function() {
+    return appModel.states;
+  }
+};
 </script>
 
 <style scoped>

@@ -22,13 +22,13 @@
 </template>
 
 <script>
-  module.exports = {
-    components: {
-      block: require("./block.vue"),
-      builtInBlock: require("./builtInBlock.vue"),
-      editor: require("./editor.vue")
-    }
-  };
+module.exports = {
+  components: {
+    block: require("./block.vue"),
+    builtInBlock: require("./builtInBlock.vue"),
+    editor: require("./editor.vue")
+  }
+};
 </script>
 
 <style scoped>
