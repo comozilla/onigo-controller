@@ -5,7 +5,7 @@
       <button id="editor-save-button">
         <i class="fa fa-floppy-o"></i>
       </button>
-      <button id="editor-close-button">
+      <button id="editor-close-button" @click="closeEditor">
         <i class="fa fa-times"></i>
       </button>
     </div>
@@ -36,8 +36,13 @@ document.addEventListener("DOMContentLoaded", function() {
 module.exports = {
   data: function() {
     return appModel.states;
+  },
+  methods: {
+    closeEditor: function() {
+      appModel.closeEditor();
+    }
   }
-}
+};
 
 </script>
 

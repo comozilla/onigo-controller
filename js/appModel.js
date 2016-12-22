@@ -12,6 +12,9 @@ var appModel = {
   },
   openEditor: function(index) {
     appModel.states.editingBlockIndex = index;
+  },
+  closeEditor: function() {
+    appModel.states.editingBlockIndex = -1;
   }
 };
 
