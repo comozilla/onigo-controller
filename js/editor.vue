@@ -1,7 +1,7 @@
 <template>
-  <div id="editor" v-bind:class="{ 'editor-open': editingBlockIndex !== -1 }">
+  <div id="editor" :class="{ 'editor-open': editingBlockIndex !== -1 }">
     <div id="editor-header">
-      <input type="text" id="editor-motion-name" placeholder="ここにモーション名を入力しよう" />
+      <input type="text" id="editor-motion-name" placeholder="ここにモーション名を入力しよう" :value="currentBlock.name" />
       <button id="editor-save-button">
         <i class="fa fa-floppy-o"></i>
       </button>
@@ -22,16 +22,7 @@ require("brace/mode/javascript");
 require("brace/theme/twilight");
 
 var editor;
-
-document.addEventListener("DOMContentLoaded", function() {
-  editor = ace.edit("editor-text");
-  editor.setTheme("ace/theme/twilight");
-  editor.setShowInvisibles(true);
-  var session = editor.getSession();
-  session.setMode("ace/mode/javascript");
-  session.setTabSize(2);
-  session.setUseSoftTabs(true);
-});
+var isSetupEditor = false;
 
 module.exports = {
   data: function() {
@@ -40,6 +31,28 @@ module.exports = {
   methods: {
     closeEditor: function() {
       appModel.closeEditor();
+    }
+  },
+  computed: {
+    currentBlock: function() {
+      if (typeof this.blocks[parseInt(this.editingBlockIndex)] !== "undefined") {
+        return this.blocks[parseInt(this.editingBlockIndex)];
+      }
+      return { name: "NaN" };
+    }
+  },
+  watch: {
+    editingBlockIndex: function(newIndex) {
+      if (!isSetupEditor && newIndex !== -1) {
+        editor = ace.edit("editor-text");
+        editor.setTheme("ace/theme/twilight");
+        editor.setShowInvisibles(true);
+        var session = editor.getSession();
+        session.setMode("ace/mode/javascript");
+        session.setTabSize(2);
+        session.setUseSoftTabs(true);
+        isSetupEditor = true;
+      }
     }
   }
 };

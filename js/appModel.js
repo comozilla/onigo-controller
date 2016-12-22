@@ -5,6 +5,7 @@ var appModel = {
       stop: "停止",
       dash: "加速"
     },
+    blocks: [],
     editingBlockIndex: -1,
   },
   changeCaption: function() {

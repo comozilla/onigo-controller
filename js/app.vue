@@ -7,14 +7,14 @@
         <built-in-block type="dash"></built-in-block>
       </div>
       <div class="row">
-        <block></block>
-        <block></block>
-        <block></block>
+        <block index="0"></block>
+        <block index="1"></block>
+        <block index="2"></block>
       </div>
       <div class="row">
-        <block></block>
-        <block></block>
-        <block></block>
+        <block index="3"></block>
+        <block index="4"></block>
+        <block index="5"></block>
       </div>
     </div>
     <editor></editor>
