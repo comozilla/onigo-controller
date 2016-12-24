@@ -2,7 +2,7 @@
   <div id="editor" :class="{ 'editor-open': editingBlockIndex !== -1 }">
     <div id="editor-header">
       <input type="text" id="editor-motion-name" placeholder="ここにモーション名を入力しよう" :value="currentBlock.name" />
-      <button id="editor-save-button">
+      <button id="editor-save-button" @click="save">
         <i class="fa fa-floppy-o"></i>
       </button>
       <button id="editor-close-button" @click="closeEditor">
@@ -10,7 +10,9 @@
       </button>
     </div>
     <div id="editor-text"></div>
-    <div id="parse-log"></div>
+    <div id="parse-log" :class="{ 'parse-success': log.type === 'success', 'parse-error': log.type === 'error'}">
+      {{ log.text }}
+    </div>
   </div>
 </template>
 
@@ -31,14 +33,37 @@ module.exports = {
   methods: {
     closeEditor: function() {
       appModel.closeEditor();
+    },
+    save: function() {
+      var parseResult = this.blocks.setMotionAndCompile(this.editingBlockIndex, editor.getValue());
+      console.log(parseResult);
     }
   },
   computed: {
     currentBlock: function() {
-      if (typeof this.blocks[parseInt(this.editingBlockIndex)] !== "undefined") {
-        return this.blocks[parseInt(this.editingBlockIndex)];
+      if (this.blocks.contains(this.editingBlockIndex)) {
+        return this.blocks.get(this.editingBlockIndex);
       }
-      return { name: "NaN" };
+      return this.blocks.getEmptyBlock();
+    },
+    log: function() {
+      var currentLog = this.blocks.currentParseResult;
+      if (currentLog === null) {
+        return {
+          type: "clear",
+          text: ""
+        };
+      } else if (currentLog.type === "success") {
+        return {
+          type: "success",
+          text: "コードのParseは正しく完了しました。"
+        }
+      } else if (currentLog.type === "error") {
+        return {
+          type: "error",
+          text: currentLog.errors.join("\n")
+        }
+      }
     }
   },
   watch: {
@@ -113,4 +138,13 @@ module.exports = {
   border-radius: 10px;
   overflow-y: scroll;
 }
+
+#parse-log.parse-success {
+  color: green;
+}
+
+#parse-log.parse-error {
+  color: red;
+}
+
 </style>

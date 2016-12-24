@@ -16,17 +16,15 @@ module.exports = {
       appModel.openEditor(0);
     },
     containsBlock: function() {
-      return typeof this.blocks[parseInt(this.index)] !== "undefined";
+      return this.blocks.contains(parseInt(this.index));
     }
   },
   computed: {
     currentBlock: function() {
       if (!this.containsBlock()) {
-        this.blocks[parseInt(this.index)] = {
-          name: "無名のモーション"
-        };
+        this.blocks.setName(parseInt(this.index), "無名のモーション");
       }
-      return this.blocks[parseInt(this.index)];
+      return this.blocks.get(parseInt(this.index));
     }
   }
 };

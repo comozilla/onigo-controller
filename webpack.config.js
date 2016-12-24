@@ -11,6 +11,15 @@ module.exports = {
     loaders: [
       { test: /\.vue$/, loader: "vue" },
       { test: /\.css$/, loader: "style-loader!css-loader" },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: "babel",
+        query: {
+          cacheDirectory: true,
+          presets: ["es2015"]
+        }
+      },
       // 下のものは、url-loaderでやると１ファイルにまとまっていいが、
       // font-awesomeが特別な種類のフォントを使っている問題でまとめられないからfile-loaderでやっている
       {
@@ -32,4 +41,3 @@ module.exports = {
       .DirectoryDescriptionFilePlugin("bower.json", ["main"])
   )]
 };
-

@@ -1,3 +1,5 @@
+import Blocks from "./blocks";
+
 var appModel = {
   states: {
     builtInBlocks: {
@@ -5,7 +7,7 @@ var appModel = {
       stop: "停止",
       dash: "加速"
     },
-    blocks: [],
+    blocks: new Blocks(),
     editingBlockIndex: -1,
   },
   changeCaption: function() {
