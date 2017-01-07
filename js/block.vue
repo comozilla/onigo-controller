@@ -6,25 +6,35 @@
 
 <script>
 var appModel = require("./appModel");
+var blocksModel = require("./blocksModel");
+
 module.exports = {
   props: ["index"],
   data: function() {
-    return appModel.states;
+    return {
+      app: appModel.states,
+      blocks: blocksModel.states
+    };
   },
   methods: {
     openEditor: function() {
       appModel.openEditor(0);
     },
     containsBlock: function() {
-      return this.blocks.contains(parseInt(this.index));
+      return blocksModel.contains(parseInt(this.index));
+    }
+  },
+  watch: {
+    "blocks._data.blocks": function() {
+      console.log("HOGE");
     }
   },
   computed: {
     currentBlock: function() {
       if (!this.containsBlock()) {
-        this.blocks.setName(parseInt(this.index), "無名のモーション");
+        blocksModel.setName(parseInt(this.index), "無名のモーション");
       }
-      return this.blocks.get(parseInt(this.index));
+      return this.blocks.blocks[parseInt(this.index)];
     }
   }
 };

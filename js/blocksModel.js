@@ -1,26 +1,26 @@
 import parser from "./parser";
 
-export default class Blocks {
-  constructor() {
-    this.blocks = [];
-    this.currentParseResult = null;
-  }
+var blocksModel = {
+  states: {
+    blocks: [],
+    currentParseResult: null
+  },
   getEmptyBlock() {
     return {
       name: "NaN",
       motion: "",
       sequence: []
     };
-  }
+  },
   contains(index) {
-    return typeof this.blocks[index] !== "undefined";
-  }
+    return typeof this.states.blocks[index] !== "undefined";
+  },
   setName(index, name) {
     if (!this.contains(index)) {
-      this.blocks[index] = this.getEmptyBlock();
+      this.states.blocks[index] = this.getEmptyBlock();
     }
-    this.blocks[index].name = name;
-  }
+    this.states.blocks[index].name = name;
+  },
   setMotionAndCompile(index, motion) {
     var parseResult = parser.parse(motion);
     this.currentParseResult = parseResult;
@@ -28,16 +28,19 @@ export default class Blocks {
       return parseResult;
     }
     if (!this.contains(index)) {
-      this.blocks[index] = this.getEmptyBlock();
+      this.states.blocks[index] = this.getEmptyBlock();
     }
-    this.blocks[index].motion = motion;
-    this.blocks[index].sequence = parseResult.commands;
+    this.states.blocks[index].motion = motion;
+    this.states.blocks[index].sequence = parseResult.commands;
     return parseResult;
-  }
+  },
   get(index) {
     if (!this.contains(index)) {
       throw new Error(`Tryed to get block but block didn't found.`);
     }
-    return this.blocks[index];
+    return this.states.blocks[index];
   }
-}
+};
+
+module.exports = blocksModel;
+

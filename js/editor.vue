@@ -1,7 +1,7 @@
 <template>
-  <div id="editor" :class="{ 'editor-open': editingBlockIndex !== -1 }">
+  <div id="editor" :class="{ 'editor-open': app.editingBlockIndex !== -1 }">
     <div id="editor-header">
-      <input type="text" id="editor-motion-name" placeholder="ここにモーション名を入力しよう" :value="currentBlock.name" />
+      <input type="text" id="editor-motion-name" placeholder="ここにモーション名を入力しよう" v-model="currentBlock.name" />
       <button id="editor-save-button" @click="save">
         <i class="fa fa-floppy-o"></i>
       </button>
@@ -18,6 +18,7 @@
 
 <script>
 var appModel = require("./appModel");
+var blocksModel = require("./blocksModel");
 
 var ace = require("brace");
 require("brace/mode/javascript");
@@ -28,24 +29,22 @@ var isSetupEditor = false;
 
 module.exports = {
   data: function() {
-    return appModel.states;
+    return {
+      app: appModel.states,
+      blocks: blocksModel.states,
+      currentBlock: blocksModel.getEmptyBlock()
+    };
   },
   methods: {
     closeEditor: function() {
       appModel.closeEditor();
     },
     save: function() {
-      var parseResult = this.blocks.setMotionAndCompile(this.editingBlockIndex, editor.getValue());
-      console.log(parseResult);
+      blocksModel.setName(this.app.editingBlockIndex, this.currentBlock.name);
+      blocksModel.setMotionAndCompile(this.app.editingBlockIndex, editor.getValue());
     }
   },
   computed: {
-    currentBlock: function() {
-      if (this.blocks.contains(this.editingBlockIndex)) {
-        return this.blocks.get(this.editingBlockIndex);
-      }
-      return this.blocks.getEmptyBlock();
-    },
     log: function() {
       var currentLog = this.blocks.currentParseResult;
       if (currentLog === null) {
@@ -57,17 +56,18 @@ module.exports = {
         return {
           type: "success",
           text: "コードのParseは正しく完了しました。"
-        }
+        };
       } else if (currentLog.type === "error") {
         return {
           type: "error",
           text: currentLog.errors.join("\n")
-        }
+        };
       }
     }
   },
   watch: {
-    editingBlockIndex: function(newIndex) {
+    "app.editingBlockIndex": function(newIndex) {
+      this.currentBlock = blocksModel.get(newIndex);
       if (!isSetupEditor && newIndex !== -1) {
         editor = ace.edit("editor-text");
         editor.setTheme("ace/theme/twilight");

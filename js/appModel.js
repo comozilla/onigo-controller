@@ -1,5 +1,3 @@
-import Blocks from "./blocks";
-
 var appModel = {
   states: {
     builtInBlocks: {
@@ -7,16 +5,15 @@ var appModel = {
       stop: "停止",
       dash: "加速"
     },
-    blocks: new Blocks(),
     editingBlockIndex: -1,
   },
-  changeCaption: function() {
+  changeCaption() {
     appModel.states.builtInBlocks.rotate = "ほげ";
   },
-  openEditor: function(index) {
+  openEditor(index) {
     appModel.states.editingBlockIndex = index;
   },
-  closeEditor: function() {
+  closeEditor() {
     appModel.states.editingBlockIndex = -1;
   }
 };
