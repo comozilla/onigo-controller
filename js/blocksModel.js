@@ -19,6 +19,7 @@ var blocksModel = {
     if (!this.contains(index)) {
       this.states.blocks[index] = this.getEmptyBlock();
     }
+    console.log(this.states.blocks[index]);
     this.states.blocks[index].name = name;
   },
   setMotionAndCompile(index, motion) {
@@ -41,6 +42,8 @@ var blocksModel = {
     return this.states.blocks[index];
   }
 };
+
+window.blocksModel = blocksModel;
 
 module.exports = blocksModel;
 

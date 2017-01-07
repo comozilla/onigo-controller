@@ -25,8 +25,11 @@ module.exports = {
     }
   },
   watch: {
-    "blocks._data.blocks": function() {
-      console.log("HOGE");
+    blocks: {
+      handler: function() {
+        console.log("HOGE");
+      },
+      deep: true
     }
   },
   computed: {
