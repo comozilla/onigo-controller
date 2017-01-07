@@ -9,6 +9,8 @@ module.exports = {
   },
   module: {
     loaders: [
+      { test: /\.vue$/, loader: "vue" },
+      { test: /\.css$/, loader: "style-loader!css-loader" },
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
@@ -18,8 +20,6 @@ module.exports = {
           presets: ["es2015"]
         }
       },
-      { test: /\.css$/, loader: "style-loader!css-loader" },
-      { test: /\.(jpg|png)$/, loaders: "url-loader" },
       // 下のものは、url-loaderでやると１ファイルにまとまっていいが、
       // font-awesomeが特別な種類のフォントを使っている問題でまとめられないからfile-loaderでやっている
       {
@@ -29,8 +29,7 @@ module.exports = {
     ]
   },
   resolve: {
-    modulesDirectories:
-      ["web_modules", "node_modules", "bower_components", "alias"],
+    modulesDirectories: ["web_modules", "node_modules", "bower_components", "alias"],
     alias: {
       "font-awesome": "font-awesome/css/font-awesome.css",
       "web-animations-js": "web-animations-js/web-animations-next.min.js",
@@ -40,9 +39,5 @@ module.exports = {
   plugins: [new webpack.ResolverPlugin(
     new webpack.ResolverPlugin
       .DirectoryDescriptionFilePlugin("bower.json", ["main"])
-  ), new webpack.ResolverPlugin(
-    new webpack.ResolverPlugin
-      .DirectoryDescriptionFilePlugin("package.json", ["main"])
   )]
 };
-
