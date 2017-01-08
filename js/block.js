@@ -10,92 +10,35 @@ const classes = new Map([
   [customSymbol, "block-custom"]
 ]);
 
-function Block(blockId, element, blockManager, builtInCommand) {
-  this.blockId = blockId;
-  this.element = element;
+export default class Block {
+  constructor(index) {
+    this.isEnabled = true;
+    this.blockName = "NEW!";
+    this.motion = null;
+    this.sequence = null;
+    this.index = index;
 
-  this.builtInCommand = typeof builtInCommand !== "undefined" ? builtInCommand : null;
+    eventPublisher.subscribeModel("changeIsEnabled", (index, isEnabled) => {
+      if (this.index === index) {
+        this.isEnabled = isEnabled;
+      }
+    });
 
-  this.enable = true;
-  this.blockManager = blockManager;
-  this.mode = mode.making;
-  this.blockName = "NEW!";
-  this.gameState = "";
-  this.motion = null;
-  this.sequence = null;
-
-  if (this.builtInCommand !== null) {
-    this.element.classList.add("built-in-command-button");
+    eventPublisher.subscribeModel("changeBlockName", (index, blockName) => {
+      if (this.index === index) {
+        this.blockName = blockName;
+      }
+    });
   }
-
-  this.element.addEventListener("click", () => {
-    if (this.mode === mode.making && this.builtInCommand === null) {
-      this.blockManager.editor.open(this.blockId, this.motion);
-
-      const currentEditingBlock = document.querySelector(".editing-block");
-      if (currentEditingBlock !== null) {
-        currentEditingBlock.classList.remove("editing-block");
-      }
-      this.element.classList.add("editing-block");
-    } else if (this.mode === mode.playing) {
-      if (this.gameState === "active") {
-        if (this.builtInCommand !== null) {
-          eventPublisher.publish("changeCurrentCommands", [this.builtInCommand]);
-        } else {
-          eventPublisher.publish("changeCurrentCommands", this.sequence);
-        }
-      }
+  setIsEnabled(isEnabled) {
+    if (this.isEnabled !== isEnabled) {
+      eventPublisher.publish("changeIsEnabled", this.index, isEnabled);
     }
-  });
-
-  eventPublisher.subscribe("mode", newMode => {
-    this.mode = newMode;
-    if (newMode === mode.making) {
-      this.element.classList.remove("playing-mode-button");
-    } else if (newMode === mode.playing) {
-      this.element.classList.add("playing-mode-button");
-      this.element.classList.remove("editing-block");
+  }
+  changeBlockName(blockName) {
+    if (this.blockName !== blockName) {
+      eventPublisher.publish("changeBlockName", this.index, blockName);
     }
-  });
-
-  eventPublisher.subscribe("compile", args => {
-    if (args.motionId === this.blockId) {
-      this.sequence = args.commands;
-      this.motion = args.motion;
-      this.blockName = args.motion.motionName;
-      this.showBlockName();
-    }
-  });
-
-  eventPublisher.subscribe("gameState", (gameState) => {
-    this.gameState = gameState;
-    if (this.gameState === "active") {
-      this.element.classList.add("playing-mode-button-active");
-    } else if (this.gameState === "inactive") {
-      this.element.classList.remove("playing-mode-button-active");
-    }
-  });
+  }
 }
-
-Block.prototype.setEnable = function(enable) {
-  this.enable = enable;
-  this.element.disabled = !this.enable;
-  this.showBlockName();
-};
-
-Block.prototype.showBlockName = function() {
-  if (this.builtInCommand === null && this.enable) {
-    this.element.textContent = this.blockName;
-
-    const blockName = classes.has(this.blockName) ? this.blockName : customSymbol;
-    for (let className of classes.values()) {
-      if (className !== classes.get(blockName)) {
-        this.element.classList.remove(className);
-      }
-    }
-    this.element.classList.add(classes.get(blockName));
-  }
-};
-
-export default Block;
 

@@ -8,7 +8,6 @@ import ResultScreen from "./result-screen";
 import ControllerNameScreen from "./controller-name-screen";
 import SpheroClient from "./sphero-client";
 import ModeManager from "./mode-manager";
-import BlockManager from "./block-manager";
 import Editor from "./editor";
 import Parser from "./parser";
 import Backup from "./backup";
@@ -36,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function() {
   new GameStatusLabel(document.getElementById("game-status-label"));
   new CalibrationButton(document.getElementById("calibration-button"));
   new ModeManager();
-  new BlockManager(editor);
   new Parser(document.getElementById("parse-log"));
   const backup = new Backup();
   if (backup.has()) {
