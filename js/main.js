@@ -22,7 +22,6 @@ import "font-awesome";
 import "web-animations-js";
 
 document.addEventListener("DOMContentLoaded", function() {
-  console.log(appOptions);
   const app = new Vue(appOptions).$mount("#app");
   const editor = new Editor();
   new InactiveScreen();

@@ -30,9 +30,9 @@
     <main>
       <div id="blocks">
         <div class="row">
-          <built-in-block index="0" command-name="built-in-rotate" label="回転"></built-in-block>
-          <built-in-block index="1" command-name="built-in-stop" label="停止"></built-in-block>
-          <built-in-block index="2" command-name="built-in-dash" label="加速"></built-in-block>
+          <built-in-block index="0"></built-in-block>
+          <built-in-block index="1"></built-in-block>
+          <built-in-block index="2"></built-in-block>
         </div>
         <div class="row">
           <block index="3"></block>

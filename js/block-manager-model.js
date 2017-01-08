@@ -13,7 +13,11 @@ const blockCount = 6;
 
 class BlockManagerModel {
   constructor() {
-    this.builtInBlocks = ["rotate", "stop", "dash"];
+    this.builtInBlocks = {
+      rotate: { label: "回転", className: "built-in-rotate" },
+      stop: { label: "停止", className: "built-in-stop" },
+      dash: { label: "加速", className: "built-in-dash" }
+    };
     this.blocks = [];
     for (let i = 0; i < blockCount; i++) {
       this.blocks.push(new Block(i + builtInBlockCount));
@@ -30,9 +34,16 @@ class BlockManagerModel {
   }
   getBlock(index) {
     if (!this.containsBlock(index)) {
-      throw new Error(`Block not found. index: ${index}`);
+      throw new Error(`Block was not found. index: ${index}`);
     }
     return this.blocks[index - builtInBlockCount];
+  }
+  getBuiltInBlock(index) {
+    var builtInBlocksKeys = Object.keys(this.builtInBlocks);
+    if (index >= 0 & index < builtInBlocksKeys.length) {
+      return this.builtInBlocks[builtInBlocksKeys[index]];
+    }
+    throw new Error(`BuiltInBlock was not found. index: ${index}`);
   }
 }
 
