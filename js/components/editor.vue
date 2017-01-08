@@ -1,22 +1,25 @@
 <template>
   <div id="editor" :style="{ width: containerWidth }">
     <div id="editor-header">
-      <input type="text" id="editor-motion-name" placeholder="ここにモーション名を入力しよう" />
-      <button id="editor-save-button">
+      <input type="text" id="editor-motion-name" placeholder="ここにモーション名を入力しよう" v-model="currentBlockName" />
+      <button @click="save">
         <i class="fa fa-floppy-o"></i>
       </button>
-      <button id="editor-close-button" @click="closeEditor">
+      <button @click="closeEditor">
         <i class="fa fa-times"></i>
       </button>
     </div>
     <div id="editor-text"></div>
-    <div id="parse-log"></div>
+    <div id="parse-log">
+      <span v-for="log in currentLogs" :class="log.type">{{log.message}}</span>
+    </div>
   </div>
 </template>
 
 <script>
 import eventPublisher from "../publisher";
 import appModel from "../app-model";
+import blockManagerModel from "../block-manager-model";
 import ace from "brace";
 import "brace/mode/javascript";
 import "brace/theme/twilight";
@@ -25,31 +28,59 @@ export default {
   data() {
     return {
       editor: null,
-      isOpen: false
+      openingMotionId: -1,
+      currentBlockName: "N/A",
+      isSetupEditor: false,
+      currentLogs: []
     }
   },
   methods: {
     closeEditor() {
       appModel.changeOpeningMotionId(-1);
+    },
+    setupEditor() {
+      this.editor = ace.edit("editor-text");
+      this.editor.setTheme("ace/theme/twilight");
+      this.editor.setShowInvisibles(true);
+      const session = this.editor.getSession();
+      session.setMode("ace/mode/javascript");
+      session.setTabSize(2);
+      session.setUseSoftTabs(true);
+      this.isSetupEditor = true;
+    },
+    save() {
+      blockManagerModel.getBlock(this.openingMotionId).save(this.currentBlockName, this.getCurrentMotion());
+    },
+    getCurrentMotion() {
+      return this.editor.getValue();
     }
   },
   created() {
     eventPublisher.subscribe("openingMotionId", motionId => {
-      this.isOpen = motionId >= 0;
+      this.openingMotionId = motionId;
     });
-  },
-  mounted() {
-    this.editor = ace.edit("editor-text");
-    this.editor.setTheme("ace/theme/twilight");
-    this.editor.setShowInvisibles(true);
-    const session = this.editor.getSession();
-    session.setMode("ace/mode/javascript");
-    session.setTabSize(2);
-    session.setUseSoftTabs(true);
+    eventPublisher.subscribe("currentLogs", logs => {
+      this.currentLogs = logs.slice(0).map(log => Object.assign({}, log));
+    });
   },
   computed: {
     containerWidth() {
-      return this.isOpen ? "50vw" : "0";
+      return this.openingMotionId >= 0 ? "50vw" : "0";
+    },
+    currentMotion: {
+      set(value) {
+        this.editor.setValue(value);
+      }
+    }
+  },
+  watch: {
+    openingMotionId(motionId) {
+      if (!this.isSetupEditor) {
+        this.setupEditor();
+      }
+      var block = blockManagerModel.getBlock(motionId);
+      this.currentBlockName = block.blockName;
+      this.currentMotion = block.motion;
     }
   }
 };
@@ -57,6 +88,7 @@ export default {
 
 <style scoped>
 #editor {
+  width: 50vw;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -105,6 +137,12 @@ export default {
   border-radius: 10px;
   overflow-y: scroll;
 }
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}
 </style>
-
-

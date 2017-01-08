@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function() {
   new GameStatusLabel(document.getElementById("game-status-label"));
   new CalibrationButton(document.getElementById("calibration-button"));
   new ModeManager();
-  new Parser(document.getElementById("parse-log"));
   const backup = new Backup();
   if (backup.has()) {
     backup.restore();

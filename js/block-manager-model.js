@@ -48,4 +48,3 @@ class BlockManagerModel {
 }
 
 export default new BlockManagerModel();
-

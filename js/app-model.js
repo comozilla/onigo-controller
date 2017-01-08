@@ -6,6 +6,7 @@ class AppModel {
     this.mode = mode.making;
     this.gameState = "";
     this.openingMotionId = -1;
+    this.currentLogs = [];
 
     eventPublisher.subscribeModel("mode", mode => {
       this.mode = mode;
@@ -20,6 +21,11 @@ class AppModel {
   changeOpeningMotionId(motionId) {
     if (this.openingMotionId !== motionId) {
       eventPublisher.publish("openingMotionId", motionId);
+    }
+  }
+  changeCurrentLogs(currentLogs) {
+    if (this.currentLogs !== currentLogs) {
+      eventPublisher.publish("currentLogs", currentLogs);
     }
   }
 }

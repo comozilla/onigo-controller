@@ -35,7 +35,7 @@ export default {
   created() {
     this.blockName = blockManagerModel.getBlock(this.index).blockName;
     eventPublisher.subscribe("changeBlockName", (index, blockName) => {
-      if (this.index === index) {
+      if (parseInt(this.index) === index) {
         this.blockName = blockName;
       }
     });

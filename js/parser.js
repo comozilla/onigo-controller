@@ -15,18 +15,11 @@ const availableFunctionArgs = {
   randomInArray: ["object"]
 };
 
-let instance = null;
-
-function Parser(logElement) {
-  if (instance !== null) {
-    return instance;
-  }
-  this.logElement = logElement;
-  eventPublisher.subscribe("saveMotion", motionDetails => {
-    this.clear();
+class Parser {
+  parse(motion) {
     const commands = [];
     const errors = [];
-    const rawFunctionArgList = [Object.keys(commandArgs), Object.keys(availableFunctionArgs), motionDetails.motion.motionCode].reduce((a, b) => {
+    const rawFunctionArgList = [Object.keys(commandArgs), Object.keys(availableFunctionArgs), motion].reduce((a, b) => {
       return a.concat(b);
     });
     const rawFunctionArgs = Object.keys(commandArgs).map(commandName => {
@@ -64,39 +57,18 @@ function Parser(logElement) {
       errors.push(error.message);
     }
     if (errors.length > 0) {
-      this.log(errors.join("\n"), "error");
+      return {
+        type: "error",
+        errors
+      };
     } else {
-      eventPublisher.publish("compile", {
-        motion: motionDetails.motion,
-        motionId: motionDetails.motionId,
+      return {
+        type: "success",
         commands
-      });
-      this.log("コードのParseは正しく完了しました。", "success");
+      };
     }
-  });
-  instance = this;
+  }
 }
-
-Parser.prototype.log = function(rawMessage, logType) {
-  const logTypeChars = {
-    "normal": ["", ""],
-    "success": ["<span style=\"color: green;\">", "</span>"],
-    "error": ["<span style=\"color: red;\">", "</span>"]
-  }
-  if (Object.keys(logTypeChars).indexOf(logType) === -1) {
-    throw new Error("logTypeは正しくありません : " + logType);
-  }
-  const message = rawMessage
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\n/g, "<br />");
-  this.logElement.innerHTML +=
-    logTypeChars[logType][0] + message + logTypeChars[logType][1] + "<br />";
-};
-
-Parser.prototype.clear = function() {
-  this.logElement.innerHTML = "";
-};
 
 function validateArgumentsType(args, types, isAcceptSpecialData) {
   const errors = [];
@@ -116,5 +88,4 @@ function validateArgumentsType(args, types, isAcceptSpecialData) {
   };
 }
 
-export default Parser;
-
+export default new Parser();

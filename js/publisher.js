@@ -17,7 +17,7 @@ class Publisher {
     }
     this.modelObservers[type].push(observer);
   }
-  publish(type, nextData) {
+  publish(type, ...nextDatas) {
     if (type.indexOf(":") !== -1) {
       throw new Error("publishのtypeに「:」を含むことはできません。");
     }
@@ -28,18 +28,17 @@ class Publisher {
       this.modelObservers[type] = [];
     }
     this.modelObservers[type].forEach(observer => {
-      observer(nextData);
+      observer.apply(null, nextDatas);
     });
     this.observers[type].forEach(observer => {
-      observer(nextData);
+      observer.apply(null, nextDatas);
     });
     if (typeof this.observers[type + ":after"] !== "undefined") {
       this.observers[type + ":after"].forEach(observer => {
-        observer(nextData);
+        observer.apply(null, nextDatas);
       });
     }
   }
 }
 
 export default new Publisher();
-

@@ -1,6 +1,8 @@
 import eventPublisher from "./publisher";
 import mode from "./mode";
 import Command from "./command";
+import parser from "./parser";
+import appModel from "./app-model";
 
 const customSymbol = Symbol("custom");
 const classes = new Map([
@@ -14,7 +16,7 @@ export default class Block {
   constructor(index) {
     this.isEnabled = true;
     this.blockName = "NEW!";
-    this.motion = null;
+    this.motion = "";
     this.sequence = null;
     this.index = index;
 
@@ -29,16 +31,45 @@ export default class Block {
         this.blockName = blockName;
       }
     });
+
+    eventPublisher.subscribeModel("updateMotion", (index, motion) => {
+      if (this.index === index) {
+        this.motion = motion;
+      }
+    });
+
+    eventPublisher.subscribeModel("updateSequence", (index, sequence) => {
+      if (this.index === index) {
+        this.sequence = sequence;
+      }
+    });
   }
   setIsEnabled(isEnabled) {
     if (this.isEnabled !== isEnabled) {
       eventPublisher.publish("changeIsEnabled", this.index, isEnabled);
     }
   }
-  changeBlockName(blockName) {
+  save(blockName, motion) {
     if (this.blockName !== blockName) {
       eventPublisher.publish("changeBlockName", this.index, blockName);
     }
+    if (this.motion !== motion) {
+      var parseResult = parser.parse(motion);
+      if (parseResult.type === "error") {
+        parseResult.errors.map(message => {
+          return { type: "error", message };
+        });
+        appModel.changeCurrentLogs(parseResult.errors.map(message => {
+          return { type: "error", message };
+        }));
+      } else if (parseResult.type === "success") {
+        eventPublisher.publish("updateMotion", this.index, motion);
+        eventPublisher.publish("updateSequence", this.index, parseResult.commands);
+        appModel.changeCurrentLogs([{
+          type: "success",
+          message: "コードのParseは正しく完了しました。"
+        }]);
+      }
+    }
   }
 }
-
