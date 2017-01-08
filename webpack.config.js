@@ -1,5 +1,3 @@
-const webpack = require("webpack");
-
 module.exports = {
   cache: true,
   entry: "./js/main.js",
@@ -8,7 +6,7 @@ module.exports = {
     filename: "./js/build/bundle.js"
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
@@ -18,6 +16,7 @@ module.exports = {
           presets: ["es2015"]
         }
       },
+      { test: /\.vue$/, loader: "vue" },
       { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.(jpg|png)$/, loaders: "url-loader" },
       // 下のものは、url-loaderでやると１ファイルにまとまっていいが、
@@ -29,20 +28,14 @@ module.exports = {
     ]
   },
   resolve: {
-    modulesDirectories:
+    modules:
       ["web_modules", "node_modules", "bower_components", "alias"],
     alias: {
       "font-awesome": "font-awesome/css/font-awesome.css",
       "web-animations-js": "web-animations-js/web-animations-next.min.js",
       "w3c-blob": "blob.js"
-    }
+    },
+    descriptionFiles: ["package.json", "bower.json"]
   },
-  plugins: [new webpack.ResolverPlugin(
-    new webpack.ResolverPlugin
-      .DirectoryDescriptionFilePlugin("bower.json", ["main"])
-  ), new webpack.ResolverPlugin(
-    new webpack.ResolverPlugin
-      .DirectoryDescriptionFilePlugin("package.json", ["main"])
-  )]
 };
 

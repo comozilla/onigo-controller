@@ -13,12 +13,18 @@ import Editor from "./editor";
 import Parser from "./parser";
 import Backup from "./backup";
 
+import Vue from "vue";
+import appOptions from "./components/app.vue";
+
+
 // webpack
 import "../css/style.css";
 import "font-awesome";
 import "web-animations-js";
 
 document.addEventListener("DOMContentLoaded", function() {
+  console.log(appOptions);
+  const app = new Vue(appOptions).$mount("#app");
   const editor = new Editor();
   new InactiveScreen();
   const spheroClient = new SpheroClient("ws://localhost:8080");
