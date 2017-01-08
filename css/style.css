@@ -80,23 +80,6 @@ main {
   justify-content: center;
 }
 
-#blocks button {
-  width: 150px;
-  height: 150px;
-  color: white;
-  background-color: #f39c12;
-  border: none;
-  border-radius: 20px;
-  margin: 0 0 10px 10px;
-  background-position: center 30%;
-  background-repeat: no-repeat;
-  padding-top: calc(150px - 2em);
-}
-
-#blocks .built-in-command-button {
-  background-color: #e74c3c;
-}
-
 #built-in-rotate {
   background-image: url("/images/turn.svg");
 }

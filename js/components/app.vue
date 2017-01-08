@@ -30,19 +30,19 @@
     <main>
       <div id="blocks">
         <div class="row">
-          <button data-block-index="0" id="built-in-rotate">回転</button>
-          <button data-block-index="1" id="built-in-stop">停止</button>
-          <button data-block-index="2" id="built-in-dash">加速</button>
+          <built-in-block index="0" command-name="built-in-rotate" label="回転"></built-in-block>
+          <built-in-block index="1" command-name="built-in-stop" label="停止"></built-in-block>
+          <built-in-block index="2" command-name="built-in-dash" label="加速"></built-in-block>
         </div>
         <div class="row">
-          <button data-block-index="3"></button>
-          <button data-block-index="4"></button>
-          <button data-block-index="5"></button>
+          <block index="3"></block>
+          <block index="4"></block>
+          <block index="5"></block>
         </div>
         <div class="row">
-          <button data-block-index="6"></button>
-          <button data-block-index="7"></button>
-          <button data-block-index="8"></button>
+          <block index="6"></block>
+          <block index="7"></block>
+          <block index="8"></block>
         </div>
       </div>
       <div id="editor">
@@ -85,5 +85,12 @@
 </template>
 
 <script>
-export default {};
+import block from "./block.vue";
+import builtInBlock from "./built-in-block.vue";
+export default {
+  components: {
+    block,
+    builtInBlock
+  }
+};
 </script>
