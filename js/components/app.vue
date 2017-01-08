@@ -45,19 +45,7 @@
           <block index="8"></block>
         </div>
       </div>
-      <div id="editor">
-        <div id="editor-header">
-          <input type="text" id="editor-motion-name" placeholder="ここにモーション名を入力しよう" />
-          <button id="editor-save-button">
-            <i class="fa fa-floppy-o"></i>
-          </button>
-          <button id="editor-close-button">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-        <div id="editor-text"></div>
-        <div id="parse-log"></div>
-      </div>
+      <editor></editor>
     </main>
     <footer>
       <section id="making-mode-banner">
@@ -87,10 +75,13 @@
 <script>
 import block from "./block.vue";
 import builtInBlock from "./built-in-block.vue";
+import editor from "./editor.vue";
+
 export default {
   components: {
     block,
-    builtInBlock
+    builtInBlock,
+    editor
   }
 };
 </script>

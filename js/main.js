@@ -8,7 +8,6 @@ import ResultScreen from "./result-screen";
 import ControllerNameScreen from "./controller-name-screen";
 import SpheroClient from "./sphero-client";
 import ModeManager from "./mode-manager";
-import Editor from "./editor";
 import Parser from "./parser";
 import Backup from "./backup";
 
@@ -23,7 +22,6 @@ import "web-animations-js";
 
 document.addEventListener("DOMContentLoaded", function() {
   const app = new Vue(appOptions).$mount("#app");
-  const editor = new Editor();
   new InactiveScreen();
   const spheroClient = new SpheroClient("ws://localhost:8080");
   new ResultScreen();

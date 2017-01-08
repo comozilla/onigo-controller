@@ -1,5 +1,5 @@
 <template>
-  <button :data-block-index="index" :class="className">
+  <button :data-block-index="index" :class="className" @click="openEditor">
     {{blockName}}
   </button>
 </template>
@@ -9,6 +9,7 @@ import eventPublisher from "../publisher";
 import mode from "../mode";
 import Command from "../command";
 import blockManagerModel from "../block-manager-model";
+import appModel from "../app-model";
 
 const customSymbol = Symbol("custom");
 const classes = new Map([
@@ -24,6 +25,11 @@ export default {
     return {
       blockName: "N/A",
       className: "N/A"
+    }
+  },
+  methods: {
+    openEditor() {
+      appModel.changeOpeningMotionId(this.index);
     }
   },
   created() {
