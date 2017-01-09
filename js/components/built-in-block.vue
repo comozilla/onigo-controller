@@ -1,9 +1,10 @@
 <template>
-  <button :data-block-index="index" :class="className">{{label}}</button>
+  <button :data-block-index="index" :class="className">{{ label }}</button>
 </template>
 
 <script>
 import blockManagerModel from "../block-manager-model";
+import eventPublisher from "../publisher";
 
 export default {
   props: ["index"],
@@ -45,5 +46,13 @@ button {
 
 .built-in-dash {
   background-image: url("/images/dash.svg");
+}
+
+.playing-mode-button {
+  background-color: #3498db;
+}
+
+.playing-mode-button.playing-mode-button-active {
+  box-shadow: 0 0 30px 0 #3498db;
 }
 </style>

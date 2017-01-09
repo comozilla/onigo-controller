@@ -1,6 +1,6 @@
 <template>
-  <button :data-block-index="index" :class="className" @click="openEditor">
-    {{blockName}}
+  <button :data-block-index="index" :class="classList" @click="onClick">
+    {{ blockName }}
   </button>
 </template>
 
@@ -23,30 +23,52 @@ export default {
   props: ["index"],
   data() {
     return {
-      blockName: "N/A",
-      className: "N/A"
-    }
+      blockName: blockManagerModel.getBlock(this.index).blockName,
+      openingMotionId: appModel.openingMotionId,
+      mode: appModel.mode,
+      gameState: appModel.gameState
+    };
   },
   methods: {
-    openEditor() {
-      appModel.changeOpeningMotionId(this.index);
+    onClick() {
+      switch (this.mode) {
+        case mode.making:
+          appModel.changeOpeningMotionId(this.index);
+          break;
+        case mode.playing:
+          break;
+      }
     }
   },
   created() {
-    this.blockName = blockManagerModel.getBlock(this.index).blockName;
     eventPublisher.subscribe("changeBlockName", (index, blockName) => {
       if (parseInt(this.index) === index) {
         this.blockName = blockName;
       }
     });
+    eventPublisher.subscribe("openingMotionId", motionId => {
+      this.openingMotionId = motionId;
+    });
+    eventPublisher.subscribe("mode", mode => {
+      this.mode = mode;
+    });
+    eventPublisher.subscribe("gameState", gameState => {
+      this.gameState = gameState;
+    });
   },
-  watch: {
-    blockName() {
-      if (classes.has(this.blockName)) {
-        this.className = classes.get(this.blockName);
-      } else {
-        this.className = classes.get(customSymbol);
+  computed: {
+    classList() {
+      var classList = [];
+      classList.push(classes.get(classes.has(this.blockName) ? this.blockName : customSymbol));
+      if (this.mode === mode.playing) {
+        classList.push("playing-mode-button");
+        if (this.gameState === "active") {
+          classList.push("playing-mode-button-active");
+        }
+      } else if (this.openingMotionId === this.index) {
+        classList.push("editing-block");
       }
+      return classList.join(" ");
     }
   }
 };
@@ -107,7 +129,7 @@ button[disabled] {
   background-color: #3498db;
 }
 
-.playing-mode-button.playing-mode-button-active {
+.playing-mode-button-active {
   box-shadow: 0 0 30px 0 #3498db;
 }
 </style>

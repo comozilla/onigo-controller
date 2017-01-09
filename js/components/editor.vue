@@ -11,7 +11,7 @@
     </div>
     <div id="editor-text"></div>
     <div id="parse-log">
-      <span v-for="log in currentLogs" :class="log.type">{{log.message}}</span>
+      <span v-for="log in currentLogs" :class="log.type">{{ log.message }}</span>
     </div>
   </div>
 </template>
@@ -59,9 +59,11 @@ export default {
     eventPublisher.subscribe("openingMotionId", motionId => {
       this.openingMotionId = motionId;
     });
+    this.openingMotionId = appModel.openingMotionId;
     eventPublisher.subscribe("currentLogs", logs => {
       this.currentLogs = logs.slice(0).map(log => Object.assign({}, log));
     });
+    this.currentLogs = appModel.currentLogs;
   },
   computed: {
     containerWidth() {
@@ -75,6 +77,7 @@ export default {
   },
   watch: {
     openingMotionId(motionId) {
+      if (motionId < 0) return;
       if (!this.isSetupEditor) {
         this.setupEditor();
       }
