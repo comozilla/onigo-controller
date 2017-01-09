@@ -1,5 +1,4 @@
 import CalibrationButton from "./calibration-button";
-import HPBoard from "./hp-board";
 import OniBoard from "./oni-board";
 import ColorBoard from "./color-board";
 import GameStatusLabel from "./game-status-label";
@@ -7,7 +6,6 @@ import InactiveScreen from "./inactive-screen";
 import ResultScreen from "./result-screen";
 import ControllerNameScreen from "./controller-name-screen";
 import SpheroClient from "./sphero-client";
-import ModeManager from "./mode-manager";
 import Parser from "./parser";
 import Backup from "./backup";
 
@@ -26,12 +24,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const spheroClient = new SpheroClient("ws://localhost:8080");
   new ResultScreen();
   new ControllerNameScreen(spheroClient);
-  new HPBoard(document.getElementById("hp"));
   new OniBoard(document.getElementById("oni"));
   new ColorBoard(document.getElementById("color"));
   new GameStatusLabel(document.getElementById("game-status-label"));
   new CalibrationButton(document.getElementById("calibration-button"));
-  new ModeManager();
   const backup = new Backup();
   if (backup.has()) {
     backup.restore();

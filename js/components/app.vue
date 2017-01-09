@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="root">
     <div id="inactive-screen" class="screen">
       <div id="inactive-inner">
       </div>
@@ -47,28 +47,7 @@
       </div>
       <editor></editor>
     </main>
-    <footer>
-      <section id="making-mode-banner">
-        <button style="display: none">ほぞん</button>
-        <img src="images/mode-make.svg" />
-      </section>
-      <section id="playing-mode-banner">
-        <span id="color"></span>
-        <span id="game-status-label">ゲームは開始されていません！</span>
-        <span id="hp">
-          HP:
-          <div id="hp-bar">
-            <div id="hp-bar-inner">
-            </div>
-          </div>
-          <span id="hp-text"></span>
-        </span>
-        <div id="oni"></div>
-        <button id="calibration-button" style="display: none">位置補正</button>
-        <img src="images/mode-play.svg" />
-      </section>
-      <button id="switch-mode-button">モードきりかえ</button>
-    </footer>
+    <banner></banner>
   </div>
 </template>
 
@@ -76,12 +55,25 @@
 import block from "./block.vue";
 import builtInBlock from "./built-in-block.vue";
 import editor from "./editor.vue";
+import banner from "./banner.vue";
 
 export default {
   components: {
     block,
     builtInBlock,
-    editor
+    editor,
+    banner
   }
 };
 </script>
+
+<style scoped>
+#root {
+  background-color: #34495e;
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+</style>
