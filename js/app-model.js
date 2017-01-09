@@ -28,6 +28,9 @@ class AppModel {
       eventPublisher.publish("currentLogs", currentLogs);
     }
   }
+  toggleMode() {
+    eventPublisher.publish("mode", this.mode === mode.making ? mode.playing : mode.making);
+  }
 }
 
 export default new AppModel();
