@@ -11,8 +11,13 @@ class AppModel {
     this.color = "N/A";
     this.isOni = false;
 
-    eventPublisher.subscribeModel("mode", mode => {
-      this.mode = mode;
+    eventPublisher.subscribeModel("mode", newMode => {
+      this.mode = newMode;
+
+      // mode が playing になったら、block の編集を終了する
+      if (newMode === mode.playing) {
+        this.changeOpeningMotionId(-1);
+      }
     });
     eventPublisher.subscribeModel("gameState", gameState => {
       this.gameState = gameState;
