@@ -4,11 +4,10 @@
       <img src="images/mode-make.svg" />
     </section>
     <section id="playing-mode-banner" :class="playingClassList">
-      <span id="color"></span>
-      <span id="game-status-label">ゲームは開始されていません！</span>
+      <game-status-label></game-status-label>
+      <color-board></color-board>
       <hp-board></hp-board>
-      <div id="oni"></div>
-      <button id="calibration-button" style="display: none">位置補正</button>
+      <oni-board></oni-board>
       <img src="images/mode-play.svg" />
     </section>
     <button id="switch-mode-button" @click="toggleMode">モードきりかえ</button>
@@ -17,13 +16,19 @@
 
 <script>
 import hpBoard from "./hp-board.vue";
+import colorBoard from "./color-board.vue";
+import oniBoard from "./oni-board.vue";
+import gameStatusLabel from "./game-status-label.vue";
 import appModel from "../app-model";
 import eventPublisher from "../publisher";
 import mode from "../mode";
 
 export default {
   components: {
-    hpBoard
+    hpBoard,
+    colorBoard,
+    oniBoard,
+    gameStatusLabel
   },
   data() {
     return {
@@ -87,22 +92,6 @@ span, button, img, div {
 
 section {
   display: none;
-}
-
-.oni-enable {
-  background-image: url("/images/player-oni.svg");
-}
-
-#oni {
-  background-image: url("/images/player-normal.svg");
-  width: 90px;
-  height: 90px;
-  background-size: 100%;
-  background-repeat: no-repeat;
-}
-
-#color {
-  text-transform: uppercase;
 }
 
 .active-banner {

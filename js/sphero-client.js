@@ -40,8 +40,8 @@ function SpheroClient(wsHost) {
     this.orb.listenCustomMessage("availableCommandsCount", count => {
       eventPublisher.publish("availableCommandsCount", count);
     });
-    this.orb.listenCustomMessage("oni", enable => {
-      eventPublisher.publish("oni", enable);
+    this.orb.listenCustomMessage("oni", isOni => {
+      eventPublisher.publish("oni", isOni);
     });
     this.orb.listenCustomMessage("clientKey", key => {
       this.clientKey = key;

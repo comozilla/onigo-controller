@@ -1,7 +1,4 @@
 import CalibrationButton from "./calibration-button";
-import OniBoard from "./oni-board";
-import ColorBoard from "./color-board";
-import GameStatusLabel from "./game-status-label";
 import InactiveScreen from "./inactive-screen";
 import ResultScreen from "./result-screen";
 import ControllerNameScreen from "./controller-name-screen";
@@ -24,9 +21,6 @@ document.addEventListener("DOMContentLoaded", function() {
   const spheroClient = new SpheroClient("ws://localhost:8080");
   new ResultScreen();
   new ControllerNameScreen(spheroClient);
-  new OniBoard(document.getElementById("oni"));
-  new ColorBoard(document.getElementById("color"));
-  new GameStatusLabel(document.getElementById("game-status-label"));
   new CalibrationButton(document.getElementById("calibration-button"));
   const backup = new Backup();
   if (backup.has()) {
