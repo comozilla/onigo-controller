@@ -65,4 +65,49 @@ button {
   background-repeat: no-repeat;
   padding-top: calc(150px - 2em);
 }
+
+button[disabled] {
+  background-color: #7f8c8d;
+  box-shadow: none;
+}
+
+.editing-block {
+  animation-duration: 1s;
+  animation-name: editing-block;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes editing-block {
+  from {
+    box-shadow: none;
+  }
+  to {
+    box-shadow: 0 0 70px 10px #f39c12;
+  }
+}
+
+.block-new {
+  background-image: url("/images/new.svg");
+}
+
+.block-zigzag {
+  background-image: url("/images/zigzag.svg");
+}
+
+.block-light {
+  background-image: url("/images/light.svg");
+}
+
+.block-custom {
+  background-image: url("/images/custom.svg");
+}
+
+.playing-mode-button {
+  background-color: #3498db;
+}
+
+.playing-mode-button.playing-mode-button-active {
+  box-shadow: 0 0 30px 0 #3498db;
+}
 </style>

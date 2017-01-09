@@ -1,6 +1,7 @@
 <template>
   <div id="root">
     <inactive-screen></inactive-screen>
+    <controller-name-screen></controller-name-screen>
     <div id="result-screen" class="screen">
       <div id="result-inner">
         <div id="ranking-column">
@@ -12,15 +13,6 @@
           <h2>おに</h2>
           <ul id="result-oni">
           </ul>
-        </div>
-      </div>
-    </div>
-    <div id="controller-name-screen" class="screen">
-      <div id="controller-name-inner">
-        <h2>コントローラーに名前をつけよう</h2>
-        <div id="controller-name-zone">
-          <input type="text" id="controller-name" placeholder="ここに名前を入力しよう" />
-          <button id="submit-controller-name">決定</button>
         </div>
       </div>
     </div>
@@ -54,6 +46,7 @@ import builtInBlock from "./built-in-block.vue";
 import editor from "./editor.vue";
 import banner from "./banner.vue";
 import inactiveScreen from "./inactive-screen.vue";
+import controllerNameScreen from "./controller-name-screen.vue";
 
 export default {
   components: {
@@ -61,7 +54,8 @@ export default {
     builtInBlock,
     editor,
     banner,
-    inactiveScreen
+    inactiveScreen,
+    controllerNameScreen
   }
 };
 </script>
@@ -74,5 +68,24 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  padding: 20px;
+}
+
+
+#blocks {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#blocks .row {
+  display: flex;
+  justify-content: center;
 }
 </style>
