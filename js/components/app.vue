@@ -1,9 +1,6 @@
 <template>
   <div id="root">
-    <div id="inactive-screen" class="screen">
-      <div id="inactive-inner">
-      </div>
-    </div>
+    <inactive-screen></inactive-screen>
     <div id="result-screen" class="screen">
       <div id="result-inner">
         <div id="ranking-column">
@@ -56,13 +53,15 @@ import block from "./block.vue";
 import builtInBlock from "./built-in-block.vue";
 import editor from "./editor.vue";
 import banner from "./banner.vue";
+import inactiveScreen from "./inactive-screen.vue";
 
 export default {
   components: {
     block,
     builtInBlock,
     editor,
-    banner
+    banner,
+    inactiveScreen
   }
 };
 </script>
