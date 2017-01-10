@@ -49,7 +49,6 @@ export default {
     }
   },
   created() {
-    console.log(rankingModel.ranking);
     eventPublisher.subscribe("rankingState", rankingState => {
       this.rankingState = rankingState;
     });
