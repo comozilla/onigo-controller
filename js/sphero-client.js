@@ -19,7 +19,7 @@ class SpheroClient {
             this.orb.startCalibration();
           }
         });
-        eventPublisher.subscribe("changeCurrentCommands", commands => {
+        eventPublisher.subscribe("currentCommands", commands => {
           this.orb.sendCustomMessage("commands", commands);
         });
       }, () => {

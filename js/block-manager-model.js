@@ -1,26 +1,22 @@
-import Block from "./block";
+import BlockModel from "./block-model";
+import BuiltInBlockModel from "./built-in-block-model";
 import eventPublisher from "./publisher";
 import Command from "./command";
 
-const builtInCommands = {
-  rotate: new Command("rotate", [45], -1),
-  stop: new Command("stop", [], -1),
-  dash: new Command("dash", [50, 1], -1)
-};
+const builtInBlocks = [
+  new BuiltInBlockModel("rotate", "回転", new Command("rotate", [45], -1)),
+  new BuiltInBlockModel("stop", "停止", new Command("stop", [], -1)),
+  new BuiltInBlockModel("dash", "加速", new Command("dash", [50, 1], -1))
+];
 
 const builtInBlockCount = 3;
 const blockCount = 6;
 
 class BlockManagerModel {
   constructor() {
-    this.builtInBlocks = {
-      rotate: { label: "回転", className: "built-in-rotate" },
-      stop: { label: "停止", className: "built-in-stop" },
-      dash: { label: "加速", className: "built-in-dash" }
-    };
     this.blocks = [];
     for (let i = 0; i < blockCount; i++) {
-      this.blocks.push(new Block(i + builtInBlockCount));
+      this.blocks.push(new BlockModel(i + builtInBlockCount));
     }
 
     eventPublisher.subscribeModel("availableCommandsCount", count => {
@@ -39,9 +35,8 @@ class BlockManagerModel {
     return this.blocks[index - builtInBlockCount];
   }
   getBuiltInBlock(index) {
-    var builtInBlocksKeys = Object.keys(this.builtInBlocks);
-    if (index >= 0 & index < builtInBlocksKeys.length) {
-      return this.builtInBlocks[builtInBlocksKeys[index]];
+    if (index >= 0 && index < builtInBlocks.length) {
+      return builtInBlocks[index];
     }
     throw new Error(`BuiltInBlock was not found. index: ${index}`);
   }

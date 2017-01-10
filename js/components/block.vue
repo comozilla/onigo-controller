@@ -23,7 +23,7 @@ export default {
   props: ["index"],
   data() {
     return {
-      blockName: blockManagerModel.getBlock(this.index).blockName,
+      block: blockManagerModel.getBlock(this.index),
       openingMotionId: appModel.openingMotionId,
       mode: appModel.mode,
       gameState: appModel.gameState
@@ -36,6 +36,7 @@ export default {
           appModel.changeOpeningMotionId(this.index);
           break;
         case mode.playing:
+          appModel.changeCurrentCommands(this.sequence);
           break;
       }
     }
@@ -69,6 +70,12 @@ export default {
         classList.push("editing-block");
       }
       return classList.join(" ");
+    },
+    blockName() {
+      return this.block.blockName;
+    },
+    sequence() {
+      return this.block.sequence;
     }
   }
 };

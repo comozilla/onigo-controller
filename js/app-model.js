@@ -10,6 +10,7 @@ class AppModel {
     this.hp = 0;
     this.color = "N/A";
     this.isOni = false;
+    this.currentCommands = []
 
     eventPublisher.subscribeModel("mode", newMode => {
       this.mode = newMode;
@@ -34,6 +35,9 @@ class AppModel {
     eventPublisher.subscribeModel("oni", isOni => {
       this.isOni = isOni;
     });
+    eventPublisher.subscribeModel("currentCommands", commands => {
+      this.currentCommands = commands;
+    });
   }
   changeOpeningMotionId(motionId) {
     if (this.openingMotionId !== motionId) {
@@ -47,6 +51,11 @@ class AppModel {
   }
   toggleMode() {
     eventPublisher.publish("mode", this.mode === mode.making ? mode.playing : mode.making);
+  }
+  changeCurrentCommands(commands) {
+    if (this.currentCommands !== commands) {
+      eventPublisher.publish("currentCommands", commands);
+    }
   }
 }
 

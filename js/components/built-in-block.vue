@@ -1,5 +1,5 @@
 <template>
-  <button :data-block-index="index" :class="classList">{{ label }}</button>
+  <button :data-block-index="index" :class="classList" @click="runCommand">{{ label }}</button>
 </template>
 
 <script>
@@ -12,17 +12,17 @@ export default {
   props: ["index"],
   data() {
     return {
-      label: "N/A",
-      className: "N/A",
+      block: blockManagerModel.getBuiltInBlock(this.index),
       mode: appModel.mode,
       gameState: appModel.gameState
     };
   },
+  methods: {
+    runCommand() {
+      appModel.changeCurrentCommands([this.command]);
+    }
+  },
   created() {
-    var builtInBlock = blockManagerModel.getBuiltInBlock(this.index);
-    this.label = builtInBlock.label;
-    this.className = builtInBlock.className;
-
     eventPublisher.subscribe("mode", mode => {
       this.mode = mode;
     });
@@ -40,6 +40,15 @@ export default {
         }
       }
       return classList.join(" ");
+    },
+    label() {
+      return this.block.label;
+    },
+    className() {
+      return `built-in-${this.block.name}`;
+    },
+    command() {
+      return this.block.command;
     }
   }
 }
