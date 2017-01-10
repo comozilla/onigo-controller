@@ -1,23 +1,46 @@
 <template>
-  <button :data-block-index="index" :class="className">{{ label }}</button>
+  <button :data-block-index="index" :class="classList">{{ label }}</button>
 </template>
 
 <script>
 import blockManagerModel from "../block-manager-model";
+import appModel from "../app-model";
 import eventPublisher from "../publisher";
+import mode from "../mode";
 
 export default {
   props: ["index"],
   data() {
     return {
       label: "N/A",
-      className: "N/A"
-    }
+      className: "N/A",
+      mode: appModel.mode,
+      gameState: appModel.gameState
+    };
   },
   created() {
     var builtInBlock = blockManagerModel.getBuiltInBlock(this.index);
     this.label = builtInBlock.label;
     this.className = builtInBlock.className;
+
+    eventPublisher.subscribe("mode", mode => {
+      this.mode = mode;
+    });
+    eventPublisher.subscribe("gameState", gameState => {
+      this.gameState = gameState;
+    });
+  },
+  computed: {
+    classList() {
+      var classList = [this.className];
+      if (this.mode === mode.playing) {
+        classList.push("playing-mode-button");
+        if (this.gameState === "active") {
+          classList.push("playing-mode-button-active");
+        }
+      }
+      return classList.join(" ");
+    }
   }
 }
 </script>
