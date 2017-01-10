@@ -53,3 +53,39 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+#controller-name-screen {
+  z-index: 6;
+}
+
+#controller-name-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+#controller-name-zone {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 10%;
+}
+
+#controller-name {
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  border: none;
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+
+#submit-controller-name {
+  padding: 10px 30px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid white;
+  color: white;
+  border-radius: 10px;
+}
+</style>

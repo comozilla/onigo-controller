@@ -2,20 +2,7 @@
   <div id="root">
     <inactive-screen></inactive-screen>
     <controller-name-screen></controller-name-screen>
-    <div id="result-screen" class="screen">
-      <div id="result-inner">
-        <div id="ranking-column">
-          <h2>ランキング</h2>
-          <ol id="ranking">
-          </ol>
-        </div>
-        <div id="result-oni-column">
-          <h2>おに</h2>
-          <ul id="result-oni">
-          </ul>
-        </div>
-      </div>
-    </div>
+    <result-screen></result-screen>
     <main>
       <div id="blocks">
         <div class="row">
@@ -47,6 +34,7 @@ import editor from "./editor.vue";
 import banner from "./banner.vue";
 import inactiveScreen from "./inactive-screen.vue";
 import controllerNameScreen from "./controller-name-screen.vue";
+import resultScreen from "./result-screen.vue";
 
 export default {
   components: {
@@ -55,7 +43,8 @@ export default {
     editor,
     banner,
     inactiveScreen,
-    controllerNameScreen
+    controllerNameScreen,
+    resultScreen
   }
 };
 </script>

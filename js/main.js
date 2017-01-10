@@ -1,4 +1,3 @@
-import ResultScreen from "./result-screen";
 import Backup from "./backup";
 import spheroClient from "./sphero-client";
 
@@ -14,7 +13,6 @@ import "web-animations-js";
 document.addEventListener("DOMContentLoaded", function() {
   const app = new Vue(appOptions).$mount("#app");
   spheroClient.connect("ws://localhost:8080");
-  new ResultScreen();
   const backup = new Backup();
   if (backup.has()) {
     backup.restore();
