@@ -12,11 +12,12 @@ import "web-animations-js";
 
 document.addEventListener("DOMContentLoaded", function() {
   const app = new Vue(appOptions).$mount("#app");
+
   spheroClient.connect("ws://localhost:8080");
+
   const backup = new Backup();
-  if (backup.has()) {
-    backup.restore();
-  }
+  backup.restore();
+
   window.ocConsole = {
     getClientId: function() {
       return spheroClient.clientKey;

@@ -3,46 +3,65 @@ import blockManagerModel from "./block-manager-model";
 
 export default class Backup {
   constructor() {
-    this.motions = {};
     eventPublisher.subscribe("updateMotion", (index, motion) => {
-      if (!this.contains(index)) {
-        this.makeEmptyData(index);
+      let backup = this.getEmptyData();
+      if (this.contains(index)) {
+        backup = this.get(index);
       }
-      this.motions[index].code = motion;
-      this.save();
+      backup.code = motion;
+      this.set(index, backup);
     });
     eventPublisher.subscribe("changeBlockName", (index, blockName) => {
-      if (!this.contains(index)) {
-        this.makeEmptyData(index);
+      let backup = this.getEmptyData();
+      if (this.contains(index)) {
+        backup = this.get(index);
       }
-      this.motions[index].blockName = blockName;
-      this.save();
+      backup.blockName = blockName;
+      this.set(index, backup);
     });
+  }
+  getIndexes() {
+    return JSON.parse(localStorage.getItem("backup-index") || "[]");
   }
   contains(index) {
-    return typeof this.motions[index] !== "undefined";
+    return this.getIndexes().indexOf(index) >= 0;
   }
-  makeEmptyData(index) {
-    this.motions[index] = { code: "", blockName: "" };
+  getEmptyData(index) {
+    return { code: "", blockName: "" };
   }
   restore() {
-    if (!this.has()) {
-      throw new Error("restoreしようとしましたが、backupは存在しません");
-    }
-    const backup = JSON.parse(localStorage.getItem("backup"));
-    Object.keys(backup).forEach(index => {
+    const indexes = this.getIndexes();
+    indexes.forEach(index => {
+      const backup = this.get(index);
       blockManagerModel.getBlock(index)
-        .save(backup[index].blockName, backup[index].code);
+        .save(backup.blockName, backup.code);
     });
   }
-  has() {
-    return localStorage.getItem("backup") !== null;
+  get(index) {
+    if (!this.contains(index)) {
+      throw new Error("getしようとしましたが、backupは存在しません。");
+    }
+    return JSON.parse(localStorage.getItem(`backup-${index}`));
   }
-  save() {
-    localStorage.setItem("backup", JSON.stringify(this.motions));
+  addIndex(index) {
+    const indexes = this.getIndexes();
+    if (indexes.indexOf(index) === -1) {
+      indexes.push(index);
+    }
+    localStorage.setItem("backup-index", JSON.stringify(indexes));
   }
-  clear() {
-    localStorage.removeItem("backup");
+  set(index, motion) {
+    if (!this.contains(index)) {
+      this.addIndex(index);
+    }
+    localStorage.setItem(`backup-${index}`, JSON.stringify(motion));
+  }
+  clearBackup() {
+    const indexes = this.getIndexes();
+    indexes.forEach(index => {
+      localStorage.removeItem(`backup-${index}`);
+    });
+    localStorage.removeItem("backup-index");
   }
 }
 

@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       rankingState: rankingModel.rankingState,
-      rankingDetails: rankingModel.ranking
+      rankingDetails: rankingModel.rankingDetails
     };
   },
   methods: {
