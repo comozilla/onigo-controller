@@ -10,20 +10,20 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
-        loader: "babel",
+        loader: "babel-loader",
         query: {
           cacheDirectory: true,
           presets: ["es2015"]
         }
       },
-      { test: /\.vue$/, loader: "vue" },
+      { test: /\.vue$/, loader: "vue-loader" },
       { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.(jpg|png)$/, loaders: "url-loader" },
       // 下のものは、url-loaderでやると１ファイルにまとまっていいが、
       // font-awesomeが特別な種類のフォントを使っている問題でまとめられないからfile-loaderでやっている
       {
         test: /\.(ttf|eot|svg|woff2|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file?name=js/build/[path][name].[ext]"
+        loader: "file-loader?name=js/build/[path][name].[ext]"
       }
     ]
   },
