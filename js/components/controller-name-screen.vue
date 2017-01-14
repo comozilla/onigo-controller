@@ -55,10 +55,6 @@ export default {
 </script>
 
 <style scoped>
-#controller-name-screen {
-  z-index: 6;
-}
-
 #controller-name-inner {
   display: flex;
   flex-direction: column;

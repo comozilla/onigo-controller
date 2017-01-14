@@ -1,8 +1,8 @@
 <template>
   <div id="root">
     <inactive-screen></inactive-screen>
-    <controller-name-screen></controller-name-screen>
     <result-screen></result-screen>
+    <controller-name-screen></controller-name-screen>
     <main>
       <div id="blocks">
         <div class="row">
