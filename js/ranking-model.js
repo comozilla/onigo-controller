@@ -7,9 +7,9 @@ class RankingModel {
       this.rankingState = rankingState;
     });
 
-    this.ranking = { ranking: [], onis: {} };
-    eventPublisher.subscribeModel("ranking", ranking => {
-      this.ranking = ranking;
+    this.rankingDetails = { ranking: [], onis: {} };
+    eventPublisher.subscribeModel("rankingDetails", rankingDetails => {
+      this.rankingDetails = rankingDetails;
     });
   }
 }

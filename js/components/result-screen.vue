@@ -52,8 +52,8 @@ export default {
     eventPublisher.subscribe("rankingState", rankingState => {
       this.rankingState = rankingState;
     });
-    eventPublisher.subscribe("ranking", ranking => {
-      this.rankingDetails = ranking;
+    eventPublisher.subscribe("rankingDetails", rankingDetails => {
+      this.rankingDetails = rankingDetails;
     });
   },
   computed: {
