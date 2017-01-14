@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     classList() {
-      var classList = [];
+      const classList = [];
       classList.push(classes.get(classes.has(this.blockName) ? this.blockName : customSymbol));
       if (this.mode === mode.playing) {
         classList.push("playing-mode-button");

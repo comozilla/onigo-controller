@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     classList() {
-      var classList = [this.className];
+      const classList = [this.className];
       if (this.mode === mode.playing) {
         classList.push("playing-mode-button");
         if (this.gameState === "active") {

@@ -36,6 +36,6 @@ module.exports = {
       "w3c-blob": "blob.js"
     },
     descriptionFiles: ["package.json", "bower.json"]
-  },
+  }
 };
 

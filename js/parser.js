@@ -19,12 +19,17 @@ class Parser {
   parse(motion) {
     const commands = [];
     const errors = [];
-    const rawFunctionArgList = [Object.keys(commandArgs), Object.keys(availableFunctionArgs), motion].reduce((a, b) => {
+    const rawFunctionArgList = [
+      Object.keys(commandArgs),
+      Object.keys(availableFunctionArgs),
+      motion
+    ].reduce((a, b) => {
       return a.concat(b);
     });
     const rawFunctionArgs = Object.keys(commandArgs).map(commandName => {
       return function() {
-        const validateResult = validateArgumentsType(arguments, commandArgs[commandName], true);
+        const validateResult =
+          validateArgumentsType(arguments, commandArgs[commandName], true);
         validateResult.errors.forEach(error => {
           errors.push(error + " at " + commandName + "()");
         });
@@ -42,7 +47,8 @@ class Parser {
       }.bind(this);
     }).concat(Object.keys(availableFunctionArgs).map(functionName => {
       return function() {
-        const validateResult = validateArgumentsType(arguments, availableFunctionArgs[functionName], false);
+        const validateResult =
+          validateArgumentsType(arguments, availableFunctionArgs[functionName], false);
         validateResult.errors.forEach(error => {
           errors.push(error + " at " + functionName + "()");
         });
@@ -76,7 +82,8 @@ function validateArgumentsType(args, types, isAcceptSpecialData) {
   types.forEach((type, index) => {
     if (index >= args.length) {
       errors.push(`${index + 1}番目の引数が指定されていません。`);
-    } else if (typeof args[index] !== type && !(isAcceptSpecialData && args[index] instanceof MotionSpecialData)) {
+    } else if (typeof args[index] !== type &&
+               !(isAcceptSpecialData && args[index] instanceof MotionSpecialData)) {
       errors.push(`${index + 1}番目の引数の型は${type}ですが、${typeof args[index]}が指定されています。`);
     } else {
       arrayArgs.push(args[index]);

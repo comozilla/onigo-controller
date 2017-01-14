@@ -31,7 +31,8 @@ export default class Backup {
     }
     const backup = JSON.parse(localStorage.getItem("backup"));
     Object.keys(backup).forEach(index => {
-      blockManagerModel.getBlock(index).save(backup[index].blockName, backup[index].code);
+      blockManagerModel.getBlock(index)
+        .save(backup[index].blockName, backup[index].code);
     });
   }
   has() {

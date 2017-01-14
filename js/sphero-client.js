@@ -40,7 +40,7 @@ class SpheroClient {
             { name: "hoge", states: { color: "blue", hp: 100 }, isTie: false },
             { name: "fuga", states: { color: "green", hp: 100 }, isTie: true },
             { name: "piyo", states: { color: "yellow", hp: 60 }, isTie: false },
-            { name: "four", states: { color: "purple", hp: 0 }, isTie: false },
+            { name: "four", states: { color: "purple", hp: 0 }, isTie: false }
           ],
           onis: {
             oni1: { color: "black" },

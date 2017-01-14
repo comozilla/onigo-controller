@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     getRank(index) {
-      for (var i = index; i >= 0; i--) {
+      for (let i = index; i >= 0; i--) {
         if (!this.rankingDetails.ranking[i].isTie) {
           return i + 1;
         }

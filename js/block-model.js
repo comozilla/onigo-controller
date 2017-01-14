@@ -54,7 +54,7 @@ export default class Block {
       eventPublisher.publish("changeBlockName", this.index, blockName);
     }
     if (this.motion !== motion) {
-      var parseResult = parser.parse(motion);
+      const parseResult = parser.parse(motion);
       if (parseResult.type === "error") {
         parseResult.errors.map(message => {
           return { type: "error", message };
@@ -64,7 +64,8 @@ export default class Block {
         }));
       } else if (parseResult.type === "success") {
         eventPublisher.publish("updateMotion", this.index, motion);
-        eventPublisher.publish("updateSequence", this.index, parseResult.commands);
+        eventPublisher.publish("updateSequence", this.index,
+                               parseResult.commands);
         appModel.changeCurrentLogs([{
           type: "success",
           message: "コードのParseは正しく完了しました。"

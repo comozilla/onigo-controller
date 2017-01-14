@@ -81,7 +81,7 @@ export default {
       if (!this.isSetupEditor) {
         this.setupEditor();
       }
-      var block = blockManagerModel.getBlock(motionId);
+      const block = blockManagerModel.getBlock(motionId);
       this.currentBlockName = block.blockName;
       this.currentMotion = block.motion;
     }

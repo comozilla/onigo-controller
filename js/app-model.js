@@ -10,7 +10,7 @@ class AppModel {
     this.hp = 0;
     this.color = "N/A";
     this.isOni = false;
-    this.currentCommands = []
+    this.currentCommands = [];
 
     eventPublisher.subscribeModel("mode", newMode => {
       this.mode = newMode;
@@ -50,7 +50,8 @@ class AppModel {
     }
   }
   toggleMode() {
-    eventPublisher.publish("mode", this.mode === mode.making ? mode.playing : mode.making);
+    eventPublisher.publish("mode",
+      this.mode === mode.making ? mode.playing : mode.making);
   }
   changeCurrentCommands(commands) {
     if (this.currentCommands !== commands) {
