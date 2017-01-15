@@ -33,9 +33,12 @@
     "minimist": "^1.2.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.1"
+    "vue-loader": "^10.0.2",
+    "vue-template-compiler": "^2.1.8",
+    "webpack": "^2.1.0-beta.25"
   },
   "dependencies": {
-    "brace": "^0.8.0"
+    "brace": "^0.8.0",
+    "vue": "^2.1.8"
   }
 }
