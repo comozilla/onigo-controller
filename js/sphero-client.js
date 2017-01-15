@@ -34,8 +34,8 @@ class SpheroClient {
       this.orb.listenCustomMessage("rankingState", rankingState => {
         eventPublisher.publish("rankingState", rankingState);
       });
-      this.orb.listenCustomMessage("ranking", rankingDetails => {
-        eventPublisher.publish("rankingDetails", rankingDetails);
+      this.orb.listenCustomMessage("ranking", playerState => {
+        eventPublisher.publish("playerState", playerState);
       });
       this.orb.listenCustomMessage("availableCommandsCount", count => {
         eventPublisher.publish("availableCommandsCount", count);

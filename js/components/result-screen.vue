@@ -35,13 +35,13 @@ export default {
   data() {
     return {
       rankingState: rankingModel.rankingState,
-      rankingDetails: rankingModel.rankingDetails
+      playerState: rankingModel.playerState
     };
   },
   methods: {
     getRank(index) {
       for (let i = index; i >= 0; i--) {
-        if (!this.rankingDetails.ranking[i].isTie) {
+        if (!this.playerState.ranking[i].isTie) {
           return i + 1;
         }
       }
@@ -52,8 +52,8 @@ export default {
     eventPublisher.subscribe("rankingState", rankingState => {
       this.rankingState = rankingState;
     });
-    eventPublisher.subscribe("rankingDetails", rankingDetails => {
-      this.rankingDetails = rankingDetails;
+    eventPublisher.subscribe("playerState", playerState => {
+      this.playerState = playerState;
     });
   },
   computed: {
@@ -64,10 +64,10 @@ export default {
       };
     },
     ranking() {
-      return this.rankingDetails.ranking;
+      return this.playerState.ranking;
     },
     oniNames() {
-      return Object.keys(this.rankingDetails.onis);
+      return Object.keys(this.playerState.onis);
     }
   }
 };
