@@ -4,18 +4,12 @@ import blockManagerModel from "./block-manager-model";
 export default class Backup {
   constructor() {
     eventPublisher.subscribe("updateMotion", (index, motion) => {
-      let backup = this.getEmptyData();
-      if (this.contains(index)) {
-        backup = this.get(index);
-      }
+      const backup = this.contains(index) ? this.get(index) : this.getEmptyData();
       backup.code = motion;
       this.set(index, backup);
     });
     eventPublisher.subscribe("changeBlockName", (index, blockName) => {
-      let backup = this.getEmptyData();
-      if (this.contains(index)) {
-        backup = this.get(index);
-      }
+      const backup = this.contains(index) ? this.get(index) : this.getEmptyData();
       backup.blockName = blockName;
       this.set(index, backup);
     });
@@ -26,7 +20,7 @@ export default class Backup {
   contains(index) {
     return this.getIndexes().indexOf(index) >= 0;
   }
-  getEmptyData(index) {
+  getEmptyData() {
     return { code: "", blockName: "" };
   }
   restore() {
