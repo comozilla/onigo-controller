@@ -12,6 +12,7 @@ Onigo-Server とWebSocketで通信し、情報を交換しています。
 ### モジュールをインストール
 ```
 $ npm install
+$ bower install
 ```
 
 ### Webpack ＆ Browser-sync サーバーを起動
