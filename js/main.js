@@ -6,7 +6,6 @@ import appOptions from "./components/app.vue";
 import appModel from "./app-model";
 import eventPublisher from "./publisher";
 
-
 // webpack
 import "../css/style.css";
 import "font-awesome";
@@ -14,19 +13,9 @@ import "web-animations-js";
 
 document.addEventListener("DOMContentLoaded", function() {
   const app = new Vue(appOptions).$mount("#app");
-  let isConnected = false;
 
   eventPublisher.subscribe("server", server => {
-    if (!isConnected) {
-      const script = document.createElement("script");
-      script.src = `http://${server}/client/sphero-client.js`;
-      script.addEventListener("load", () => {
-        spheroClient.connect(`ws://${server}`);
-      });
-      document.head.appendChild(script);
-
-      isConnected = true;
-    }
+    spheroClient.connect(`ws://${server}`);
   });
   appModel.changeServer("localhost:8080");
 
