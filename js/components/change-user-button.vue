@@ -1,9 +1,17 @@
 <template>
-  <button>ユーザーきりかえ</button>
+  <button @click="showLoginForm">ユーザーきりかえ</button>
 </template>
 
 <script>
-export default {};
+import eventPublisher from "../publisher";
+
+export default {
+  methods: {
+    showLoginForm() {
+      eventPublisher.publish("showLoginForm", true);
+    }
+  }
+};
 </script>
 
 <style scoped>
