@@ -4,11 +4,12 @@
 
 <script>
 import eventPublisher from "../publisher";
+import appModel from "../app-model";
 
 export default {
   methods: {
     showLoginForm() {
-      eventPublisher.publish("showLoginForm", true);
+      appModel.changeIsShowLoginForm(true);
     }
   }
 };
