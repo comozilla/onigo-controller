@@ -13,6 +13,7 @@ class AppModel {
     this.currentCommands = [];
     this.server = "";
     this.controllerName = "";
+    this.isShowLoginForm = false;
 
     eventPublisher.subscribeModel("mode", newMode => {
       this.mode = newMode;
@@ -46,6 +47,9 @@ class AppModel {
     eventPublisher.subscribeModel("controllerName", name => {
       this.controllerName = name;
     });
+    eventPublisher.subscribeModel("isShowLoginForm", isShow => {
+      this.isShowLoginForm = isShow;
+    })
   }
   changeOpeningMotionId(motionId) {
     if (this.openingMotionId !== motionId) {
@@ -73,6 +77,11 @@ class AppModel {
   }
   changeControllerName(name) {
     eventPublisher.publish("controllerName", name);
+  }
+  changeIsShowLoginForm(isShow) {
+    if (this.isShowLoginForm !== isShow) {
+      eventPublisher.publish("isShowLoginForm", isShow);
+    }
   }
 }
 

@@ -1,28 +1,37 @@
 <template>
-  <div id="login-form" style="display:none">
-    <span>テスト</span>
-    <input type="text" />
+  <div :class="classList">
+    <div>
+      <h2>テスト</h2>
+      <input type="text" />
+    </div>
   </div>
 </template>
 
 <script>
 import eventPublisher from "../publisher";
+import appModel from "../app-model";
 
 export default {
+  data() {
+    return {
+      isShowLoginForm: appModel.isShowLoginForm
+    };
+  },
   created() {
-    eventPublisher.subscribe("showLoginForm", isShow => {
-      this.showThisForm(isShow);
+    eventPublisher.subscribe("isShowLoginForm", isShow => {
+      this.isShowLoginForm = isShow;
     });
   },
-  methods: {
-    showThisForm(isShow) {
-      const displayValue = isShow ? "inline" : "none";
-      document.getElementById("login-form").style = "display:" + displayValue;
+  computed: {
+    classList() {
+      return {
+        screen: true,
+        "screen-active": this.isShowLoginForm
+      };
     }
   }
 };
 </script>
 
-<style>
-
+<style scoped>
 </style>
