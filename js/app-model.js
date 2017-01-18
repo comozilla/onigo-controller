@@ -12,6 +12,7 @@ class AppModel {
     this.isOni = false;
     this.currentCommands = [];
     this.server = "";
+    this.controllerName = "";
 
     eventPublisher.subscribeModel("mode", newMode => {
       this.mode = newMode;
@@ -42,6 +43,9 @@ class AppModel {
     eventPublisher.subscribeModel("server", server => {
       this.server = server;
     });
+    eventPublisher.subscribeModel("controllerName", name => {
+      this.controllerName = name;
+    });
   }
   changeOpeningMotionId(motionId) {
     if (this.openingMotionId !== motionId) {
@@ -66,6 +70,9 @@ class AppModel {
     if (this.server !== server) {
       eventPublisher.publish("server", server);
     }
+  }
+  changeControllerName(name) {
+    eventPublisher.publish("controllerName", name);
   }
 }
 
