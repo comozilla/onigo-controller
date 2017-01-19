@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "brace": "^0.8.0",
+    "sphero-client": "^1.0.0",
     "vue": "^2.1.8"
   }
 }
