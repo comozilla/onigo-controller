@@ -5,11 +5,9 @@ class SpheroClient {
   constructor() {
     this.clientKey = null;
     this.orb = null;
-    this.isConnected = false;
   }
   connect(wsHost) {
-    if (this.isConnected) return;
-    this.isConnected = true;
+    if (this.orb !== null) return;
     this.orb = new Sphero();
     this.orb.connect(wsHost, () => {
       eventPublisher.publish("ws-connected");
