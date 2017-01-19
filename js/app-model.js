@@ -13,7 +13,7 @@ class AppModel {
     this.currentCommands = [];
     this.server = "";
     this.controllerName = "";
-    this.isShowLoginForm = false;
+    this.isShowChangeUserScreen = false;
 
     eventPublisher.subscribeModel("mode", newMode => {
       this.mode = newMode;
@@ -47,8 +47,8 @@ class AppModel {
     eventPublisher.subscribeModel("controllerName", name => {
       this.controllerName = name;
     });
-    eventPublisher.subscribeModel("isShowLoginForm", isShow => {
-      this.isShowLoginForm = isShow;
+    eventPublisher.subscribeModel("isShowChangeUserScreen", isShow => {
+      this.isShowChangeUserScreen = isShow;
     })
   }
   changeOpeningMotionId(motionId) {
@@ -78,9 +78,9 @@ class AppModel {
   changeControllerName(name) {
     eventPublisher.publish("controllerName", name);
   }
-  changeIsShowLoginForm(isShow) {
-    if (this.isShowLoginForm !== isShow) {
-      eventPublisher.publish("isShowLoginForm", isShow);
+  changeUserScreenState(isShow) {
+    if (this.isShowChangeUserScreen !== isShow) {
+      eventPublisher.publish("isShowChangeUserScreen", isShow);
     }
   }
 }
