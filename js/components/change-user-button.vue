@@ -9,7 +9,7 @@ import appModel from "../app-model";
 export default {
   methods: {
     showLoginForm() {
-      appModel.changeIsShowLoginForm(true);
+      appModel.changeUserScreenState(true);
     }
   }
 };

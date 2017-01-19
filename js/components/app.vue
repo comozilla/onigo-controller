@@ -2,7 +2,7 @@
   <div id="root">
     <inactive-screen></inactive-screen>
     <result-screen></result-screen>
-    <login-form></login-form>
+    <change-name-screen></change-name-screen>
     <controller-name-screen></controller-name-screen>
     <main>
       <div id="blocks">
@@ -35,7 +35,7 @@ import editor from "./editor.vue";
 import banner from "./banner.vue";
 import inactiveScreen from "./inactive-screen.vue";
 import controllerNameScreen from "./controller-name-screen.vue";
-import loginForm from "./login-form.vue";
+import changeNameScreen from "./change-user-screen.vue";
 import resultScreen from "./result-screen.vue";
 
 export default {
@@ -46,7 +46,7 @@ export default {
     banner,
     inactiveScreen,
     controllerNameScreen,
-    loginForm,
+    changeNameScreen,
     resultScreen
   }
 };
