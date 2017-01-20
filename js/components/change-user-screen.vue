@@ -36,7 +36,7 @@ export default {
   },
   methods :{
     changeUserName() {
-      appModel.changeControllerName(this.userName);
+      appModel.changeUserName(this.userName);
       appModel.changeUserScreenState(false);
     },
     closeUserNameScreen() {

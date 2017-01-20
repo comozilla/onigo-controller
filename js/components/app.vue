@@ -35,7 +35,7 @@ import editor from "./editor.vue";
 import banner from "./banner.vue";
 import inactiveScreen from "./inactive-screen.vue";
 import controllerNameScreen from "./controller-name-screen.vue";
-import changeNameScreen from "./change-user-screen.vue";
+import changeUserScreen from "./change-user-screen.vue";
 import resultScreen from "./result-screen.vue";
 
 export default {
@@ -46,7 +46,7 @@ export default {
     banner,
     inactiveScreen,
     controllerNameScreen,
-    changeNameScreen,
+    changeUserScreen,
     resultScreen
   }
 };

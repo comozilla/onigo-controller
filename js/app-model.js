@@ -12,7 +12,7 @@ class AppModel {
     this.isOni = false;
     this.currentCommands = [];
     this.server = "";
-    this.controllerName = "";
+    this.userName = "";
     this.isShowChangeUserScreen = false;
 
     eventPublisher.subscribeModel("mode", newMode => {
@@ -44,8 +44,8 @@ class AppModel {
     eventPublisher.subscribeModel("server", server => {
       this.server = server;
     });
-    eventPublisher.subscribeModel("controllerName", name => {
-      this.controllerName = name;
+    eventPublisher.subscribeModel("userName", name => {
+      this.userName = name;
     });
     eventPublisher.subscribeModel("isShowChangeUserScreen", isShow => {
       this.isShowChangeUserScreen = isShow;
@@ -75,8 +75,8 @@ class AppModel {
       eventPublisher.publish("server", server);
     }
   }
-  changeControllerName(name) {
-    eventPublisher.publish("controllerName", name);
+  changeUserName(name) {
+    eventPublisher.publish("userName", name);
   }
   changeUserScreenState(isShow) {
     if (this.isShowChangeUserScreen !== isShow) {
