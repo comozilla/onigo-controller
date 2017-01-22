@@ -9,7 +9,9 @@ import eventPublisher from "../publisher";
 import mode from "../mode";
 
 export default {
-  props: ["index"],
+  props: {
+    index: Number
+  },
   data() {
     return {
       block: blockManagerModel.getBuiltInBlock(this.index),

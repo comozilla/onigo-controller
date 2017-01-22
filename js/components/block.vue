@@ -20,7 +20,9 @@ const classes = new Map([
 ]);
 
 export default {
-  props: ["index"],
+  props: {
+    index: Number
+  },
   data() {
     return {
       block: blockManagerModel.getBlock(this.index),
@@ -44,7 +46,7 @@ export default {
   },
   created() {
     eventPublisher.subscribe("changeBlockName", (index, blockName) => {
-      if (parseInt(this.index) === index) {
+      if (this.index === index) {
         this.blockName = blockName;
       }
     });
@@ -82,7 +84,7 @@ export default {
       return this.block.sequence;
     },
     disabled() {
-      return !(parseInt(this.index - blockManagerModel.getBuiltInBlockCount()) < this.availableCommandsCount);
+      return !(this.index - blockManagerModel.getBuiltInBlockCount() < this.availableCommandsCount);
     }
   }
 };
