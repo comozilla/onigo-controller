@@ -9,14 +9,13 @@ const builtInBlocks = [
   new BuiltInBlockModel("dash", "加速", new Command("dash", [50, 1], -1))
 ];
 
-const builtInBlockCount = 3;
 const blockCount = 6;
 
 class BlockManagerModel {
   constructor() {
     this.blocks = [];
     for (let i = 0; i < blockCount; i++) {
-      this.blocks.push(new BlockModel(i + builtInBlockCount));
+      this.blocks.push(new BlockModel(i + this.getBuiltInBlockCount()));
     }
 
     eventPublisher.subscribeModel("availableCommandsCount", count => {
@@ -26,19 +25,22 @@ class BlockManagerModel {
     });
   }
   containsBlock(index) {
-    return typeof this.blocks[index - builtInBlockCount] !== "undefined";
+    return typeof this.blocks[index - this.getBuiltInBlockCount()] !== "undefined";
   }
   getBlock(index) {
     if (!this.containsBlock(index)) {
       throw new Error(`Block was not found. index: ${index}`);
     }
-    return this.blocks[index - builtInBlockCount];
+    return this.blocks[index - this.getBuiltInBlockCount()];
   }
   getBuiltInBlock(index) {
-    if (index >= 0 && index < builtInBlocks.length) {
+    if (index >= 0 && index < this.getBuiltInBlockCount()) {
       return builtInBlocks[index];
     }
     throw new Error(`BuiltInBlock was not found. index: ${index}`);
+  }
+  getBuiltInBlockCount() {
+    return builtInBlocks.length;
   }
 }
 

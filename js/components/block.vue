@@ -82,7 +82,7 @@ export default {
       return this.block.sequence;
     },
     disabled() {
-      return !(parseInt(this.index - 3) < this.availableCommandsCount);
+      return !(parseInt(this.index - blockManagerModel.getBuiltInBlockCount()) < this.availableCommandsCount);
     }
   }
 };
