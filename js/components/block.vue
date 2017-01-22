@@ -1,5 +1,5 @@
 <template>
-  <button :data-block-index="index" :class="classList" @click="onClick">
+  <button :data-block-index="index" :class="classList" @click="onClick" :disabled="disabled">
     {{ blockName }}
   </button>
 </template>
@@ -26,7 +26,8 @@ export default {
       block: blockManagerModel.getBlock(this.index),
       openingMotionId: appModel.openingMotionId,
       mode: appModel.mode,
-      gameState: appModel.gameState
+      gameState: appModel.gameState,
+      availableCommandsCount: appModel.availableCommandsCount
     };
   },
   methods: {
@@ -56,6 +57,9 @@ export default {
     eventPublisher.subscribe("gameState", gameState => {
       this.gameState = gameState;
     });
+    eventPublisher.subscribe("availableCommandsCount", count => {
+      this.availableCommandsCount = count;
+    });
   },
   computed: {
     classList() {
@@ -76,6 +80,9 @@ export default {
     },
     sequence() {
       return this.block.sequence;
+    },
+    disabled() {
+      return !(parseInt(this.index - 3) < this.availableCommandsCount);
     }
   }
 };
