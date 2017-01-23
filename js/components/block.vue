@@ -1,5 +1,5 @@
 <template>
-  <button :data-block-index="index" :class="classList" @click="onClick">
+  <button :data-block-index="index" :class="classList" @click="onClick" :disabled="disabled">
     {{ blockName }}
   </button>
 </template>
@@ -20,13 +20,16 @@ const classes = new Map([
 ]);
 
 export default {
-  props: ["index"],
+  props: {
+    index: Number
+  },
   data() {
     return {
       block: blockManagerModel.getBlock(this.index),
       openingMotionId: appModel.openingMotionId,
       mode: appModel.mode,
-      gameState: appModel.gameState
+      gameState: appModel.gameState,
+      availableCommandsCount: appModel.availableCommandsCount
     };
   },
   methods: {
@@ -43,7 +46,7 @@ export default {
   },
   created() {
     eventPublisher.subscribe("changeBlockName", (index, blockName) => {
-      if (parseInt(this.index) === index) {
+      if (this.index === index) {
         this.blockName = blockName;
       }
     });
@@ -55,6 +58,9 @@ export default {
     });
     eventPublisher.subscribe("gameState", gameState => {
       this.gameState = gameState;
+    });
+    eventPublisher.subscribe("availableCommandsCount", count => {
+      this.availableCommandsCount = count;
     });
   },
   computed: {
@@ -76,6 +82,9 @@ export default {
     },
     sequence() {
       return this.block.sequence;
+    },
+    disabled() {
+      return !(this.index - blockManagerModel.getBuiltInBlockCount() < this.availableCommandsCount);
     }
   }
 };

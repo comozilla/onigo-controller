@@ -9,7 +9,9 @@ import eventPublisher from "../publisher";
 import mode from "../mode";
 
 export default {
-  props: ["index"],
+  props: {
+    index: Number
+  },
   data() {
     return {
       block: blockManagerModel.getBuiltInBlock(this.index),
@@ -19,7 +21,9 @@ export default {
   },
   methods: {
     runCommand() {
-      appModel.changeCurrentCommands([this.command]);
+      if (this.mode === mode.playing) {
+        appModel.changeCurrentCommands([this.command]);
+      }
     }
   },
   created() {

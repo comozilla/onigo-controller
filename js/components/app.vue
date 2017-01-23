@@ -6,19 +6,19 @@
     <main>
       <div id="blocks">
         <div class="row">
-          <built-in-block index="0"></built-in-block>
-          <built-in-block index="1"></built-in-block>
-          <built-in-block index="2"></built-in-block>
+          <built-in-block :index="0"></built-in-block>
+          <built-in-block :index="1"></built-in-block>
+          <built-in-block :index="2"></built-in-block>
         </div>
         <div class="row">
-          <block index="3"></block>
-          <block index="4"></block>
-          <block index="5"></block>
+          <block :index="3"></block>
+          <block :index="4"></block>
+          <block :index="5"></block>
         </div>
         <div class="row">
-          <block index="6"></block>
-          <block index="7"></block>
-          <block index="8"></block>
+          <block :index="6"></block>
+          <block :index="7"></block>
+          <block :index="8"></block>
         </div>
       </div>
       <editor></editor>
