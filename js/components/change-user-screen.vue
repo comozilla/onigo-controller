@@ -3,7 +3,7 @@
     <div id="user-name-inner">
       <h2>コントローラーの名前を変えよう</h2>
       <div id="user-name-zone">
-        <input type="text" id="user-name" placeholder="ここに名前を入力しよう" v-model="userName" />
+        <input type="text" id="user-name" placeholder="ここに名前を入力しよう" />
         <button id="submit-user-name" @click="changeUserName">決定</button>
         <button id="cancel-user-name" @click="closeUserNameScreen">キャンセル</button>
       </div>
@@ -36,7 +36,7 @@ export default {
   },
   methods :{
     changeUserName() {
-      appModel.changeUserName(this.userName);
+      appModel.changeUserName(document.getElementById("user-name").value);
       appModel.changeUserScreenState(false);
     },
     closeUserNameScreen() {
