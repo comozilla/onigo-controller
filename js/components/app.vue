@@ -2,7 +2,7 @@
   <div id="root">
     <inactive-screen></inactive-screen>
     <result-screen></result-screen>
-    <change-name-screen></change-name-screen>
+    <change-user-screen></change-user-screen>
     <controller-name-screen></controller-name-screen>
     <main>
       <div id="blocks">
