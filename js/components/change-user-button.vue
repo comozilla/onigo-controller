@@ -9,6 +9,7 @@ import appModel from "../app-model";
 export default {
   methods: {
     showLoginForm() {
+      appModel.changeOpeningMotionId(-1);
       appModel.changeUserScreenState(true);
     }
   }

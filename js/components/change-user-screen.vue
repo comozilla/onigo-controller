@@ -1,9 +1,9 @@
 <template>
   <div :class="classList">
     <div id="user-name-inner">
-      <h2>コントローラーの名前を変えよう</h2>
+      <h2>ユーザーの名前を変えよう</h2>
       <div id="user-name-zone">
-        <input type="text" id="user-name" placeholder="ここに名前を入力しよう" />
+        <input type="text" id="user-name" placeholder="ここに名前を入力しよう" v-model="userName" />
         <button id="submit-user-name" @click="changeUserName">決定</button>
         <button id="cancel-user-name" @click="closeUserNameScreen">キャンセル</button>
       </div>
@@ -18,6 +18,7 @@ import appModel from "../app-model";
 export default {
   data() {
     return {
+      userName: "",
       isShowChangeUserScreen: appModel.isShowChangeUserScreen
     };
   },
@@ -36,8 +37,9 @@ export default {
   },
   methods :{
     changeUserName() {
-      appModel.changeUserName(document.getElementById("user-name").value);
-      appModel.changeUserScreenState(false);
+      appModel.changeUserName(this.userName);
+      this.userName = "";
+      this.closeUserNameScreen();
     },
     closeUserNameScreen() {
       appModel.changeUserScreenState(false);

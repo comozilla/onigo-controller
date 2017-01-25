@@ -40,6 +40,13 @@ class BlockManagerModel {
     }
     throw new Error(`BuiltInBlock was not found. index: ${index}`);
   }
+  clearBlocks() {
+    this.blocks.forEach(block => {
+      block.blockName = "NEW!";
+      block.motion = "";
+      block.sequence = null;
+    });
+  }
 }
 
 export default new BlockManagerModel();

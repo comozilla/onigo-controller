@@ -46,11 +46,10 @@ class AppModel {
     });
     eventPublisher.subscribeModel("userName", name => {
       this.userName = name;
-      eventPublisher.publish("changeUserName", this.userName);
     });
     eventPublisher.subscribeModel("isShowChangeUserScreen", isShow => {
       this.isShowChangeUserScreen = isShow;
-    })
+    });
   }
   changeOpeningMotionId(motionId) {
     if (this.openingMotionId !== motionId) {
