@@ -4,7 +4,7 @@ import blockManagerModel from "./block-manager-model";
 export default class Backup {
   constructor() {
     this.userName = localStorage.getItem("controller-name");
-    this.addUserNames(this.userName);
+    this.addUserName(this.userName);
 
     eventPublisher.subscribe("updateMotion", (index, motion) => {
       const backup = this.contains(index) ? this.get(index) : this.getEmptyData();
@@ -16,9 +16,9 @@ export default class Backup {
       backup.blockName = blockName;
       this.set(index, backup);
     });
-    eventPublisher.subscribeModel("userName", name => {
+    eventPublisher.subscribe("userName", name => {
       this.userName = name;
-      this.addUserNames(this.userName);
+      this.addUserName(this.userName);
       blockManagerModel.clearBlocks();
       this.restore();
     });
@@ -49,7 +49,7 @@ export default class Backup {
     }
     return JSON.parse(localStorage.getItem(`${this.userName}-backup-${index}`));
   }
-  addUserNames(name) {
+  addUserName(name) {
     const userNames = this.getUserNames();
     if (userNames.indexOf(name) === -1) {
       userNames.push(name);
