@@ -38,10 +38,10 @@ export default {
   methods :{
     changeUserName() {
       appModel.changeUserName(this.userName);
-      this.userName = "";
       this.closeUserNameScreen();
     },
     closeUserNameScreen() {
+      this.userName = "";
       appModel.changeUserScreenState(false);
     }
   }
