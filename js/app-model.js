@@ -12,6 +12,8 @@ class AppModel {
     this.isOni = false;
     this.currentCommands = [];
     this.server = "";
+    this.userName = "";
+    this.isShowChangeUserScreen = false;
 
     eventPublisher.subscribeModel("mode", newMode => {
       this.mode = newMode;
@@ -42,6 +44,12 @@ class AppModel {
     eventPublisher.subscribeModel("server", server => {
       this.server = server;
     });
+    eventPublisher.subscribeModel("userName", name => {
+      this.userName = name;
+    });
+    eventPublisher.subscribeModel("isShowChangeUserScreen", isShow => {
+      this.isShowChangeUserScreen = isShow;
+    });
   }
   changeOpeningMotionId(motionId) {
     if (this.openingMotionId !== motionId) {
@@ -65,6 +73,14 @@ class AppModel {
   changeServer(server) {
     if (this.server !== server) {
       eventPublisher.publish("server", server);
+    }
+  }
+  changeUserName(name) {
+    eventPublisher.publish("userName", name);
+  }
+  changeUserScreenState(isShow) {
+    if (this.isShowChangeUserScreen !== isShow) {
+      eventPublisher.publish("isShowChangeUserScreen", isShow);
     }
   }
 }

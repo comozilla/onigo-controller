@@ -3,6 +3,9 @@ import blockManagerModel from "./block-manager-model";
 
 export default class Backup {
   constructor() {
+    this.userName = localStorage.getItem("controller-name");
+    this.addUserName(this.userName);
+
     eventPublisher.subscribe("updateMotion", (index, motion) => {
       const backup = this.contains(index) ? this.get(index) : this.getEmptyData();
       backup.code = motion;
@@ -13,18 +16,27 @@ export default class Backup {
       backup.blockName = blockName;
       this.set(index, backup);
     });
+    eventPublisher.subscribe("userName", name => {
+      this.userName = name;
+      this.addUserName(this.userName);
+      blockManagerModel.clearBlocks();
+      this.restore();
+    });
   }
-  getIndexes() {
-    return JSON.parse(localStorage.getItem("backup-index") || "[]");
+  getUserNames() {
+    return JSON.parse(localStorage.getItem("backup-user-names") || "[]");
+  }
+  getIndexes(name) {
+    return JSON.parse(localStorage.getItem(`${name}-backup-index`) || "[]");
   }
   contains(index) {
-    return this.getIndexes().indexOf(index) >= 0;
+    return this.getIndexes(this.userName).indexOf(index) >= 0;
   }
   getEmptyData() {
     return { code: "", blockName: "" };
   }
   restore() {
-    const indexes = this.getIndexes();
+    const indexes = this.getIndexes(this.userName);
     indexes.forEach(index => {
       const backup = this.get(index);
       blockManagerModel.getBlock(index)
@@ -35,27 +47,38 @@ export default class Backup {
     if (!this.contains(index)) {
       throw new Error("getしようとしましたが、backupは存在しません。");
     }
-    return JSON.parse(localStorage.getItem(`backup-${index}`));
+    return JSON.parse(localStorage.getItem(`${this.userName}-backup-${index}`));
+  }
+  addUserName(name) {
+    const userNames = this.getUserNames();
+    if (userNames.indexOf(name) === -1) {
+      userNames.push(name);
+    }
+    localStorage.setItem("backup-user-names", JSON.stringify(userNames));
   }
   addIndex(index) {
-    const indexes = this.getIndexes();
+    const indexes = this.getIndexes(this.userName);
     if (indexes.indexOf(index) === -1) {
       indexes.push(index);
     }
-    localStorage.setItem("backup-index", JSON.stringify(indexes));
+    localStorage.setItem(`${this.userName}-backup-index`, JSON.stringify(indexes));
   }
   set(index, motion) {
     if (!this.contains(index)) {
       this.addIndex(index);
     }
-    localStorage.setItem(`backup-${index}`, JSON.stringify(motion));
+    localStorage.setItem(`${this.userName}-backup-${index}`, JSON.stringify(motion));
   }
   clearBackup() {
-    const indexes = this.getIndexes();
-    indexes.forEach(index => {
-      localStorage.removeItem(`backup-${index}`);
+    const userNames = this.getUserNames();
+    userNames.forEach(name => {
+      let indexes = this.getIndexes(name);
+      indexes.forEach(index => {
+        localStorage.removeItem(`${name}-backup-${index}`);
+      });
+      localStorage.removeItem(`${name}-backup-index`);
     });
-    localStorage.removeItem("backup-index");
+    localStorage.removeItem("backup-user-names");
   }
 }
 

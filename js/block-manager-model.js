@@ -42,6 +42,13 @@ class BlockManagerModel {
   getBuiltInBlockCount() {
     return builtInBlocks.length;
   }
+  clearBlocks() {
+    this.blocks.forEach(block => {
+      block.blockName = "NEW!";
+      block.motion = "";
+      block.sequence = null;
+    });
+  }
 }
 
 export default new BlockManagerModel();

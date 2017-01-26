@@ -2,6 +2,7 @@
   <div id="root">
     <inactive-screen></inactive-screen>
     <result-screen></result-screen>
+    <change-user-screen></change-user-screen>
     <controller-name-screen></controller-name-screen>
     <main>
       <div id="blocks">
@@ -34,6 +35,7 @@ import editor from "./editor.vue";
 import banner from "./banner.vue";
 import inactiveScreen from "./inactive-screen.vue";
 import controllerNameScreen from "./controller-name-screen.vue";
+import changeUserScreen from "./change-user-screen.vue";
 import resultScreen from "./result-screen.vue";
 
 export default {
@@ -44,6 +46,7 @@ export default {
     banner,
     inactiveScreen,
     controllerNameScreen,
+    changeUserScreen,
     resultScreen
   }
 };

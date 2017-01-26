@@ -10,6 +10,7 @@
       <oni-board></oni-board>
       <img src="images/mode-play.svg" />
     </section>
+    <change-user-button></change-user-button>
     <button id="switch-mode-button" @click="toggleMode">モードきりかえ</button>
   </footer>
 </template>
@@ -19,6 +20,7 @@ import hpBoard from "./hp-board.vue";
 import colorBoard from "./color-board.vue";
 import oniBoard from "./oni-board.vue";
 import gameStatusLabel from "./game-status-label.vue";
+import changeUserButton from "./change-user-button.vue";
 import appModel from "../app-model";
 import eventPublisher from "../publisher";
 import mode from "../mode";
@@ -28,7 +30,8 @@ export default {
     hpBoard,
     colorBoard,
     oniBoard,
-    gameStatusLabel
+    gameStatusLabel,
+    changeUserButton
   },
   data() {
     return {
