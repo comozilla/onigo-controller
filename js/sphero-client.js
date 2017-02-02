@@ -1,5 +1,5 @@
 import eventPublisher from "./publisher";
-import socketIOClient from "socket.io-client";
+import SocketIOClient from "socket.io-client";
 
 class SpheroClient {
   constructor() {
@@ -8,7 +8,7 @@ class SpheroClient {
   }
   connect(wsHost) {
     if (this.socket !== null) return;
-    this.socket = new socketIOClient(wsHost);
+    this.socket = new SocketIOClient(wsHost);
     this.socket.on("connect", () => {
       eventPublisher.publish("ws-connected");
       eventPublisher.subscribe("currentCommands", commands => {
@@ -41,7 +41,7 @@ class SpheroClient {
     this.socket.on("acceptName", name => {
       eventPublisher.publish("acceptName", name);
     });
-    this.socket.on("rejectName", () => {
+    this.socket.on("rejectName", name => {
       eventPublisher.publish("rejectName", name);
     });
     this.socket.on("color", color => {
