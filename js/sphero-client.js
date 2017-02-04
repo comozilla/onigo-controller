@@ -1,68 +1,62 @@
 import eventPublisher from "./publisher";
-import Sphero from "sphero-client";
+import SocketIOClient from "socket.io-client";
 
 class SpheroClient {
   constructor() {
     this.clientKey = null;
-    this.orb = null;
   }
   connect(wsHost) {
-    if (this.orb !== null) return;
-    this.orb = new Sphero();
-    this.orb.connect(wsHost, () => {
+    console.log(`connect server... ${wsHost}`);
+
+    if (!this.socket) return;
+    this.socket = new SocketIOClient(wsHost);
+    this.socket.on("connect", () => {
       eventPublisher.publish("ws-connected");
-      eventPublisher.subscribe("spheroState", spheroState => {
-        if (spheroState === "idling") {
-          this.orb.finishCalibration();
-        } else if (spheroState === "calibrating") {
-          this.orb.startCalibration();
-        }
-      });
       eventPublisher.subscribe("currentCommands", commands => {
-        this.orb.sendCustomMessage("commands", commands);
+        this.socket.emit("commands", commands);
       });
     }, () => {
       eventPublisher.publish("ws-error");
     });
-    this.orb.listenCustomMessage("hp", hp => {
+    this.socket.on("hp", hp => {
       eventPublisher.publish("hp", hp);
     });
-    this.orb.listenCustomMessage("gameState", gameState => {
+    this.socket.on("gameState", gameState => {
       eventPublisher.publish("gameState", gameState);
     });
-    this.orb.listenCustomMessage("rankingState", rankingState => {
+    this.socket.on("rankingState", rankingState => {
       eventPublisher.publish("rankingState", rankingState);
     });
-    this.orb.listenCustomMessage("ranking", playerState => {
+    this.socket.on("ranking", playerState => {
       eventPublisher.publish("playerState", playerState);
     });
-    this.orb.listenCustomMessage("availableCommandsCount", count => {
+    this.socket.on("availableCommandsCount", count => {
       eventPublisher.publish("availableCommandsCount", count);
     });
-    this.orb.listenCustomMessage("oni", isOni => {
+    this.socket.on("oni", isOni => {
       eventPublisher.publish("oni", isOni);
     });
-    this.orb.listenCustomMessage("clientKey", key => {
+    this.socket.on("clientKey", key => {
       this.clientKey = key;
     });
-    this.orb.listenCustomMessage("acceptName", name => {
+    this.socket.on("acceptName", name => {
       eventPublisher.publish("acceptName", name);
     });
-    this.orb.listenCustomMessage("rejectName", () => {
+    this.socket.on("rejectName", name => {
       eventPublisher.publish("rejectName", name);
     });
-    this.orb.listenCustomMessage("color", color => {
+    this.socket.on("color", color => {
       eventPublisher.publish("color", color);
     });
   }
   requestName(name) {
-    if (this.orb !== null) {
-      this.orb.sendCustomMessage("requestName", name);
+    if (!this.socket) {
+      this.socket.emit("requestName", name);
     }
   }
   useDefinedName(name) {
-    if (this.orb !== null) {
-      this.orb.sendCustomMessage("useDefinedName", name);
+    if (!this.socket) {
+      this.socket.emit("useDefinedName", name);
     }
   }
 }
