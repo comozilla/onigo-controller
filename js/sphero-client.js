@@ -4,10 +4,11 @@ import SocketIOClient from "socket.io-client";
 class SpheroClient {
   constructor() {
     this.clientKey = null;
-    this.socket = null;
   }
   connect(wsHost) {
-    if (this.socket !== null) return;
+    console.log(`connect server... ${wsHost}`);
+
+    if (!this.socket) return;
     this.socket = new SocketIOClient(wsHost);
     this.socket.on("connect", () => {
       eventPublisher.publish("ws-connected");
@@ -49,12 +50,12 @@ class SpheroClient {
     });
   }
   requestName(name) {
-    if (this.socket !== null) {
+    if (!this.socket) {
       this.socket.emit("requestName", name);
     }
   }
   useDefinedName(name) {
-    if (this.socket !== null) {
+    if (!this.socket) {
       this.socket.emit("useDefinedName", name);
     }
   }
