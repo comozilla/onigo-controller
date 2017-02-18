@@ -8,7 +8,8 @@
     "build:min": "gulp webpack --min",
     "build:watch": "gulp webpack --watch",
     "build:browser-sync": "gulp webpack --browser-sync",
-    "lint": "eslint --fix --ignore-path ./.eslintignore js/ gulpfile.js webpack.config.js"
+    "lint": "eslint --fix --ignore-path ./.eslintignore js/ gulpfile.js webpack.config.js",
+    "start": "gulp serve"
   },
   "repository": {
     "type": "git",

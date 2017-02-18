@@ -8,6 +8,13 @@ const browserSync = require("browser-sync");
 
 const config = require("./webpack.config.js");
 
+const syncOptions = {
+  server: {
+    baseDir: "./",
+    index: "index.html"
+  }
+};
+
 gulp.task("webpack", function() {
   const env = minimist(process.argv.slice(2));
   let options = Object.create(config);
@@ -29,16 +36,16 @@ gulp.task("webpack", function() {
   });
 
   if (env["browser-sync"]) {
-    browserSync({
-      server: {
-        baseDir: "./",
-        index: "index.html"
-      }
-    });
+    browserSync(syncOptions);
     gulp.watch(["./js/build/**", "./index.html", "./css/**"], function() {
       browserSync.reload();
     });
   }
+});
+
+gulp.task("serve", ["webpack"], function() {
+  syncOptions.ghostMode = false;
+  browserSync(syncOptions);
 });
 
 // Gulp コマンド

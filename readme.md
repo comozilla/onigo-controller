@@ -21,3 +21,8 @@ $ bower install
 $ npm run build:browser-sync
 ```
 
+### Browser-sync サーバーを起動 (ghost mode無効)
+
+```
+$ npm start
+```
